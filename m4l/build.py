@@ -36,16 +36,16 @@ def constants():
 
 
 def write_constants():
-    (HERE / "constants.json").write_text(json.dumps(constants(), ensure_ascii=False, indent=1))
+    (HERE / "constants.json").write_text(json.dumps(constants(), ensure_ascii=False, indent=1), encoding="utf-8")
 
 
 # ---------------------------------------------------------------- page et script
 
 def ui_html(fixture=None):
     """La page du panneau Master : CSS de mixcoach.py + constantes + cerveau, en un seul fichier."""
-    html = (HERE / "ui.html").read_text()
+    html = (HERE / "ui.html").read_text(encoding="utf-8")
     html = html.replace("/*CSS*/", mc.CSS).replace("/*CONSTANTS*/null", json.dumps(constants(), ensure_ascii=False))
-    html = html.replace("/*BRAIN*/", (HERE / "brain.js").read_text())
+    html = html.replace("/*BRAIN*/", (HERE / "brain.js").read_text(encoding="utf-8"))
     if fixture is not None:  # aperçu hors de Max
         html = html.replace("<script>\nvar MIXCOACH_CONSTANTS", f"<script>window.MIXCOACH_FIXTURE = {json.dumps(fixture)};</script>\n<script>\nvar MIXCOACH_CONSTANTS", 1)
     return html
@@ -53,12 +53,36 @@ def ui_html(fixture=None):
 
 def max_js():
     """Le script Max, avec la page embarquée (un seul fichier à geler dans le device)."""
-    return (HERE / "mixcoach.js").read_text().replace('/*UI_HTML*/""', json.dumps(ui_html()))
+    return (HERE / "mixcoach.js").read_text(encoding="utf-8").replace('/*UI_HTML*/""', json.dumps(ui_html()))
 
 
 # ---------------------------------------------------------------- devices
 
-TEMPLATE = Path("/Applications/Ableton Live 12 Suite.app/Contents/App-Resources/Misc/Max Devices/Max Audio Effect.amxd")
+# Squelette d'un « Max Audio Effect » vide (en-tête .amxd + entrée/sortie audio), repris du modèle livré avec Live :
+# plus besoin d'Ableton pour construire les devices (CI, Windows, Linux).
+HEADER = b"ampf\x04\x00\x00\x00aaaameta\x04\x00\x00\x00\x00\x00\x00\x00"
+
+
+def skeleton():
+    font = {"fontname": "Arial Bold", "fontsize": 10.0}
+    io = [{"box": {"id": "obj-2", "maxclass": "newobj", "text": "plugout~", "numinlets": 2, "numoutlets": 2,
+                   "outlettype": ["signal", "signal"], "patching_rect": [48.0, 114.0, 53.0, 20.0], **font}},
+          {"box": {"id": "obj-1", "maxclass": "newobj", "text": "plugin~", "numinlets": 2, "numoutlets": 2,
+                   "outlettype": ["signal", "signal"], "patching_rect": [48.0, 34.0, 53.0, 20.0], **font}}]
+    lines = [{"patchline": {"destination": ["obj-2", i], "source": ["obj-1", i]}} for i in (1, 0)]
+    return HEADER, {"patcher": {
+        "fileversion": 1, "appversion": {"major": 8, "minor": 1, "revision": 2, "architecture": "x64", "modernui": 1},
+        "classnamespace": "box", "rect": [236.0, 105.0, 385.0, 229.0], "openrect": [0.0, 0.0, 0.0, 169.0],
+        "bglocked": 0, "openinpresentation": 0, "default_fontsize": 10.0, "default_fontface": 0, "default_fontname": "Arial Bold",
+        "gridonopen": 1, "gridsize": [8.0, 8.0], "gridsnaponopen": 1, "objectsnaponopen": 1, "statusbarvisible": 2, "toolbarvisible": 1,
+        "lefttoolbarpinned": 0, "toptoolbarpinned": 0, "righttoolbarpinned": 0, "bottomtoolbarpinned": 0, "toolbars_unpinned_last_save": 0,
+        "tallnewobj": 0, "boxanimatetime": 500, "enablehscroll": 1, "enablevscroll": 1, "devicewidth": 0.0, "description": "", "digest": "",
+        "tags": "", "style": "", "subpatcher_template": "", "dependency_cache": [], "latency": 0,
+        "project": {"version": 1, "creationdate": 3590052493, "modificationdate": 3590052493, "viewrect": [0.0, 0.0, 300.0, 500.0],
+                    "autoorganize": 1, "hideprojectwindow": 1, "showdependencies": 1, "autolocalize": 0, "contents": {"patchers": {}},
+                    "layout": {}, "searchpath": {}, "detailsvisible": 0, "amxdtype": 1633771873, "readonly": 0, "devpathtype": 0,
+                    "devpath": ".", "sortmode": 0, "viewmode": 0},
+        "autosave": 0, "boxes": io, "lines": lines}}
 
 
 def read_amxd(path):
@@ -135,9 +159,8 @@ def measurement(P, plugin):
 
 
 def build_device(mode):
-    head, patch = read_amxd(TEMPLATE)
+    head, patch = skeleton()  # le son passe sans modification de plugin~ à plugout~
     p = patch["patcher"]
-    p["boxes"] = [b for b in p["boxes"] if b["box"].get("text") in ("plugin~", "plugout~")]  # le son passe sans modification
     plugin = next(b["box"]["id"] for b in p["boxes"] if b["box"]["text"] == "plugin~")
     P = Patch()
     feeds = measurement(P, plugin)
@@ -182,16 +205,16 @@ def build_device(mode):
 
 
 NAMES = {"sensor": "MixCoach Sensor.amxd", "master": "MixCoach.amxd"}
-USER_LIB = Path.home() / "Music/Ableton/User Library/Presets/Audio Effects/Max Audio Effect/MixCoach"
+LIBRARY = Path.home() / ("Documents" if sys.platform == "win32" else "Music") / "Ableton/User Library"  # emplacement par défaut de Live
+USER_LIB = LIBRARY / "Presets/Audio Effects/Max Audio Effect/MixCoach"
 
 
 def build():
     write_constants()
     DIST.mkdir(exist_ok=True)
-    (DIST / "mixcoach.js").write_text(max_js())
-    if TEMPLATE.exists():  # les .amxd partent du modèle fourni avec Ableton Live (absent sur une machine sans Live, ex. CI)
-        for mode, name in NAMES.items():
-            write_amxd(DIST / name, *build_device(mode))
+    (DIST / "mixcoach.js").write_text(max_js(), encoding="utf-8")
+    for mode, name in NAMES.items():
+        write_amxd(DIST / name, *build_device(mode))
     return DIST
 
 
@@ -205,11 +228,30 @@ def install(tests=True):
     USER_LIB.mkdir(parents=True, exist_ok=True)
     for f in ["mixcoach.js", *NAMES.values()]:
         shutil.copy(DIST / f, USER_LIB / f)
-    rs = Path.home() / "Music/Ableton/User Library/Remote Scripts/MixCoachAuto"
+    rs = LIBRARY / "Remote Scripts/MixCoachAuto"
     rs.mkdir(parents=True, exist_ok=True)
     shutil.copy(HERE / "MixCoachAuto" / "__init__.py", rs / "__init__.py")
     print(f"Installé dans : {USER_LIB}\nRemote Script : {rs}")
 
 
+def package():
+    """dist/MixCoach.zip, prêt à télécharger : les 2 devices + leur script, MixCoach Auto, et le mode d'emploi.
+    Toujours le même nom : le lien …/releases/latest/download/MixCoach.zip pointe ainsi sur la dernière version."""
+    import zipfile
+    build()
+    out = DIST / "MixCoach.zip"
+    with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as z:
+        for f in ["mixcoach.js", *NAMES.values()]:
+            z.write(DIST / f, f"MixCoach/{f}")
+        z.write(HERE / "MixCoachAuto" / "__init__.py", "MixCoachAuto/__init__.py")
+        z.write(HERE / "INSTALL.txt", "INSTALL.txt")
+    return out
+
+
 if __name__ == "__main__":
-    install("--sans-tests" not in sys.argv) if "--install" in sys.argv else print(f"Construit dans : {build()}")
+    if "--install" in sys.argv:
+        install("--sans-tests" not in sys.argv)
+    elif "--zip" in sys.argv:
+        print(f"Paquet : {package()}")
+    else:
+        print(f"Construit dans : {build()}")

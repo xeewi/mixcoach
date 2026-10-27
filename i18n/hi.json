@@ -274,7 +274,7 @@
  "Pose « MixCoach Sensor » sur tes pistes, puis lance la lecture : l'analyse apparaît après quelques secondes.": "अपने ट्रैक्स पर “MixCoach Sensor” लगाएँ, फिर प्ले करें: कुछ सेकंड बाद एनालिसिस दिखेगा।",
  "{n} capteur(s) · mis à jour {time}": "{n} सेंसर · अपडेट {time}",
  "Astuce : pose aussi « MixCoach » sur la piste Master pour le diagnostic global.": "टिप: पूरे मिक्स की डायग्नोसिस के लिए Master ट्रैक पर भी “MixCoach” लगाएँ।",
- "⚡ = correction automatique, annulable avec Cmd+Z. Ajouter un effet demande Live 12.3+.": "⚡ = ऑटोमैटिक फ़िक्स, Cmd+Z से वापस किया जा सकता है। इफ़ेक्ट जोड़ने के लिए Live 12.3+ चाहिए।",
+ "⚡ = correction automatique, annulable avec Cmd+Z / Ctrl+Z. Ajouter un effet demande Live 12.3+.": "⚡ = ऑटोमैटिक फ़िक्स, Cmd+Z / Ctrl+Z से वापस किया जा सकता है। इफ़ेक्ट जोड़ने के लिए Live 12.3+ चाहिए।",
  "Lance la lecture pour analyser": "एनालाइज़ करने के लिए प्ले करें",
  "Analyse en cours…": "एनालिसिस चल रहा है…",
  "pas de réponse de Max (réessaie ; si ça persiste, signale-le)": "Max से कोई जवाब नहीं (फिर से कोशिश करें; अगर ऐसा होता रहे, तो रिपोर्ट करें)",

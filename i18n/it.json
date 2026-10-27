@@ -274,7 +274,7 @@
  "Pose « MixCoach Sensor » sur tes pistes, puis lance la lecture : l'analyse apparaît après quelques secondes.": "Metti «MixCoach Sensor» sulle tue tracce, poi avvia la riproduzione: l'analisi appare dopo qualche secondo.",
  "{n} capteur(s) · mis à jour {time}": "{n} sensore/i · aggiornato {time}",
  "Astuce : pose aussi « MixCoach » sur la piste Master pour le diagnostic global.": "Consiglio: metti «MixCoach» anche sulla traccia Master per la diagnosi globale.",
- "⚡ = correction automatique, annulable avec Cmd+Z. Ajouter un effet demande Live 12.3+.": "⚡ = correzione automatica, annullabile con Cmd+Z. Aggiungere un effetto richiede Live 12.3+.",
+ "⚡ = correction automatique, annulable avec Cmd+Z / Ctrl+Z. Ajouter un effet demande Live 12.3+.": "⚡ = correzione automatica, annullabile con Cmd+Z / Ctrl+Z. Aggiungere un effetto richiede Live 12.3+.",
  "Lance la lecture pour analyser": "Avvia la riproduzione per analizzare",
  "Analyse en cours…": "Analisi in corso…",
  "pas de réponse de Max (réessaie ; si ça persiste, signale-le)": "nessuna risposta da Max (riprova; se continua, segnalalo)",

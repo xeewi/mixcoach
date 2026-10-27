@@ -274,7 +274,7 @@
  "Pose « MixCoach Sensor » sur tes pistes, puis lance la lecture : l'analyse apparaît après quelques secondes.": "Pasang “MixCoach Sensor” di track-trackmu, lalu putar lagunya: analisis muncul setelah beberapa detik.",
  "{n} capteur(s) · mis à jour {time}": "{n} sensor · diperbarui {time}",
  "Astuce : pose aussi « MixCoach » sur la piste Master pour le diagnostic global.": "Tips: pasang juga “MixCoach” di track Master untuk diagnosis keseluruhan.",
- "⚡ = correction automatique, annulable avec Cmd+Z. Ajouter un effet demande Live 12.3+.": "⚡ = perbaikan otomatis, bisa dibatalkan dengan Cmd+Z. Menambah efek butuh Live 12.3+.",
+ "⚡ = correction automatique, annulable avec Cmd+Z / Ctrl+Z. Ajouter un effet demande Live 12.3+.": "⚡ = perbaikan otomatis, bisa dibatalkan dengan Cmd+Z / Ctrl+Z. Menambah efek butuh Live 12.3+.",
  "Lance la lecture pour analyser": "Putar lagu untuk menganalisis",
  "Analyse en cours…": "Sedang menganalisis…",
  "pas de réponse de Max (réessaie ; si ça persiste, signale-le)": "tidak ada respons dari Max (coba lagi; kalau masih terjadi, laporkan)",

@@ -9,7 +9,8 @@ outlets = 2;  // 0 : vers jweb (master) ou commentaire (sensor) ; 1 : non utilis
 
 var MODE = jsarguments.length > 1 ? jsarguments[1] : "sensor";
 var UI_HTML = /*UI_HTML*/"";
-var UI_FILE = "/tmp/mixcoach_ui.html";
+var SELF = this;      // l'objet js (pour retrouver le fichier du device)
+var DEBUG = false;   // true : journal /tmp/mixcoach_dbg_<clé>.json chaque seconde (diagnostic sans ouvrir Max ; Mac/Linux)
 
 var DECAY = Math.exp(-0.1 / 60);  // mesures toutes les 100 ms, mémoire ~1 minute
 var NB = 28;
@@ -38,18 +39,37 @@ clock.interval = 1000;
 clock.repeat();
 
 function loadUI() {
-    writeText(UI_FILE, UI_HTML);
-    outlet(0, "read", "file://" + UI_FILE);
-    uiLoaded = true;
+    // Où écrire la page du panneau :
+    //  - macOS : /tmp. Le navigateur intégré de Max n'a pas le droit de lire ~/Music ni ~/Documents (protection
+    //    de la vie privée de macOS : la page s'affichait vide) ;
+    //  - Windows : pas de /tmp → à côté du device (.amxd), dans Documents\Ableton\User Library.
+    var here = String((SELF.patcher && SELF.patcher.filepath) || ""), dirs = [];
+    var deviceDir = here.lastIndexOf("/") > 0 ? [here.slice(0, here.lastIndexOf("/"))] : [];
+    dirs = typeof max !== "undefined" && max.os === "windows" ? deviceDir.concat(["/tmp"]) : ["/tmp"].concat(deviceDir);
+    for (var i = 0; i < dirs.length; i++) {
+        var file = dirs[i] + "/mixcoach_ui.html";
+        if (writeText(file, UI_HTML)) { outlet(0, "url", fileUrl(file)); uiLoaded = true; return; }
+    }
+    throw "impossible d'écrire la page du panneau (" + dirs.join(", ") + ")";
+}
+
+function fileUrl(maxPath) {
+    // Chemin Max → URL : « Macintosh HD:/Users/moi/a b.html » → file:///Users/moi/a%20b.html ;
+    // « C:/Users/moi/a.html » → file:///C:/Users/moi/a.html
+    // ponytail: un disque Mac autre que celui du système donnerait /chemin au lieu de /Volumes/Disque/chemin.
+    var m = maxPath.match(/^([^:\/]+):(\/.*)$/), path = maxPath;
+    if (m) path = m[1].length === 1 ? m[1] + ":" + m[2] : m[2];
+    return "file://" + (path.charAt(0) === "/" ? "" : "/") + encodeURI(path);
 }
 
 function writeText(path, s) {  // par morceaux : writestring est limité en taille
     var f = new File(path, "write", "TEXT");
-    if (!f.isopen) return;
+    if (!f.isopen) return false;
     f.eof = 0;
     for (var i = 0; i < s.length; i += 8000) f.writestring(s.substr(i, 8000));
     f.eof = f.position;
     f.close();
+    return true;
 }
 
 function notifydeleted() {
@@ -111,6 +131,7 @@ function everySecond() {
 }
 
 function debug(err) {  // journal par device : /tmp/mixcoach_dbg_<clé>.json (diagnostic sans ouvrir Max)
+    if (!DEBUG) return;
     var k = info ? info.key : "inconnu_" + MODE;
     writeText("/tmp/mixcoach_dbg_" + k + ".json", JSON.stringify({ mode: MODE, key: k, w: w, playing: playing,
         lastSt: lastSt, frames: frames.length, ch: ch, base: base, err: err, ts: new Date().getTime() / 1000,
@@ -127,9 +148,7 @@ function tick() {
     var r = RESETS.get(info.key);
     if (r && r !== lastReset) { lastReset = r; reset(); }
     if (w > 0) SHARED.set(info.key, JSON.stringify(entry()));
-    if (MODE === "master") {  // copie de l'état pour diagnostiquer sans ouvrir Max
-        writeText("/tmp/mixcoach_state.json", SHARED.stringify());
-    }
+    if (DEBUG && MODE === "master") writeText("/tmp/mixcoach_state.json", SHARED.stringify());  // état complet, pour diagnostiquer
     if (MODE === "sensor") {
         var s = SUMMARY.get(info.key);
         // textes d'attente traduits par la page (clés _busy / _idle), français par défaut

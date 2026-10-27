@@ -506,6 +506,8 @@ def main():
     ap.add_argument("--no-open", action="store_true")
     a = ap.parse_args()
     i18n.set_lang(a.lang or i18n.system_lang())
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(errors="replace")  # console Windows : un symbole inconnu ne fait pas planter
 
     L, st, key, centers, dev, findings = analyze(a.file, a.stage, a.target, a.reference)
     out = Path(a.file).with_suffix(".mixcoach.html")

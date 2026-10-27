@@ -274,7 +274,7 @@
  "Pose « MixCoach Sensor » sur tes pistes, puis lance la lecture : l'analyse apparaît après quelques secondes.": "Постав «MixCoach Sensor» на свої доріжки й запусти відтворення: аналіз з'явиться за кілька секунд.",
  "{n} capteur(s) · mis à jour {time}": "датчиків: {n} · оновлено {time}",
  "Astuce : pose aussi « MixCoach » sur la piste Master pour le diagnostic global.": "Порада: постав також «MixCoach» на доріжку Master для загальної діагностики.",
- "⚡ = correction automatique, annulable avec Cmd+Z. Ajouter un effet demande Live 12.3+.": "⚡ = автоматичне виправлення, скасовується через Cmd+Z. Щоб додати ефект, потрібен Live 12.3+.",
+ "⚡ = correction automatique, annulable avec Cmd+Z / Ctrl+Z. Ajouter un effet demande Live 12.3+.": "⚡ = автоматичне виправлення, скасовується через Cmd+Z / Ctrl+Z. Щоб додати ефект, потрібен Live 12.3+.",
  "Lance la lecture pour analyser": "Запусти відтворення для аналізу",
  "Analyse en cours…": "Аналіз триває…",
  "pas de réponse de Max (réessaie ; si ça persiste, signale-le)": "немає відповіді від Max (спробуй ще; якщо повторюється, повідом про це)",

@@ -1,0 +1,44 @@
+MixCoach — your friendly mixing & mastering coach for Ableton Live
+https://github.com/xeewi/mixcoach
+
+=== English ===
+
+You need Ableton Live 12 (Suite, or Standard + Max for Live).
+
+1. Copy the "MixCoach" folder into your User Library:
+     macOS:   ~/Music/Ableton/User Library/Presets/Audio Effects/Max Audio Effect/
+     Windows: Documents\Ableton\User Library\Presets\Audio Effects\Max Audio Effect\
+   (Not sure where it is? In Live's browser, right-click "User Library" > "Show in Finder / Explorer".)
+
+2. Optional, but magic: copy the "MixCoachAuto" folder into
+     macOS:   ~/Music/Ableton/User Library/Remote Scripts/
+     Windows: Documents\Ableton\User Library\Remote Scripts\
+   Restart Live, then choose "MixCoachAuto" as a Control Surface in
+   Settings > Link, Tempo & MIDI. Sensors will add themselves to every track.
+
+3. Otherwise: drag "MixCoach Sensor" onto each track (at the end of the chain)
+   and "MixCoach" onto the Master track.
+
+4. Press play. After a few seconds the panel fills up. Click ⤢ to open it in a big window,
+   and choose your language in the menu at the top right.
+
+=== Français ===
+
+Il te faut Ableton Live 12 (Suite, ou Standard + Max for Live).
+
+1. Copie le dossier « MixCoach » dans ta User Library :
+     macOS :   ~/Music/Ableton/User Library/Presets/Audio Effects/Max Audio Effect/
+     Windows : Documents\Ableton\User Library\Presets\Audio Effects\Max Audio Effect\
+   (Tu ne sais pas où c'est ? Dans le navigateur de Live, clic droit sur « User Library » > « Afficher dans le Finder / l'Explorateur ».)
+
+2. Facultatif, mais magique : copie le dossier « MixCoachAuto » dans
+     macOS :   ~/Music/Ableton/User Library/Remote Scripts/
+     Windows : Documents\Ableton\User Library\Remote Scripts\
+   Redémarre Live, puis choisis « MixCoachAuto » comme Surface de contrôle dans
+   Réglages > Link, Tempo & MIDI. Les capteurs s'ajoutent alors tout seuls sur chaque piste.
+
+3. Sinon : glisse « MixCoach Sensor » sur chaque piste (en fin de chaîne)
+   et « MixCoach » sur la piste Master.
+
+4. Lance la lecture. Après quelques secondes, le panneau se remplit. Clique sur ⤢ pour l'ouvrir en grand,
+   et choisis ta langue dans le menu en haut à droite.

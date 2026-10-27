@@ -4,6 +4,7 @@ Chaque test est un script indépendant (des `assert`, aucun framework) ; on les 
 puis on affiche un résumé. Code de sortie 1 si au moins un test échoue (utilisé par `m4l/build.py --install`).
 Si tes exports Ableton sont là, on vérifie en plus le device sur un vrai morceau (~/Music/Exports/002).
 """
+import os
 import subprocess
 import sys
 import time
@@ -22,10 +23,14 @@ if REAL.is_dir() and "--rapide" not in sys.argv:  # --rapide : saute ce test (~3
 
 
 def main():
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")  # ✓ / ✗ dans une console Windows
     failed = []
     for label, cmd in TESTS:
         t0 = time.time()
-        r = subprocess.run([sys.executable, *cmd], cwd=ROOT, capture_output=True, text=True)
+        # PYTHONUTF8 : sous Windows, la console et les fichiers seraient sinon en cp1252 (accents, ✓, japonais…)
+        r = subprocess.run([sys.executable, *cmd], cwd=ROOT, capture_output=True, text=True, encoding="utf-8", errors="replace",
+                           env={**os.environ, "PYTHONUTF8": "1"})
         ok = r.returncode == 0
         print(f"{'✓' if ok else '✗'} {label}  ({time.time() - t0:.1f} s)")
         if not ok:

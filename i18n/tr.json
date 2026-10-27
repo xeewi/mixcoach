@@ -274,7 +274,7 @@
  "Pose « MixCoach Sensor » sur tes pistes, puis lance la lecture : l'analyse apparaît après quelques secondes.": "Kanallarına “MixCoach Sensor” koy, sonra çalmayı başlat: analiz birkaç saniye sonra görünür.",
  "{n} capteur(s) · mis à jour {time}": "{n} sensör · güncellendi: {time}",
  "Astuce : pose aussi « MixCoach » sur la piste Master pour le diagnostic global.": "İpucu: genel teşhis için Master kanalına da “MixCoach” koy.",
- "⚡ = correction automatique, annulable avec Cmd+Z. Ajouter un effet demande Live 12.3+.": "⚡ = otomatik düzeltme, Cmd+Z ile geri alınabilir. Efekt eklemek Live 12.3+ ister.",
+ "⚡ = correction automatique, annulable avec Cmd+Z / Ctrl+Z. Ajouter un effet demande Live 12.3+.": "⚡ = otomatik düzeltme, Cmd+Z / Ctrl+Z ile geri alınabilir. Efekt eklemek Live 12.3+ ister.",
  "Lance la lecture pour analyser": "Analiz için çalmayı başlat",
  "Analyse en cours…": "Analiz ediliyor…",
  "pas de réponse de Max (réessaie ; si ça persiste, signale-le)": "Max'ten yanıt yok (tekrar dene; devam ederse bildir)",

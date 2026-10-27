@@ -84,7 +84,7 @@ def compare(entries, lang="fr"):
     i18n.set_lang(lang)
     js = subprocess.run(["node", "-e", "const b=require(process.argv[1]);b.setLang(process.argv[2]);const r=b.analyze(JSON.parse(require('fs').readFileSync(0)));"
                          "console.log(JSON.stringify(r))", str(HERE / "brain.js"), lang],
-                        input=json.dumps(entries), capture_output=True, text=True, check=True)
+                        input=json.dumps(entries), capture_output=True, text=True, encoding="utf-8", check=True)
     js = json.loads(js.stdout)
     tracks = [py_features(e) for e in entries if e["kind"] == "track" and sum(e["bands"]) > 1e-10]
     master = next(e for e in entries if e["kind"] == "master")

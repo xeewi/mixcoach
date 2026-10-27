@@ -26,11 +26,9 @@ assert js["mix"] and js["mix"]["findings"]
 
 # 2. Les devices : en-tête Ableton, liaisons valides, page embarquée dans le script
 out = build.build()
-if not build.TEMPLATE.exists():
-    print("(Ableton Live absent : vérification des .amxd sautée)")
-for mode, name in (build.NAMES.items() if build.TEMPLATE.exists() else []):
+for mode, name in build.NAMES.items():
     raw = (out / name).read_bytes()
-    assert raw[:24] == build.TEMPLATE.read_bytes()[:24]
+    assert raw[:24] == build.HEADER
     n = struct.unpack("<I", raw[28:32])[0]
     p = json.loads(raw[32:32 + n].rstrip(b"\x00"))["patcher"]
     ids = {b["box"]["id"] for b in p["boxes"]}
@@ -39,7 +37,7 @@ for mode, name in (build.NAMES.items() if build.TEMPLATE.exists() else []):
     texts = " ".join(b["box"].get("text", "") for b in p["boxes"])
     assert f"js mixcoach.js {mode}" in texts and "fffb~ 28" in texts and "plugout~" in texts
     assert ("jweb" in {b["box"]["maxclass"] for b in p["boxes"]}) == (mode == "master")
-mjs = (out / "mixcoach.js").read_text()
+mjs = (out / "mixcoach.js").read_text(encoding="utf-8")
 assert "MixCoachBrain" in mjs and '/*UI_HTML*/""' not in mjs
 subprocess.run(["node", "--check", str(out / "mixcoach.js")], check=True)
 subprocess.run(["node", str(HERE / "test_maxjs.js")], check=True)  # le script Max dans un faux Max
@@ -51,8 +49,8 @@ def decl(src):  # noms déclarés au niveau global : « const a = …, b = … �
     return names | set(re.findall(r"^function\s+(\w+)", src, re.M))
 
 
-ui_js = (HERE / "ui.html").read_text().split("/*BRAIN*/")[1]
-clash = decl((HERE / "brain.js").read_text()) & decl(ui_js)
+ui_js = (HERE / "ui.html").read_text(encoding="utf-8").split("/*BRAIN*/")[1]
+clash = decl((HERE / "brain.js").read_text(encoding="utf-8")) & decl(ui_js)
 assert not clash, f"noms déclarés deux fois dans la page : {clash}"
 print("OK — tous les checks passent")
 

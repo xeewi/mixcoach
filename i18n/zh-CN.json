@@ -274,7 +274,7 @@
  "Pose « MixCoach Sensor » sur tes pistes, puis lance la lecture : l'analyse apparaît après quelques secondes.": "把“MixCoach Sensor”放到你的音轨上，然后开始播放：几秒钟后就会出现分析结果。",
  "{n} capteur(s) · mis à jour {time}": "{n} 个传感器 · 更新于 {time}",
  "Astuce : pose aussi « MixCoach » sur la piste Master pour le diagnostic global.": "小技巧：也在 Master 轨上放一个“MixCoach”，用于整体诊断。",
- "⚡ = correction automatique, annulable avec Cmd+Z. Ajouter un effet demande Live 12.3+.": "⚡ = 自动修正，可以用 Cmd+Z 撤销。添加效果需要 Live 12.3+。",
+ "⚡ = correction automatique, annulable avec Cmd+Z / Ctrl+Z. Ajouter un effet demande Live 12.3+.": "⚡ = 自动修正，可以用 Cmd+Z / Ctrl+Z 撤销。添加效果需要 Live 12.3+。",
  "Lance la lecture pour analyser": "开始播放以进行分析",
  "Analyse en cours…": "正在分析…",
  "pas de réponse de Max (réessaie ; si ça persiste, signale-le)": "Max 没有响应（再试一次；如果一直这样，请反馈给我们）",

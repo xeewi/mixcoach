@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MixCoach — mixing coach for Ableton Live</title>
+<meta name="description" content="Free mixing & mastering coach for Ableton Live. It tells you what to fix in your mix, how to do it in Ableton, and why. Max for Live, one-click fixes, 18 languages.">
+<meta property="og:title" content="MixCoach — your friendly mixing coach for Ableton Live">
+<meta property="og:description" content="It tells you what to fix in your mix, how, and why. Free & open source.">
+<meta property="og:image" content="https://xeewi.github.io/mixcoach/assets/banner.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<style>
+:root{--bg:#0e0820;--bg2:#170c2e;--card:#1d1336;--line:rgba(255,255,255,.12);--fg:#f4efff;--mut:#b9a9de;--acc:#7b5cff;--pink:#ff5e8a;--yel:#ffd23f}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.6 -apple-system,"SF Pro Text",system-ui,"Segoe UI",Roboto,sans-serif}
+a{color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+nav{display:flex;align-items:center;gap:12px;padding:18px 0}
+nav img{width:34px;height:34px;border-radius:9px}
+nav b{font-size:19px;flex:1}
+nav a{color:var(--mut);text-decoration:none;font-size:15px}
+nav button{font:inherit;font-size:14px;background:none;border:1px solid var(--line);color:var(--mut);border-radius:8px;padding:4px 10px;cursor:pointer}
+.hero{background:radial-gradient(900px 500px at 80% 0%,#3b1d6e 0%,transparent 70%);padding-bottom:40px}
+.hero-in{display:grid;grid-template-columns:1.05fr 1fr;gap:40px;align-items:center;padding-top:40px}
+h1{font-size:clamp(38px,6vw,64px);line-height:1.05;margin:0 0 18px;letter-spacing:-1.5px}
+h1 em{font-style:normal;background:linear-gradient(90deg,var(--pink),var(--acc));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{font-size:20px;color:var(--mut);margin:0 0 28px}
+.dl{display:inline-flex;align-items:center;gap:12px;background:linear-gradient(90deg,var(--acc),var(--pink));color:#fff;text-decoration:none;
+  font-weight:700;font-size:19px;padding:16px 26px;border-radius:14px;box-shadow:0 12px 40px rgba(123,92,255,.45);transition:transform .15s}
+.dl:hover{transform:translateY(-2px)}
+.dl svg{width:22px;height:22px}
+.meta{margin-top:14px;color:var(--mut);font-size:14px}
+.meta a{color:var(--fg)}
+.shot{width:100%;border-radius:16px;border:1px solid var(--line);box-shadow:0 30px 80px rgba(0,0,0,.5)}
+section{padding:56px 0}
+h2{font-size:clamp(28px,4vw,38px);margin:0 0 10px;letter-spacing:-.5px}
+.sub{color:var(--mut);margin:0 0 30px;max-width:720px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px}
+.card .ic{font-size:26px}
+.card h3{margin:8px 0 6px;font-size:18px}
+.card p{margin:0;color:var(--mut);font-size:15px}
+.steps{counter-reset:s;display:grid;gap:14px;margin:0;padding:0;list-style:none}
+.steps li{counter-increment:s;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px 16px 64px;position:relative}
+.steps li::before{content:counter(s);position:absolute;left:18px;top:14px;width:32px;height:32px;border-radius:50%;background:var(--acc);
+  display:grid;place-items:center;font-weight:700}
+code{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:6px;font-size:.88em;word-break:break-word}
+.tabs{display:inline-flex;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:4px;margin-bottom:16px}
+.tabs button{font:inherit;font-size:15px;background:none;border:0;color:var(--mut);padding:6px 16px;border-radius:7px;cursor:pointer}
+.tabs button[aria-selected=true]{background:var(--acc);color:#fff}
+[data-os]{display:none} body.mac [data-os=mac],body.win [data-os=win]{display:inline}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center}
+.langs{display:flex;flex-wrap:wrap;gap:8px}
+.langs span{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:15px}
+.cta{text-align:center;background:radial-gradient(700px 300px at 50% 100%,#3b1d6e,transparent 70%)}
+footer{color:var(--mut);font-size:14px;padding:30px 0 50px;text-align:center}
+@media (max-width:820px){.hero-in,.split{grid-template-columns:1fr}.grid{grid-template-columns:1fr}nav a.hide{display:none}}
+</style>
+</head>
+<body class="mac">
+<div class="hero">
+  <div class="wrap">
+    <nav>
+      <img src="assets/logo.svg" alt=""><b>MixCoach</b>
+      <a class="hide" href="#install" data-fr="Installation">Install</a>
+      <a href="https://github.com/xeewi/mixcoach">GitHub</a>
+      <button id="lang" aria-label="Language">FR</button>
+    </nav>
+    <div class="hero-in">
+      <div>
+        <h1 data-fr="Ton coach de mixage, <em>directement dans Ableton.</em>">Your mixing coach, <em>right inside Ableton.</em></h1>
+        <p class="lead" data-fr="MixCoach écoute chaque piste et te dit, avec des mots simples, quoi corriger, comment le faire dans Ableton, et pourquoi. Pas besoin de connaître la théorie.">
+          MixCoach listens to every track and tells you, in plain words, what to fix, how to do it in Ableton, and why. No theory needed.</p>
+        <a class="dl" href="https://github.com/xeewi/mixcoach/releases/latest/download/MixCoach.zip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 19h16"/></svg>
+          <span data-fr="Télécharger MixCoach">Download MixCoach</span></a>
+        <div class="meta"><span data-fr="Gratuit · macOS &amp; Windows · Ableton Live 12 + Max for Live">Free · macOS &amp; Windows · Ableton Live 12 + Max for Live</span>
+          <span id="ver"></span> · <a href="https://github.com/xeewi/mixcoach/releases" data-fr="Toutes les versions">All versions</a></div>
+      </div>
+      <img class="shot" src="assets/card.png" alt="A MixCoach tip with its explanation, steps and one-click fix">
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <h2 data-fr="Comme un ami au studio">Like a friend in the studio</h2>
+    <p class="sub" data-fr="Les analyseurs de spectre montrent des courbes. MixCoach te dit quoi en faire.">Spectrum analyzers show you curves. MixCoach tells you what to do about them.</p>
+    <div class="grid">
+      <div class="card"><div class="ic">🎯</div><h3 data-fr="Piste par piste">Track by track</h3>
+        <p data-fr="« Le Pad apporte 60 % de la boue entre 250 et 500 Hz : creuse-le là. » Il compare tes pistes entre elles, pas seulement le master.">“The Pad brings 60% of the mud between 250 and 500 Hz: cut it there.” It compares your tracks with each other, not just the master.</p></div>
+      <div class="card"><div class="ic">🗣️</div><h3 data-fr="Des mots simples">Plain words</h3>
+        <p data-fr="Chaque conseil explique pourquoi, avec des images de tous les jours, et ce que tu gagnes à corriger.">Every tip explains why, with everyday images, and what you gain by fixing it.</p></div>
+      <div class="card"><div class="ic">⚡</div><h3 data-fr="Corrections en un clic">One-click fixes</h3>
+        <p data-fr="Recentrer un panoramique, monter un fader, ajouter un EQ Eight bien réglé. Tout s'annule.">Recenter a pan, raise a fader, add a well-tuned EQ Eight. Everything is undoable.</p></div>
+      <div class="card"><div class="ic">🥁</div><h3 data-fr="Conflits kick / basse">Kick vs. bass clashes</h3>
+        <p data-fr="Il repère les sons qui se battent pour les mêmes fréquences et décide lequel doit faire de la place.">Finds sounds fighting for the same frequencies and decides which one should make room.</p></div>
+      <div class="card"><div class="ic">🎚️</div><h3 data-fr="Prêt pour le mastering">Ready for mastering</h3>
+        <p data-fr="Marge, saturation, phase, grave en mono, volume LUFS pour le streaming ou le club.">Headroom, clipping, phase, mono low end, LUFS loudness for streaming or club.</p></div>
+      <div class="card"><div class="ic">🔓</div><h3 data-fr="Gratuit et hors ligne">Free &amp; offline</h3>
+        <p data-fr="Open source, pas de compte, pas de serveur, pas d'IA en ligne. Juste des calculs sur ton son.">Open source, no account, no server, no online AI. Just math on your sound.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap split">
+    <img class="shot" src="assets/panel.png" alt="The MixCoach panel inside Ableton Live">
+    <div>
+      <h2 data-fr="Tout ton mix d'un coup d'œil">Your whole mix at a glance</h2>
+      <p class="sub" data-fr="Un petit capteur sur chaque piste, le panneau MixCoach sur le Master. Lance la lecture : en quelques secondes, tu vois quelle piste corriger et comment. Avec MixCoach Auto, les capteurs se posent tout seuls.">
+        A small sensor on each track, the MixCoach panel on the Master. Press play: in a few seconds you see which track to fix and how. With MixCoach Auto, sensors add themselves.</p>
+    </div>
+  </div>
+</section>
+
+<section id="install">
+  <div class="wrap">
+    <h2 data-fr="Installation en 2 minutes">Install in 2 minutes</h2>
+    <p class="sub" data-fr="Il te faut Ableton Live 12 (Suite, ou Standard + Max for Live).">You need Ableton Live 12 (Suite, or Standard + Max for Live).</p>
+    <div class="tabs" role="tablist">
+      <button role="tab" data-tab="mac" aria-selected="true">macOS</button>
+      <button role="tab" data-tab="win" aria-selected="false">Windows</button>
+    </div>
+    <ol class="steps">
+      <li><span data-fr="Télécharge"><b>Download</b></span> <a href="https://github.com/xeewi/mixcoach/releases/latest/download/MixCoach.zip"><b>MixCoach.zip</b></a>
+        <span data-fr="et décompresse-le.">and unzip it.</span></li>
+      <li><span data-fr="Copie le dossier"><b>Copy</b> the</span> <b>MixCoach</b> <span data-fr="dans">folder to</span>
+        <code data-os="mac">~/Music/Ableton/User Library/Presets/Audio Effects/Max Audio Effect/</code>
+        <code data-os="win">Documents\Ableton\User Library\Presets\Audio Effects\Max Audio Effect\</code></li>
+      <li><span data-fr="Facultatif, mais magique : copie"><i>Optional, but magic:</i> copy</span> <b>MixCoachAuto</b> <span data-fr="dans">to</span>
+        <code data-os="mac">~/Music/Ableton/User Library/Remote Scripts/</code><code data-os="win">Documents\Ableton\User Library\Remote Scripts\</code>,
+        <span data-fr="redémarre Live et choisis MixCoachAuto comme Surface de contrôle (Réglages → Link, Tempo &amp; MIDI). Les capteurs se posent alors tout seuls.">restart Live and pick MixCoachAuto as a Control Surface (Settings → Link, Tempo &amp; MIDI). Sensors then add themselves.</span></li>
+      <li><span data-fr="Sinon, glisse MixCoach Sensor sur chaque piste et MixCoach sur le Master. Lance la lecture : c'est parti !">Otherwise, drop MixCoach Sensor on each track and MixCoach on the Master. Press play: you're done!</span></li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 data-fr="Il parle ta langue">It speaks your language</h2>
+    <p class="sub" data-fr="Choisis ta langue dans le panneau. Les noms des devices Ableton restent ceux que tu vois dans Live.">Pick your language in the panel. Ableton device names stay the ones you see in Live.</p>
+    <div class="langs"><span>English</span><span>Français</span><span>Español</span><span>Deutsch</span><span>Italiano</span><span>Português (Brasil)</span>
+      <span>Nederlands</span><span>Polski</span><span>Русский</span><span>Українська</span><span>Türkçe</span><span>العربية</span><span>हिन्दी</span>
+      <span>Bahasa Indonesia</span><span>日本語</span><span>한국어</span><span>简体中文</span><span>繁體中文</span></div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap">
+    <h2 data-fr="Prêt à mieux mixer ?">Ready to mix better?</h2>
+    <p class="sub" style="margin:0 auto 26px" data-fr="Gratuit, pour toujours. Si ça t'aide, une ⭐ sur GitHub fait plaisir.">Free, forever. If it helps you, a ⭐ on GitHub means a lot.</p>
+    <a class="dl" href="https://github.com/xeewi/mixcoach/releases/latest/download/MixCoach.zip">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 19h16"/></svg>
+      <span data-fr="Télécharger MixCoach">Download MixCoach</span></a>
+  </div>
+</section>
+
+<footer>
+  <span data-fr="MixCoach est open source (licence MIT).">MixCoach is open source (MIT license).</span>
+  <a href="https://github.com/xeewi/mixcoach">GitHub</a> ·
+  <a href="https://github.com/xeewi/mixcoach/issues" data-fr="Signaler un problème">Report a problem</a><br>
+  <span data-fr="Projet indépendant, non affilié à Ableton.">Independent project, not affiliated with Ableton.</span>
+</footer>
+
+<script>
+// Langue : français si le navigateur est en français (ou si on clique), sinon anglais. Textes FR dans data-fr.
+const els = [...document.querySelectorAll("[data-fr]")];
+els.forEach(e => e.dataset.en = e.innerHTML);
+function setLang(fr) {
+  els.forEach(e => e.innerHTML = fr ? e.dataset.fr : e.dataset.en);
+  document.documentElement.lang = fr ? "fr" : "en";
+  document.getElementById("lang").textContent = fr ? "EN" : "FR";
+  try { localStorage.setItem("mc_lang", fr ? "fr" : "en"); } catch (e) {}
+}
+let saved = null; try { saved = localStorage.getItem("mc_lang"); } catch (e) {}
+let fr = saved ? saved === "fr" : navigator.language.toLowerCase().startsWith("fr");
+setLang(fr);
+document.getElementById("lang").onclick = () => setLang(fr = !fr);
+// Onglets macOS / Windows (Windows présélectionné sur un PC)
+function setOS(os) {
+  document.body.className = os;
+  document.querySelectorAll("[data-tab]").forEach(b => b.setAttribute("aria-selected", b.dataset.tab === os));
+}
+document.querySelectorAll("[data-tab]").forEach(b => b.onclick = () => setOS(b.dataset.tab));
+if (/Win/.test(navigator.platform || navigator.userAgent)) setOS("win");
+// Numéro de la dernière version (facultatif : la page marche sans)
+fetch("https://api.github.com/repos/xeewi/mixcoach/releases/latest").then(r => r.ok ? r.json() : null)
+  .then(r => { if (r && r.tag_name) document.getElementById("ver").textContent = " · " + r.tag_name; }).catch(() => {});
+</script>
+</body>
+</html>

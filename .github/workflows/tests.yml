@@ -2,10 +2,16 @@ name: tests
 on: [push, pull_request]
 jobs:
   tests:
-    runs-on: ubuntu-latest
+    name: ${{ matrix.os }} · Python ${{ matrix.python }}
+    runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
-        python: ["3.10", "3.12"]
+        include:
+          - { os: ubuntu-latest, python: "3.10" }
+          - { os: ubuntu-latest, python: "3.12" }
+          - { os: windows-latest, python: "3.12" }
+          - { os: macos-latest, python: "3.12" }
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -15,4 +21,4 @@ jobs:
         with:
           node-version: 22
       - run: pip install -r requirements.txt
-      - run: python run_tests.py   # sans Ableton : les .amxd ne sont pas construits, tout le reste est testé
+      - run: python run_tests.py

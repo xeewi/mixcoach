@@ -52,4 +52,11 @@ for (const base of [0, 1]) {  // mc.snapshot~ peut numéroter les canaux à part
   assert(e.msg === "correction inconnue : {kind}" && e.vars.kind === "inconnu", JSON.stringify(e));
   assert(!/\s/.test(r[4]), "message non encodé (Max le découperait)");
 }
+// Adresse de la page du panneau, à partir du chemin Max du device (Mac et Windows)
+{
+  const js = load("master", "live_set master_track");
+  assert.strictEqual(js.fileUrl("Macintosh HD:/Users/me/User Library/mixcoach_ui.html"), "file:///Users/me/User%20Library/mixcoach_ui.html");
+  assert.strictEqual(js.fileUrl("C:/Users/me/Documents/Ableton/mixcoach_ui.html"), "file:///C:/Users/me/Documents/Ableton/mixcoach_ui.html");
+  assert.strictEqual(js.fileUrl("/tmp/mixcoach_ui.html"), "file:///tmp/mixcoach_ui.html");
+}
 console.log("OK — tous les checks passent");

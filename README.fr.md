@@ -12,7 +12,12 @@
 </p>
 
 <p align="center">
-  <a href="README.md">English</a> · <b>Français</b>
+  <a href="README.md">English</a> · <b>Français</b> · <a href="https://xeewi.github.io/mixcoach/">Site web</a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/xeewi/mixcoach/releases/latest/download/MixCoach.zip"><img src="https://img.shields.io/badge/%E2%AC%87%EF%B8%8F%20T%C3%A9l%C3%A9charger%20MixCoach-7b5cff?style=for-the-badge" alt="T%C3%A9l%C3%A9charger MixCoach" height="42"></a>
+  <br><sub>Gratuit · macOS &amp; Windows · Ableton Live 12 + Max for Live · <a href="https://github.com/xeewi/mixcoach/releases">toutes les versions</a></sub>
 </p>
 
 ---
@@ -33,7 +38,7 @@ MixCoach va plus loin :
 - 🎯 **Il compare tes pistes entre elles**, pas seulement le master. Il ne se contente pas de « trop de 300 Hz » : il te dit *« le Pad apporte 60 % de la boue entre 250 et 500 Hz, creuse-le là »*.
 - 🗣️ **Il explique tout avec des mots de tous les jours**, avec des images (« comme deux personnes qui parlent en même temps »), et dit toujours ce que tu gagnes à corriger.
 - 🛠️ **Il parle Ableton** : chaque conseil est une liste d'étapes avec les vrais noms des devices et réglages (EQ Eight → Bell → 120 Hz → −3 dB).
-- ⚡ **Il peut corriger pour toi** : un clic recentre un panoramique, monte un fader, ou ajoute un EQ Eight / Utility bien réglé. Cmd+Z annule.
+- ⚡ **Il peut corriger pour toi** : un clic recentre un panoramique, monte un fader, ou ajoute un EQ Eight / Utility bien réglé. Cmd+Z / Ctrl+Z annule.
 - 🌍 **Il parle 18 langues.**
 - 🔓 **Il est gratuit, open source et fonctionne hors ligne.** Pas de compte, pas de serveur, pas d'IA en ligne : juste des calculs sur ton audio.
 
@@ -58,13 +63,15 @@ MixCoach va plus loin :
 
 ### 1. Dans Ableton Live (recommandé)
 
-> Nécessite **Ableton Live 12 Suite** (ou Standard + Max for Live). Testé sur **macOS**.
+> Nécessite **Ableton Live 12 Suite** (ou Standard + Max for Live), sur **macOS** ou **Windows**.
 
-1. Télécharge le dernier **`MixCoach-*.zip`** depuis la [page Releases](https://github.com/xeewi/mixcoach/releases) et décompresse-le.
+1. **[Télécharge MixCoach.zip](https://github.com/xeewi/mixcoach/releases/latest/download/MixCoach.zip)** (toujours la dernière version) et décompresse-le.
 2. Copie le dossier **`MixCoach`** (2 devices + `mixcoach.js`) dans
-   `~/Music/Ableton/User Library/Presets/Audio Effects/Max Audio Effect/`
+   - macOS : `~/Music/Ableton/User Library/Presets/Audio Effects/Max Audio Effect/`
+   - Windows : `Documents\Ableton\User Library\Presets\Audio Effects\Max Audio Effect\`
+   - Tu ne sais pas où c'est ? Dans le navigateur de Live, clic droit sur **User Library** → *Afficher dans le Finder / l'Explorateur*.
 3. *(Facultatif, mais magique)* copie le dossier **`MixCoachAuto`** dans
-   `~/Music/Ableton/User Library/Remote Scripts/`, redémarre Live, puis choisis **MixCoachAuto** comme Surface de contrôle dans
+   `User Library/Remote Scripts/` (la même User Library), redémarre Live, puis choisis **MixCoachAuto** comme Surface de contrôle dans
    *Réglages → Link, Tempo & MIDI*. Les capteurs s'ajoutent alors tout seuls sur chaque piste.
 4. Sinon, glisse **MixCoach Sensor** sur chaque piste (en fin de chaîne) et **MixCoach** sur le **Master**.
 5. Lance la lecture. Après quelques secondes, le panneau se remplit. Clique sur **⤢** pour l'ouvrir en grand, et choisis ta langue dans le menu en haut à droite.
@@ -164,6 +171,10 @@ run_tests.py          lance tous les tests
 .venv/bin/python i18n.py                 # liste les phrases à traduire, vérifie chaque langue
 ```
 
+Sous Windows, utilise `.venv\Scripts\python` au lieu de `.venv/bin/python`.
+
+**Publier une nouvelle version :** `git tag v0.3.0 && git push --tags`. GitHub Actions lance les tests, construit les devices et publie `MixCoach.zip` sur la page Releases. Les liens de téléchargement pointent toujours vers la dernière version.
+
 Les tests sont de simples scripts Python sur de l'audio synthétique aux défauts connus (« une basse stéréo à 55 Hz doit être signalée »). Ils vérifient aussi que le cerveau JavaScript donne les mêmes conseils que le Python, que le script Max répond aux clics ⚡, et que les 18 langues sont complètes. Ils tournent à chaque push grâce à GitHub Actions.
 
 ## Contribuer
@@ -171,7 +182,7 @@ Les tests sont de simples scripts Python sur de l'audio synthétique aux défaut
 Les contributions sont les bienvenues, en particulier :
 
 - 🌍 **Traductions.** Si tu parles une des langues, relis-la ! Chaque fichier associe la phrase française à sa traduction. Garde les `{valeurs}` et les noms Ableton, puis lance `python i18n.py` pour vérifier.
-- 🪟 **Tests sous Windows.** MixCoach n'a été testé que sur macOS pour l'instant.
+- 🪟 **Tests sous Windows.** Le support de Windows est tout neuf : si tu utilises Live sur PC, dis-nous comment ça se passe !
 - 🎚️ **Savoir-faire de mixage.** De meilleurs seuils, de meilleures explications, des courbes cibles par style.
 
 Lance `python run_tests.py` avant d'ouvrir une pull request.
@@ -181,7 +192,7 @@ Lance `python run_tests.py` avant d'ouvrir une pull request.
 - Il faut **Live 12.3+** pour les corrections ⚡ qui *ajoutent* un device (EQ Eight, Utility). Les corrections de fader et de panoramique marchent sur tout Live 12.
 - Les conflits sont jugés sur le spectre moyen : deux sons qui ne jouent jamais en même temps peuvent quand même être signalés.
 - La courbe cible générique est réglée pour la musique électronique moderne. Pour d'autres styles, utilise `--reference`.
-- **Windows :** pas encore testé (la page du panneau est écrite dans `/tmp`).
+- **Windows :** pris en charge, et l'analyse est testée sous Windows par la CI, mais les devices n'ont pas encore été essayés dans Live sur un PC. Tes retours sont les bienvenus.
 
 ## Licence
 

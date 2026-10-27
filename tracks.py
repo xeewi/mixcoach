@@ -377,6 +377,8 @@ def main():
     ap.add_argument("--no-open", action="store_true")
     a = ap.parse_args()
     i18n.set_lang(a.lang or i18n.system_lang())
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(errors="replace")  # console Windows : un symbole inconnu ne fait pas planter
     tracks, advice, conflicts, share, mix_L, mix_findings = analyze_folder(a.folder, a.reference)
     for k, tk in enumerate(tracks):
         print(f"\n■ {tk['name']} — {role(tk['f50'])}, {pct(share[k])}, {pan_label(tk['pan_db'])}")

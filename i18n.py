@@ -44,6 +44,11 @@ def match(code):
 
 def system_lang():
     env = os.environ.get("MIXCOACH_LANG") or os.environ.get("LC_ALL") or os.environ.get("LANG")
+    if not env and os.name == "nt":  # Windows : pas de LANG, et locale donne « French_France » → on demande « fr-FR » au système
+        import ctypes
+        buf = ctypes.create_unicode_buffer(85)
+        if ctypes.windll.kernel32.GetUserDefaultLocaleName(buf, 85):
+            env = buf.value
     return match(env or locale.getlocale()[0] or "")
 
 

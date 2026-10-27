@@ -93,7 +93,7 @@ function render(r) {
   document.getElementById("app").innerHTML =
     `<h2>${esc(t("Vue d'ensemble"))}</h2><div class="wrap"><table><tr>${head}</tr>${rows}</table></div>` +
     `<h2>${esc(t("Conflits entre pistes"))}</h2><ul class="conf">${conf}</ul><h2>${esc(t("Piste par piste"))}</h2><div class="grid">${tracks}</div>` +
-    `<h2>${esc(t("Le mix global"))}</h2>${mix}<p class="sub">${esc(t("⚡ = correction automatique, annulable avec Cmd+Z. Ajouter un effet demande Live 12.3+."))}</p>`;
+    `<h2>${esc(t("Le mix global"))}</h2>${mix}<p class="sub">${esc(t("⚡ = correction automatique, annulable avec Cmd+Z / Ctrl+Z. Ajouter un effet demande Live 12.3+."))}</p>`;
   for (const k in pending) {  // garder l'état des boutons cliqués malgré le rafraîchissement
     const b = document.querySelector(`.autofix[data-key="${CSS.escape(k)}"][data-fix="${CSS.escape(pending[k].fix)}"]`);
     if (b) { b.disabled = true; b.nextElementSibling.textContent = pending[k].text; }
