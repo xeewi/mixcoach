@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MixCoach</title>
+<style>
+/*CSS*/
+body{padding:12px 14px;font-size:14px}
+main{max-width:none}
+h1{font-size:1.25em} h2{font-size:1.05em;margin-top:20px}
+.top{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.status{color:var(--mut);font-size:.9em;flex:1}
+#lang{font:inherit;font-size:.85em;background:var(--card);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:2px 4px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:4px 16px;align-items:start}
+.track h3.tname{margin:14px 0 0;font-size:1.05em} .tname small{color:var(--mut);font-weight:400}
+.conf li{margin:2px 0}
+.empty{color:var(--mut);padding:24px 0}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:.92em}
+td,th{padding:6px 10px;border-bottom:1px solid var(--line);text-align:start} th{color:var(--mut);font-weight:500}
+.wrap{overflow-x:auto}
+</style>
+</head>
+<body>
+<main>
+  <div class="top"><h1>MixCoach</h1><span class="status" id="status"></span><select id="lang" aria-label="Langue / Language"></select></div>
+  <div id="app"></div>
+</main>
+<script>
+var MIXCOACH_CONSTANTS = /*CONSTANTS*/null;
+</script>
+<script>
+/*BRAIN*/
+</script>
+<script>
+"use strict";
+const B = window.MixCoachBrain, K = MIXCOACH_CONSTANTS;  // t() vient de brain.js (même page)
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const max = window.max;  // présent seulement dans le jweb de Max
+const STALE_S = 15;      // capteur muet depuis 15 s (piste supprimée, autre projet) → ignoré
+const pending = {};      // corrections en cours : clé → { fix, text }
+let lastDict = null, lastSumm = {}, sensors = 0;
+
+// ------------------------------------------------------------ langue : choix mémorisé, sinon celle du système
+function matchLang(code) {
+  const c = String(code || "").replace("_", "-").toLowerCase();
+  if (c.startsWith("zh")) return /tw|hk|hant/.test(c) ? "zh-TW" : "zh-CN";
+  if (c.startsWith("pt")) return "pt-BR";
+  return Object.keys(K.langs).find(k => k.toLowerCase() === c.split("-")[0]) || "en";
+}
+function savedLang() { try { return localStorage.getItem("mixcoach_lang"); } catch (e) { return null; } }
+function setLanguage(code, save) {
+  const lang = B.setLang(code);
+  if (save) try { localStorage.setItem("mixcoach_lang", lang); } catch (e) {}
+  document.documentElement.lang = lang;
+  document.documentElement.dir = K.rtl.includes(lang) ? "rtl" : "ltr";
+  document.getElementById("lang").value = lang;
+  document.getElementById("status").textContent = sensors ? status() : t("En attente des capteurs…");
+  if (lastDict) update(lastDict, true);
+  else document.getElementById("app").innerHTML = `<p class="empty">${esc(t("Pose « MixCoach Sensor » sur tes pistes, puis lance la lecture : l'analyse apparaît après quelques secondes."))}</p>`;
+  pushSummaries();
+}
+const sel = document.getElementById("lang");
+sel.innerHTML = Object.entries(K.langs).map(([k, name]) => `<option value="${k}">${esc(name)}</option>`).join("");
+sel.addEventListener("change", () => setLanguage(sel.value, true));
+
+// ------------------------------------------------------------ rendu
+function card(f, key) {
+  let h = `<article class="card ${esc(f.level)}"><span class="tag">${esc(t(f.level))}</span><h3>${esc(f.title)}</h3>` +
+          `<p class="fact">${esc(f.fact)}</p><details><summary>${esc(t("Pourquoi ?"))}</summary><p>${esc(f.why)}</p>` +
+          (f.gain ? `<p><b>${esc(t(K.gain))}</b> ${esc(f.gain)}</p>` : "") + "</details>";
+  if (f.action && f.action.length) {
+    h += `<div class="action"><b>${esc(t("Comment corriger dans Ableton"))}</b><ol>${f.action.map(x => `<li>${esc(x)}</li>`).join("")}</ol>`;
+    if (key && f.fix && max)
+      h += `<button class="autofix" data-key="${esc(key)}" data-fix="${esc(JSON.stringify(f.fix))}">⚡ ${esc(f.fix.label)}</button><span class="fixstatus"></span>`;
+    h += "</div>";
+  }
+  return h + "</article>";
+}
+
+function status() { return t("{n} capteur(s) · mis à jour {time}", { n: sensors, time: new Date().toLocaleTimeString(B.lang) }); }
+
+function render(r) {
+  const rows = r.tracks.map(tk => `<tr><td>${esc(tk.name)}</td><td>${esc(tk.role)}</td><td>${B.pct(tk.share)}</td><td>${esc(tk.pan)}</td>` +
+    `<td>${tk.advice.filter(f => f.level === "problème" || f.level === "attention").length}</td></tr>`).join("");
+  const conf = r.conflicts.map(c => `<li>${esc(t("« {a} » ↔ « {b} » vers {f} → creuser « {cut} »", { a: c.a, b: c.b, f: B.fmtHz(c.freq), cut: c.cut }))}</li>`).join("")
+    || `<li>${esc(t("Aucun conflit marqué."))}</li>`;
+  const mix = r.mix ? r.mix.findings.map(f => card(f, null)).join("")
+    : `<div class="action">${esc(t("Astuce : pose aussi « MixCoach » sur la piste Master pour le diagnostic global."))}</div>`;
+  const tracks = r.tracks.map(tk => `<section class="track"><h3 class="tname">${esc(tk.name)} <small>· ${esc(tk.role)}</small></h3>` +
+    tk.advice.map(f => card(f, tk.key)).join("") + "</section>").join("");
+  const head = [t("Piste"), t("Rôle"), t("Énergie"), t("Panoramique"), t("À corriger")].map(h => `<th>${esc(h)}</th>`).join("");
+  document.getElementById("app").innerHTML =
+    `<h2>${esc(t("Vue d'ensemble"))}</h2><div class="wrap"><table><tr>${head}</tr>${rows}</table></div>` +
+    `<h2>${esc(t("Conflits entre pistes"))}</h2><ul class="conf">${conf}</ul><h2>${esc(t("Piste par piste"))}</h2><div class="grid">${tracks}</div>` +
+    `<h2>${esc(t("Le mix global"))}</h2>${mix}<p class="sub">${esc(t("⚡ = correction automatique, annulable avec Cmd+Z. Ajouter un effet demande Live 12.3+."))}</p>`;
+  for (const k in pending) {  // garder l'état des boutons cliqués malgré le rafraîchissement
+    const b = document.querySelector(`.autofix[data-key="${CSS.escape(k)}"][data-fix="${CSS.escape(pending[k].fix)}"]`);
+    if (b) { b.disabled = true; b.nextElementSibling.textContent = pending[k].text; }
+  }
+  document.getElementById("status").textContent = status();
+}
+
+function update(dict, force) {
+  lastDict = dict;
+  const now = Date.now() / 1000, entries = [];
+  for (const k in dict || {}) {
+    try { const e = typeof dict[k] === "string" ? JSON.parse(dict[k]) : dict[k]; if (now - e.ts < STALE_S && e.kind !== "group") entries.push(e); } catch (err) {}
+  }
+  const r = B.analyze(entries);
+  if (!r) return;
+  sensors = entries.length;
+  // Si l'utilisateur lit un « Pourquoi ? » ouvert, on ne redessine pas sous ses yeux (sauf changement de langue).
+  if (force || !document.querySelector("details[open]")) render(r);
+  lastSumm = {};
+  r.tracks.forEach(tk => lastSumm[tk.key] = B.summary(tk));
+  pushSummaries();
+}
+
+function pushSummaries() {  // résumé d'une ligne + textes d'attente, affichés dans le panneau de chaque capteur
+  if (max) max.setDict("mixcoach_summary", Object.assign({ _idle: t("Lance la lecture pour analyser"), _busy: t("Analyse en cours…") }, lastSumm));
+}
+
+// ------------------------------------------------------------ boutons ⚡
+const NO_ANSWER = "pas de réponse de Max (réessaie ; si ça persiste, signale-le)";
+t("pas de réponse de Max (réessaie ; si ça persiste, signale-le)");  // (repère pour l'extraction des phrases)
+document.addEventListener("click", ev => {
+  const b = ev.target.closest(".autofix");
+  if (!b) return;
+  const key = b.dataset.key, sending = t("Envoi à Ableton…");
+  b.disabled = true;
+  b.nextElementSibling.textContent = sending;
+  pending[key] = { fix: b.dataset.fix, text: sending };
+  max.outlet("fix", key, encodeURIComponent(b.dataset.fix));  // encodé : Max découperait le JSON sur les espaces et les virgules
+  setTimeout(() => { if (pending[key] && pending[key].text === sending) showResult(key, 0, { msg: NO_ANSWER }); }, 8000);
+});
+
+function fixText(m) {  // le script Max renvoie { msg, vars, moved } en français ; on traduit ici
+  return t(m.msg, m.vars) + (m.moved ? " " + t("(place le capteur en fin de chaîne pour que l'analyse en tienne compte)") : "");
+}
+
+function showResult(key, ok, m) {
+  const text = (ok ? "✓ " : "✗ ") + fixText(m);
+  if (pending[key]) pending[key].text = text;
+  document.querySelectorAll(`.autofix[data-key="${CSS.escape(key)}"]:disabled`).forEach(b => { b.nextElementSibling.textContent = text; if (!ok) b.disabled = false; });
+  if (!ok) delete pending[key];
+  else setTimeout(() => delete pending[key], 15000);
+}
+
+setLanguage(savedLang() || matchLang(navigator.language), false);
+if (max) {
+  max.bindInlet("fixResult", (key, ok, enc) => {
+    const raw = decodeURIComponent(String(enc));
+    let m; try { m = JSON.parse(raw); } catch (e) { m = { msg: raw }; }
+    showResult(String(key), Number(ok), m);
+  });
+  setInterval(() => max.getDict("mixcoach", d => update(d)), 2000);
+}
+if (!max && window.MIXCOACH_FIXTURE) {  // aperçu hors de Max (tests)
+  const now = Date.now() / 1000;
+  update(Object.fromEntries(window.MIXCOACH_FIXTURE.map(e => [e.key, Object.assign({ ts: now }, e)])));
+}
+</script>
+</body>
+</html>

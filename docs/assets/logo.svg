@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="MixCoach">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7b5cff"/>
+      <stop offset="1" stop-color="#ff5e8a"/>
+    </linearGradient>
+    <linearGradient id="bar" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity=".72"/>
+    </linearGradient>
+    <filter id="sh" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#2a0d4a" flood-opacity=".35"/>
+    </filter>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+  <!-- spectre : 7 barres d'égaliseur -->
+  <g fill="url(#bar)" filter="url(#sh)">
+    <rect x="86"  y="250" width="38" height="120" rx="19"/>
+    <rect x="140" y="190" width="38" height="180" rx="19"/>
+    <rect x="194" y="130" width="38" height="240" rx="19"/>
+    <rect x="248" y="170" width="38" height="200" rx="19"/>
+    <rect x="302" y="215" width="38" height="155" rx="19"/>
+    <rect x="356" y="255" width="38" height="115" rx="19"/>
+    <rect x="410" y="285" width="16" height="85" rx="8" opacity=".6"/>
+  </g>
+  <!-- courbe cible : le conseil qui guide le mix -->
+  <path d="M70 330 C 150 300, 190 150, 250 150 S 360 250, 442 268" fill="none" stroke="#2a0d4a" stroke-opacity=".55"
+        stroke-width="10" stroke-linecap="round" stroke-dasharray="2 22"/>
+  <!-- badge ⚡ : la correction automatique -->
+  <g filter="url(#sh)">
+    <circle cx="392" cy="128" r="66" fill="#ffd23f"/>
+    <path d="M402 78 L362 138 H392 L380 180 L424 114 H394 Z" fill="#2a0d4a"/>
+  </g>
+  <rect x="86" y="398" width="340" height="14" rx="7" fill="#fff" opacity=".35"/>
+</svg>
