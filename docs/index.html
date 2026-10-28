@@ -83,39 +83,34 @@ svg.i{width:1.1em;height:1.1em;flex:none}
 .b-mid{background:var(--mid)} .b-himid{background:var(--himid)} .b-air{background:var(--air)}
 .sleeve figcaption{display:flex;justify-content:space-between;gap:16px;padding-top:12px;font-size:13px;color:var(--ink-2)}
 
-/* le mix, couche par couche : vraies mesures, les pistes s'empilent puis MixCoach corrige */
-.lyr-ctl{display:flex;align-items:center;gap:8px;margin-bottom:20px}
-.pb{flex:none;width:44px;height:44px;display:grid;place-items:center;background:none;border:1px solid var(--ink);color:var(--ink);cursor:pointer;padding:0}
-.pb svg{width:20px;height:20px} .pb path{fill:currentColor} .pb path[fill=none]{fill:none}
-.pp{background:var(--ink);color:#fff}
-:root[dir=rtl] #ly-prev svg,:root[dir=rtl] #ly-next svg{transform:scaleX(-1)}  /* en arabe, « précédent » pointe à droite */
-.pp .i-pause{display:none} .pp[aria-pressed=true] .i-pause{display:inline} .pp[aria-pressed=true] .i-play{display:none}
-@media (hover:hover){.pb:hover{background:var(--ink);color:#fff} .pp:hover{background:#fff;color:var(--ink)}}
-.ly-steps{flex:1;display:flex;gap:3px;margin-inline-start:12px;height:44px;align-items:center}
-.ly-steps button{all:unset;cursor:pointer;height:12px;flex:1 1 0;background:#fff;box-shadow:inset 0 0 0 1px var(--ink);position:relative;overflow:hidden}
-.ly-steps button.gap{margin-inline-start:9px}
-.ly-steps button i{position:absolute;inset:0;width:0;background:var(--ink)}
-.ly-steps button.done i{width:100%}
-.ly-steps button:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
-.lyr-cap{min-height:13.5em}
-.lyr-cap .label{margin:0 0 8px}
-.lyr-t{font-size:28px;font-weight:600;line-height:1.15;letter-spacing:-.02em;margin:0 0 8px}
-.lyr-x{font-size:17px;color:var(--ink-2);max-width:46em}
-.lyr-x p{margin:0} .lyr-x ul{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:4px 24px;color:var(--ink);font-variant-numeric:tabular-nums}
+/* un conflit à la fois : deux courbes mesurées, la zone commune, l'EQ qui creuse */
+.cf-tabs{flex-wrap:wrap;margin-bottom:28px}
+.cfx{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:56px;align-items:start}
+.cfx .label{margin:0 0 10px}
+.cfx-t{font-size:28px;font-weight:600;line-height:1.15;letter-spacing:-.02em;margin:0 0 22px;min-height:2.3em}
+.cfx .os{margin:0 0 14px}
+.cfx-fix{margin:0 0 26px;font-size:15px;color:var(--ink-2);min-height:3em}
+.cfx-q{margin:0 0 8px;font-size:15px;font-weight:600}
+.share{display:flex;height:34px;border:1px solid var(--ink);background:#fff}
+.share i{display:block;background:var(--ink);transition:width .8s var(--ease) .3s}
+.share-k{display:flex;justify-content:space-between;margin:8px 0 0;font-size:14px;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.legend{display:flex;flex-wrap:wrap;gap:6px 22px;font-size:14px;color:var(--ink-2);margin:0 0 6px}
+.legend span{display:inline-flex;align-items:center;gap:8px}
+.plot .legend svg{display:inline;width:26px;height:14px}
 .plot{margin:0;background:var(--paper);border:1px solid var(--ink);padding:16px 12px 8px}
 .plot svg{display:block;width:100%;height:auto;font-family:var(--font);direction:ltr}
 .plot .ax{font-size:11px;fill:var(--ink-2);font-variant-numeric:tabular-nums}
 .plot .lane{font-size:10px;font-weight:600;letter-spacing:.14em;fill:var(--ink)}
-.plot .grid{stroke:var(--ink);stroke-opacity:.18;stroke-width:1}
-.plot .lay{stroke:var(--ink);stroke-width:1;stroke-linejoin:round;transition:fill .3s}
-.plot .lay.on{fill:var(--ink)}
-.plot .ltx{font-size:11px;font-weight:600;fill:var(--ink);pointer-events:none} .plot .ltx.on{fill:#fff}
-.plot .ghost{fill:none;stroke:var(--ink);stroke-width:1.5;stroke-dasharray:4 3}
+.plot .grid{stroke:var(--ink);stroke-opacity:.15}
+.plot .ck{fill:#fff;fill-opacity:.75;stroke:var(--ink);stroke-width:2.5;stroke-linejoin:round}
+.plot .cc{fill:var(--silver-2);fill-opacity:.55;stroke:var(--ink);stroke-width:2.5;stroke-dasharray:9 5;stroke-linejoin:round}
+.plot .ov{fill:url(#cf-hatch)}
+.plot .nm{font-size:13px;font-weight:700;fill:var(--ink)}
+.plot .mk{stroke:var(--ink);stroke-width:1.5}
+.plot .mkt{font-size:12px;font-weight:700;fill:var(--ink)}
 .plot .eq{fill:none;stroke:var(--ink);stroke-width:2.5;transition:stroke-dashoffset .8s var(--ease)}
 .plot .eq0{stroke:var(--ink);stroke-width:1;stroke-dasharray:3 4}
-.plot .cf{stroke:var(--ink);stroke-width:1;stroke-dasharray:2 3;opacity:.55} .plot .cf.on{stroke-width:2.5;stroke-dasharray:none;opacity:1}
-.plot .cft{font-size:10px;font-weight:600;fill:var(--ink);opacity:.6} .plot .cft.on{opacity:1}
-.plot .hov{fill:#fff;fill-opacity:.35;pointer-events:none}
+.plot .hl{stroke:var(--ink);stroke-width:1;stroke-dasharray:2 3}
 .plot .hit{fill:transparent;cursor:crosshair}
 .plot figcaption{min-height:3em;margin:10px 4px 6px;font-size:14px;color:var(--ink-2)}
 /* ---------- sections */
@@ -194,7 +189,7 @@ code{font:500 .86em ui-monospace,"SF Mono",Menlo,Consolas,monospace;background:v
 footer{font-size:14px;color:var(--ink-2);padding:28px 0 48px;display:flex;flex-wrap:wrap;gap:8px 24px}
 
 @media (max-width:980px){
-  .hero,.tip{grid-template-columns:minmax(0,1fr);gap:40px}
+  .hero,.tip,.cfx{grid-template-columns:minmax(0,1fr);gap:40px}
   .key{grid-template-columns:repeat(3,1fr)} .key div:nth-child(4){border-inline-start:0} .key div:nth-child(n+4){border-top:1px solid var(--ink)}
   .sides{grid-template-columns:1fr;gap:40px}
 }
@@ -207,7 +202,7 @@ footer{font-size:14px;color:var(--ink-2);padding:28px 0 48px;display:flex;flex-w
   .key .sw{height:64px}
   .band{padding:0 14px}
   .steps li{grid-template-columns:44px 1fr}
-  .lyr-t{font-size:22px} .lyr-cap{min-height:21em} .plot{padding:12px 4px 4px} .ly-steps{margin-inline-start:4px;gap:2px} .ly-steps button.gap{margin-inline-start:5px}
+  .cfx-t{font-size:22px;min-height:0} .plot{padding:12px 4px 4px}
   .notes li{grid-template-columns:1fr;gap:6px}
   .dl{padding:18px 20px}
 }
@@ -278,24 +273,27 @@ footer{font-size:14px;color:var(--ink-2);padding:28px 0 48px;display:flex;flex-w
     </div>
   </section>
 
-  <section id="layers">
-    <h2 data-fr="Le mix, couche par couche">The mix, layer by layer</h2>
-    <p class="sub" data-fr="Mesuré dans Live sur un morceau house. Les pistes s'ajoutent une à une, MixCoach repère où elles se gênent, puis applique ses EQ un par un. En haut, le son du mix ; en bas, à qui appartient chaque fréquence.">Measured in Live on a house track. The tracks come in one by one, MixCoach finds where they get in each other's way, then applies its EQs one at a time. Top: the sound of the mix; bottom: who owns each frequency.</p>
-    <div class="lyr">
-      <div class="lyr-ctl">
-        <button class="pb" id="ly-prev" data-fr-label="Étape précédente" aria-label="Previous step"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="square"/></svg></button>
-        <button class="pb pp" id="ly-play" data-fr-label="Lecture" aria-label="Play"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="i-play" d="M7 4.5v15l12-7.5z"/><path class="i-pause" d="M6.5 5h4v14h-4zM13.5 5h4v14h-4z"/></svg></button>
-        <button class="pb" id="ly-next" data-fr-label="Étape suivante" aria-label="Next step"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="square"/></svg></button>
-        <div class="ly-steps" id="ly-steps"></div>
-      </div>
-      <div class="lyr-cap" aria-live="polite">
-        <p class="label" id="ly-ch"></p>
-        <p class="lyr-t" id="ly-t"></p>
-        <div class="lyr-x" id="ly-x"></div>
+  <section id="conflicts">
+    <h2 data-fr="Ce que MixCoach corrige, un conflit à la fois">What MixCoach fixes, one clash at a time</h2>
+    <p class="sub" data-fr="Mesuré dans Live sur un morceau house. Quand deux pistes sont fortes au même endroit, on n'entend plus bien que la plus forte. Voici les trois conflits principaux du morceau, et l'EQ que MixCoach propose pour chacun.">Measured in Live on a house track. When two tracks are loud in the same place, you only really hear the louder one. Here are the track's three main clashes, and the EQ MixCoach suggests for each.</p>
+    <div class="os label cf-tabs" role="tablist" id="cf-tabs"></div>
+    <div class="cfx">
+      <div>
+        <p class="label" id="cf-n"></p>
+        <p class="cfx-t" id="cf-t" aria-live="polite"></p>
+        <div class="os label" role="tablist">
+          <button role="tab" data-cfa="0" aria-selected="true" data-fr="Avant">Before</button>
+          <button role="tab" data-cfa="1" aria-selected="false" data-fr="Après">After</button>
+        </div>
+        <p class="cfx-fix" id="cf-fix"></p>
+        <p class="cfx-q" id="cf-q"></p>
+        <div class="share" aria-hidden="true"><i id="cf-bar"></i></div>
+        <div class="share-k"><span id="cf-kl"></span><span id="cf-cl"></span></div>
       </div>
       <figure class="plot">
-        <svg id="ly" viewBox="0 0 1100 500" role="img"></svg>
-        <figcaption id="ly-cap"></figcaption>
+        <div class="legend" id="cf-leg"></div>
+        <svg id="cf" viewBox="0 0 760 330" role="img"></svg>
+        <figcaption id="cf-cap"></figcaption>
       </figure>
     </div>
   </section>
@@ -545,263 +543,178 @@ document.querySelectorAll(".band").forEach(b => {
   if (hover) b.onmouseenter = () => { if (zone !== b.dataset.z) showZone(b.dataset.z, true); };
 });
 
-// Le mix, couche par couche. Niveaux mesurés par les capteurs dans Live sur un morceau house (Octobeats #15),
-// en dB sous la bande la plus forte du mix ; « corrections » = les EQ Eight proposés par MixCoach, appliqués à ces mesures.
-const LY = {"centers":[31.3,39.4,49.6,62.5,78.7,99.2,125,157.5,198.4,250,315,396.9,500,630,793.7,1000,1259.9,1587.4,2000,2519.8,3174.8,4000,5039.7,6349.6,8000,10079.4,12699.2,16000],"tracks":[{"k":"T04","n":"Kick","db":[-11.9,-5.1,-1.2,-1.4,-1.7,-3,-6.5,-10.1,-13.5,-17.7,-18.8,-18.4,-18.6,-19.6,-20.9,-22.7,-24,-24.9,-23.5,-23,-21.9,-22.9,-24.2,-27.7,-30.3,-34,-37.8,-39]},{"k":"T02","n":"Basse","db":[-7.3,-4,-6.3,-7,-6.8,-7.6,-7.2,-6.5,-6.3,-6.3,-5.7,-5.8,-6.1,-6.5,-6.7,-8,-11.2,-16,-20.2,-23.2,-26.3,-29.9,-33.4,-37.1,-40.5,-42.2,-42.1,-40.4]},{"k":"T01","n":"Accords","db":[-40.4,-36.3,-31.3,-25.6,-20.9,-15.2,-8.3,-4.6,-3.7,-3.4,-5.1,-6.1,-6.6,-7.9,-8.8,-9.1,-9.9,-10.9,-12.6,-14.3,-15.8,-17.3,-19.4,-22.1,-25.1,-28.6,-32.4,-35.2]},{"k":"T03","n":"Synthé","db":[-37.1,-33.1,-28.8,-23,-16.2,-14.8,-17.2,-21.5,-22.9,-23.1,-19.2,-16.1,-14.6,-13.1,-11.9,-11,-9.9,-10.1,-13.3,-17.4,-19.4,-20.1,-21.9,-24.7,-27.5,-30.2,-33,-35.3]},{"k":"T08","n":"Snare","db":[-35.5,-34.7,-31.5,-27.1,-23.8,-20.6,-16.5,-11.4,-10.6,-14,-17.1,-19.9,-21.6,-21.7,-23,-23.4,-23.2,-20.7,-19,-20.4,-18.3,-15.8,-14.4,-13.9,-15.7,-19.7,-24.4,-28.3]},{"k":"T07","n":"Clap","db":[-61.2,-56.9,-56.4,-51.5,-48.2,-50.4,-50.5,-46.8,-44.1,-44.8,-40.3,-34.5,-32.1,-27.9,-23.5,-20.8,-18.4,-19,-20.5,-20.2,-20.9,-22.1,-22,-21.8,-22.6,-23.9,-25.7,-28.6]},{"k":"T05","n":"Open hat 11","db":[-69.5,-70.7,-70,-64.7,-61.9,-62.3,-58.2,-56.6,-53.9,-52.4,-49.4,-46.6,-46,-44.6,-40.5,-38.9,-36.3,-34.7,-32.3,-30.6,-26.7,-24,-20,-17,-16.9,-17.1,-19.4,-23.2]},{"k":"T06","n":"Open hat 16","db":[-97.7,-94.3,-90.6,-86.6,-82.5,-78.4,-74,-69.5,-64.4,-58.9,-52.6,-45.6,-41,-38.5,-35.5,-31.8,-28.6,-26.4,-26.9,-25.2,-21.1,-18.3,-16.4,-14.4,-14.3,-15.6,-18,-21.4]},{"k":"T09","n":"Ride","db":[-97.4,-96.6,-95.4,-94.2,-93.1,-91.4,-89.3,-86.7,-83.2,-78.9,-73.5,-66.7,-60.9,-59.3,-56.4,-53.3,-47.9,-42.3,-38.1,-36,-31.4,-28.5,-25.4,-21.9,-19.7,-19.5,-19.5,-21.2]},{"k":"R0","n":"Reverb","db":[-67.8,-63.3,-57.7,-51.8,-47.3,-42.7,-37.7,-31.7,-29.9,-31.9,-34.4,-35.5,-35.5,-34,-32.2,-30.4,-28.2,-28.2,-28.9,-29.1,-28.2,-27.3,-27.7,-28.3,-31.2,-36,-41,-44.8]},{"k":"R1","n":"Delay","db":[-50.2,-49.4,-46.1,-41.7,-38.5,-35.1,-31,-25.8,-25,-28.5,-31.5,-34.3,-35.8,-35.3,-35.5,-34.6,-33,-32.3,-31.8,-32.2,-30.6,-28.7,-26.7,-25,-25.6,-26.9,-29.6,-33.4]}],"conflicts":[{"a":"T04","b":"T02","f":39},{"a":"T01","b":"T02","f":315},{"a":"T04","b":"T01","f":125},{"a":"T03","b":"T01","f":1000},{"a":"T03","b":"T02","f":1000},{"a":"T06","b":"T08","f":6350}],"fixes":[{"t":"T02","shape":"bell","f":39,"g":-3,"q":2,"why":{"keep":"T04","at":39}},{"t":"T03","shape":"lowcut12","f":130,"g":0,"q":0.71,"why":"lowcut"},{"t":"T01","shape":"lowcut12","f":150,"g":0,"q":0.71,"why":{"keep":"T04","at":125}},{"t":"R1","shape":"lowcut12","f":150,"g":0,"q":0.71,"why":"lowcut"},{"t":"T02","shape":"bell","f":315,"g":-3,"q":2,"why":{"keep":"T01","at":315}},{"t":"T01","shape":"bell","f":1000,"g":-3,"q":2,"why":{"keep":"T03","at":1000}},{"t":"T02","shape":"bell","f":1000,"g":-3,"q":2,"why":{"keep":"T03","at":1000}},{"t":"T08","shape":"bell","f":6350,"g":-3,"q":2,"why":{"keep":"T06","at":6300}}]};
-const LYN = { Basse: ["Bass", "Basse"], Accords: ["Chords", "Accords"], "Synthé": ["Synth", "Synthé"] };
-const lyName = k => { const n = LY.tracks.find(t => t.k === k).n; return LYN[n] ? tr(...LYN[n]) : n; };
-const fmtF = f => f < 1000 ? `${f} Hz` : `${(f / 1000).toFixed(1)} kHz`;
-const lyPct = x => `${Math.round(x * 100)}${lang === "fr" ? " " : ""}%`;
-const NBAND = LY.centers.length, KEYS = LY.tracks.map(t => t.k), DB = Object.fromEntries(LY.tracks.map(t => [t.k, t.db]));
-function eqDb(fx, f) {  // réponse de l'EQ Eight : cloche (RBJ) ou coupe-bas doux 12 dB/oct
+// Un conflit à la fois. Niveaux mesurés par les capteurs dans Live sur un morceau house (Octobeats #15), en dB par bande
+// de tiers d'octave ; « après » = la même mesure + la courbe de l'EQ Eight que MixCoach propose pour ce conflit.
+const CFD = {"centers":[31.3,39.4,49.6,62.5,78.7,99.2,125,157.5,198.4,250,315,396.9,500,630,793.7,1000,1259.9,1587.4,2000,2519.8,3174.8,4000,5039.7,6349.6,8000,10079.4,12699.2,16000],"db":{"kick":[-11.9,-5.1,-1.2,-1.4,-1.7,-3,-6.5,-10.1,-13.5,-17.7,-18.8,-18.4,-18.6,-19.6,-20.9,-22.7,-24,-24.9,-23.5,-23,-21.9,-22.9,-24.2,-27.7,-30.3,-34,-37.8,-39],"bass":[-7.3,-4,-6.3,-7,-6.8,-7.6,-7.2,-6.5,-6.3,-6.3,-5.7,-5.8,-6.1,-6.5,-6.7,-8,-11.2,-16,-20.2,-23.2,-26.3,-29.9,-33.4,-37.1,-40.5,-42.2,-42.1,-40.4],"chords":[-40.4,-36.3,-31.3,-25.6,-20.9,-15.2,-8.3,-4.6,-3.7,-3.4,-5.1,-6.1,-6.6,-7.9,-8.8,-9.1,-9.9,-10.9,-12.6,-14.3,-15.8,-17.3,-19.4,-22.1,-25.1,-28.6,-32.4,-35.2]}};
+const CFN = { kick: ["Kick", "Kick"], bass: ["Bass", "Basse"], chords: ["Chords", "Accords"] };
+const CONFLICTS = [  // ceux que MixCoach a trouvés sur ce morceau, du plus grave au plus aigu
+  { keep: "kick", cut: "bass", f: 39, win: [25, 260], fx: { shape: "bell", f: 39, g: -3, q: 2 } },
+  { keep: "kick", cut: "chords", f: 125, win: [40, 800], fx: { shape: "lowcut12", f: 150 } },
+  { keep: "chords", cut: "bass", f: 315, win: [90, 2200], fx: { shape: "bell", f: 315, g: -3, q: 2 } },
+];
+const cfName = k => tr(...CFN[k]);
+const cfHz = f => f < 1000 ? `${Math.round(f)} Hz` : `${(f / 1000).toFixed(1)} kHz`;
+const cfPct = x => `${Math.round(x * 100)}${lang === "fr" ? " " : ""}%`;
+function cfEq(fx, f) {  // réponse de l'EQ Eight : cloche (RBJ) ou coupe-bas doux 12 dB/oct
   if (fx.shape !== "bell") { const r = (f / fx.f) ** 4; return 10 * Math.log10(r / (1 + r)); }
   const fs = 48000, A = 10 ** (fx.g / 40), w = 2 * Math.PI * fx.f / fs, al = Math.sin(w) / (2 * fx.q), z = 2 * Math.PI * f / fs;
   const c = (x0, x1, x2) => [x0 + x1 * Math.cos(z) + x2 * Math.cos(2 * z), -(x1 * Math.sin(z) + x2 * Math.sin(2 * z))];
   const [nr, ni] = c(1 + al * A, -2 * Math.cos(w), 1 - al * A), [dr, di] = c(1 + al / A, -2 * Math.cos(w), 1 - al / A);
   return 10 * Math.log10((nr * nr + ni * ni) / (dr * dr + di * di));
 }
-const bandOf = f => Math.max(0, Math.min(NBAND - 1, Math.round(Math.log2(f / 31.25) * 3)));
-const GROUPS = [["T04"], ["T02"], ["T01"], ["T03"], ["T08", "T07"], ["T05", "T06", "T09"], ["R0", "R1"]];
-const LSTEPS = [
-  ...GROUPS.map((g, i) => ({ ch: 0, vis: GROUPS.slice(0, i + 1).flat(), add: g, nfix: 0, dur: 2300 })),
-  { ch: 1, vis: KEYS, nfix: 0, dur: 4500 },
-  ...LY.fixes.map((fx, i) => ({ ch: 2, vis: KEYS, nfix: i + 1, fx, dur: 3000 })),
-  { ch: 3, vis: KEYS, nfix: LY.fixes.length, dur: 9000 },
-];
-const CHAPTERS = [["The layers", "Les couches"], ["The clashes", "Les conflits"], ["The fixes", "Les corrections"], ["The result", "Le résultat"]];
-function lyTarget(i) {
-  const st = LSTEPS[i], vis = {}, eq = {};
-  for (const k of KEYS) { vis[k] = st.vis.includes(k) ? 1 : 0; eq[k] = LY.centers.map(() => 0); }
-  for (const fx of LY.fixes.slice(0, st.nfix)) LY.centers.forEach((f, b) => { eq[fx.t][b] += eqDb(fx, f); });
-  return { vis, eq };
+function cfLevel(k, f) {  // dB de la piste à la fréquence f : courbe lisse (Catmull-Rom) entre les bandes mesurées
+  const C = CFD.centers, v = CFD.db[k], x = Math.log2(f / C[0]) * 3, i = Math.max(0, Math.min(C.length - 2, Math.floor(x))), t = Math.max(0, Math.min(1, x - i));
+  const p = j => v[Math.max(0, Math.min(v.length - 1, j))], p0 = p(i - 1), p1 = p(i), p2 = p(i + 1), p3 = p(i + 2);
+  return p1 + 0.5 * t * (p2 - p0 + t * (2 * p0 - 5 * p1 + 4 * p2 - p3 + t * (3 * (p1 - p2) + p3 - p0)));
 }
-function lyPower(state) {  // puissance de chaque piste par bande, puis total
-  const P = {}, tot = LY.centers.map(() => 0);
-  for (const k of KEYS) { P[k] = DB[k].map((d, b) => state.vis[k] * 10 ** ((d + state.eq[k][b]) / 10)); P[k].forEach((x, b) => tot[b] += x); }
-  return { P, tot };
+const cfBand = f => Math.round(Math.log2(f / CFD.centers[0]) * 3);
+function cfShare(c, amt) {  // part de la piste gardée dans la bande du conflit, à deux pistes
+  const b = cfBand(c.f), fc = CFD.centers[b], pk = 10 ** (CFD.db[c.keep][b] / 10), pc = 10 ** ((CFD.db[c.cut][b] + amt * cfEq(c.fx, fc)) / 10);
+  return pk / (pk + pc);
 }
-const BEFORE = lyPower(lyTarget(LSTEPS.findIndex(s => s.ch === 1))), AFTER = lyPower(lyTarget(LSTEPS.length - 1));
-const shareAt = (pw, k, b) => pw.P[k][b] / (pw.tot[b] || 1);
-const ly = document.getElementById("ly");
-let lyStep = 0, lyCur = lyTarget(0), lyRaf = 0, lyPlaying = false, lyTimer = 0, lyHov = -1, lyPlayed = false;
-let LW = 1100, LX0 = 44, LBW = 1;
-const LTOP = 78, LTOPB = 214, LSH0 = 278, LSH1 = 448, LFLOOR = -36;
-let LH = 500, LROWS = 2;
-const lyY = d => LTOP + Math.min(1, Math.max(0, d / LFLOOR)) * (LTOPB - LTOP);
-const lyX = b => LX0 + b * LBW;
-const lyXf = f => LX0 + (Math.log2(f / 31.25) * 3 + 0.5) * LBW;
-const lyEl = (tag, at, txt) => { const e = document.createElementNS(SVGNS, tag); for (const k in at) e.setAttribute(k, at[k]); if (txt != null) e.textContent = txt; return e; };
-const SVGNS = "http://www.w3.org/2000/svg";
-const ZONEVAR = f => f < 60 ? "--sub" : f < 250 ? "--bass" : f < 500 ? "--lowmid" : f < 2000 ? "--mid" : f < 6000 ? "--himid" : "--air";
-const FILLS = ["#FFFFFF", "#B9BDC3", "#D7D9DD"];
-let LE = {};
-function lyBuild() {
-  LW = Math.round(Math.max(330, Math.min(1100, ly.getBoundingClientRect().width || 1100)));
-  LX0 = LW < 600 ? 30 : 44; LBW = (LW - LX0 - 8) / NBAND;
-  LROWS = LW < 600 ? 3 : 2; LH = LSH1 + 12 + LROWS * 14;  // étiquettes de conflit sur 3 rangées quand c'est étroit
-  ly.setAttribute("viewBox", `0 0 ${LW} ${LH}`); ly.textContent = "";
-  ly.setAttribute("aria-label", tr("The mix, layer by layer", "Le mix, couche par couche"));
-  LE = { bars: [], lays: {}, ltx: {}, cf: [] };
-  ly.append(lyEl("text", { x: LX0, y: 12, class: "lane" }, tr("THE MIX", "LE MIX")));
-  LE.ghostLbl = lyEl("text", { x: LX0 + NBAND * LBW, y: 12, class: "ax", "text-anchor": "end" }, tr("Outline: the mix before the fixes", "Contour : le mix avant les corrections"));
-  ly.append(LE.ghostLbl);
-  LE.eqLbl = lyEl("text", { x: LX0, y: 32, class: "lane" }); ly.append(LE.eqLbl);
-  LE.eq0 = lyEl("line", { x1: LX0, x2: LX0 + NBAND * LBW, y1: 46, y2: 46, class: "eq0" }); ly.append(LE.eq0);
-  LE.eq = lyEl("path", { class: "eq", pathLength: 1, "stroke-dasharray": 1, "stroke-dashoffset": 1 }); ly.append(LE.eq);
-  for (const d of [0, -12, -24]) {
-    ly.append(lyEl("line", { x1: LX0, x2: LX0 + NBAND * LBW, y1: lyY(d), y2: lyY(d), class: "grid" }));
-    ly.append(lyEl("text", { x: LX0 - 6, y: lyY(d) + 4, class: "ax", "text-anchor": "end" }, d ? String(d) : "0 dB"));
-  }
-  LY.centers.forEach((f, b) => {
-    const r = lyEl("rect", { x: lyX(b) + 1, width: Math.max(1, LBW - 2), style: `fill:var(${ZONEVAR(f)})` }); LE.bars.push(r); ly.append(r);
-  });
-  LE.ghost = lyEl("path", { class: "ghost" }); ly.append(LE.ghost);
-  const ticks = LW < 600 ? [31, 125, 500, 2000, 8000] : [31, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000];
-  for (const f of ticks) ly.append(lyEl("text", { x: lyXf(f), y: LTOPB + 18, class: "ax", "text-anchor": "middle" }, f < 1000 ? String(f) : `${f / 1000}k`));
-  ly.append(lyEl("text", { x: LX0 - 6, y: LTOPB + 18, class: "ax", "text-anchor": "end" }, "Hz"));
-  LY.centers.forEach((f, b) => ly.append(lyEl("rect", { x: lyX(b), y: LTOPB + 26, width: LBW, height: 8, style: `fill:var(${ZONEVAR(f)})` })));
-  ly.append(lyEl("text", { x: LX0, y: LSH0 - 10, class: "lane" }, tr("WHO OWNS EACH FREQUENCY", "À QUI APPARTIENT CHAQUE FRÉQUENCE")));
-  KEYS.forEach((k, i) => { const p = lyEl("path", { class: "lay", fill: FILLS[i % 3] }); LE.lays[k] = p; ly.append(p); });  // fill en attribut : .lay.on (encre) l'emporte
-  KEYS.forEach(k => { const t = lyEl("text", { class: "ltx", "text-anchor": "middle" }, lyName(k)); LE.ltx[k] = t; ly.append(t); });
-  const byF = {};  // un repère par fréquence de conflit (deux conflits peuvent tomber sur la même bande)
-  LY.conflicts.forEach(c => (byF[c.f] = byF[c.f] || []).push(c));
-  Object.entries(byF).forEach(([f, cs], j) => {
-    const x = lyXf(+f), line = lyEl("line", { x1: x, x2: x, y1: LTOP - 4, y2: LSH1 + 4 + (j % LROWS) * 14, class: "cf" });
-    const lbl = [...new Set(cs.map(c => lyName(c.a)))].join(", ") + " / " + [...new Set(cs.map(c => lyName(c.b)))].join(", ");
-    const t = lyEl("text", { x: x + 4, y: LSH1 + 16 + (j % LROWS) * 14, class: "cft", "text-anchor": x > LW * 0.75 ? "end" : "start" }, lbl);  // sous le graphique, deux rangées
-    if (x > LW * 0.75) t.setAttribute("x", x - 4);
-    LE.cf.push({ f: +f, cs, line, t }); ly.append(line); ly.append(t);
-  });
-  LE.hov = lyEl("rect", { y: LTOP - 4, height: LSH1 - LTOP + 4, width: LBW, class: "hov", visibility: "hidden" }); ly.append(LE.hov);
-  LY.centers.forEach((_, b) => {
-    const h = lyEl("rect", { x: lyX(b), y: 0, width: LBW, height: LH, class: "hit" });
-    h.onmouseenter = () => { lyHov = b; lyDraw(); lyCaption(); };
-    h.onmouseleave = () => { lyHov = -1; lyDraw(); lyCaption(); };
-    ly.append(h);
-  });
-  lyDraw(); lyEq(false);
-}
-function lyDraw() {
-  const st = LSTEPS[lyStep], pw = lyPower(lyCur), mxDb = b => 10 * Math.log10(pw.tot[b] + 1e-12);
-  LE.bars.forEach((r, b) => { const y = lyY(mxDb(b)); r.setAttribute("y", y); r.setAttribute("height", Math.max(0, LTOPB - y)); });
-  const showGhost = st.ch >= 2;
-  LE.ghost.setAttribute("d", showGhost ? LY.centers.map((_, b) => `${b ? "L" : "M"}${lyX(b) + 1} ${lyY(10 * Math.log10(BEFORE.tot[b] + 1e-12))}H${lyX(b) + LBW - 1}`).join("") : "");
-  LE.ghostLbl.style.visibility = showGhost ? "visible" : "hidden";
-  const active = new Set(st.ch === 0 ? st.add : st.ch === 2 ? [st.fx.t] : []);
-  const H = LSH1 - LSH0, base = LY.centers.map(() => 0), placed = [], right = LX0 + NBAND * LBW;
-  KEYS.forEach(k => {
-    let top = "", bot = "", best = -1, bestH = 0;
-    const segs = [];
-    LY.centers.forEach((_, b) => {
-      const sh = pw.tot[b] > 0 ? pw.P[k][b] / pw.tot[b] : 0, y0 = LSH1 - base[b] * H, y1 = y0 - sh * H;
-      top += `${b ? "L" : "M"}${lyX(b)} ${y1}H${lyX(b) + LBW}`; bot = `L${lyX(b) + LBW} ${y0}H${lyX(b)}` + bot;
-      segs.push([y1, y0]);
-      if (sh * H > bestH) { bestH = sh * H; best = b; }
-      base[b] += sh;
-    });
-    const p = LE.lays[k], vis = lyCur.vis[k] > 0.01;
-    p.setAttribute("d", vis ? top + bot + "Z" : ""); p.classList.toggle("on", active.has(k));
-    const t = LE.ltx[k];
-    let show = false;
-    if (vis && best >= 0) {  // une place où la couche couvre tout le texte, de la plus épaisse à la plus fine
-      const w = t.getComputedTextLength();
-      const cand = segs.map((sg, i) => i).filter(i => segs[i][1] - segs[i][0] > 16).sort((i, j) => (segs[j][1] - segs[j][0]) - (segs[i][1] - segs[i][0]));
-      for (const c of cand) {
-        const x = Math.min(right - w / 2 - 3, Math.max(LX0 + w / 2 + 3, lyX(c) + LBW / 2)), y = (segs[c][0] + segs[c][1]) / 2;
-        const b0 = Math.max(0, Math.floor((x - w / 2 - LX0) / LBW)), b1 = Math.min(NBAND - 1, Math.floor((x + w / 2 - LX0) / LBW));
-        let fits = true;
-        for (let i = b0; i <= b1 && fits; i++) fits = segs[i][0] < y - 7 && segs[i][1] > y + 7;
-        const box = [x - w / 2 - 2, y - 7, x + w / 2 + 2, y + 7];
-        if (fits && !placed.some(o => box[0] < o[2] && box[2] > o[0] && box[1] < o[3] && box[3] > o[1])) {
-          placed.push(box); t.setAttribute("x", x); t.setAttribute("y", y + 4); show = true; break;
-        }
-      }
-    }
-    t.style.visibility = show ? "visible" : "hidden";
-    t.classList.toggle("on", active.has(k));
-  });
-  const curF = st.ch === 2 && st.fx.why.at;
-  LE.cf.forEach(c => {
-    const show = st.ch >= 1 ? "visible" : "hidden", on = st.ch === 1 || (curF && c.f === curF && c.cs.some(x => x.b === st.fx.t));
-    c.line.style.visibility = c.t.style.visibility = show;
-    c.line.classList.toggle("on", !!on); c.t.classList.toggle("on", !!on);
-  });
-  LE.hov.style.visibility = lyHov >= 0 ? "visible" : "hidden";
-  if (lyHov >= 0) LE.hov.setAttribute("x", lyX(lyHov));
-}
-function lyEq(animate) {  // la courbe de l'EQ en cours se dessine dans le couloir du haut
-  const st = LSTEPS[lyStep];
-  if (st.ch !== 2) { LE.eq.setAttribute("d", ""); LE.eqLbl.textContent = ""; LE.eq0.style.visibility = "hidden"; return; }
-  LE.eq0.style.visibility = "visible";
-  LE.eqLbl.textContent = `EQ EIGHT · ${lyName(st.fx.t).toUpperCase()}`;
+const cf = document.getElementById("cf"), SVGN = "http://www.w3.org/2000/svg";
+const cfEl = (tag, at, txt) => { const e = document.createElementNS(SVGN, tag); for (const k in at) e.setAttribute(k, at[k]); if (txt != null) e.textContent = txt; return e; };
+let cfI = 0, cfAmt = 0, cfAfter = false, cfRaf = 0, cfHov = null, cfAuto = null, cfTouched = false;
+let CW = 760, CX0 = 20, CX1 = 740;
+const CY0 = 84, CY1 = 268, NS = 140;
+const cfZone = f => f < 60 ? "--sub" : f < 250 ? "--bass" : f < 500 ? "--lowmid" : f < 2000 ? "--mid" : f < 6000 ? "--himid" : "--air";
+let CE = {};
+function cfBuild() {
+  const c = CONFLICTS[cfI];
+  CW = Math.round(Math.max(330, Math.min(760, cf.getBoundingClientRect().width || 760))); CX0 = 14; CX1 = CW - 14;
+  cf.setAttribute("viewBox", `0 0 ${CW} 330`); cf.textContent = "";
+  cf.setAttribute("aria-label", `${cfName(c.keep)} / ${cfName(c.cut)} · ${cfHz(c.f)}`);
+  const lx = f => CX0 + Math.log2(f / c.win[0]) / Math.log2(c.win[1] / c.win[0]) * (CX1 - CX0);
+  CE = { lx, freqs: Array.from({ length: NS + 1 }, (_, i) => c.win[0] * (c.win[1] / c.win[0]) ** (i / NS)) };
+  const defs = cfEl("defs"), pat = cfEl("pattern", { id: "cf-hatch", width: 7, height: 7, patternUnits: "userSpaceOnUse", patternTransform: "rotate(45)" });
+  pat.append(cfEl("rect", { width: 7, height: 7, fill: "#fff", "fill-opacity": .35 }), cfEl("line", { x1: 0, y1: 0, x2: 0, y2: 7, stroke: "var(--ink)", "stroke-width": 2.2 }));
+  defs.append(pat); cf.append(defs);
+  // couloir de l'EQ (en haut) : 0 dB en pointillé, la courbe se dessine à l'« après »
+  cf.append(cfEl("text", { x: CX0, y: 12, class: "lane" }, `EQ EIGHT · ${cfName(c.cut).toUpperCase()}`));
+  cf.append(cfEl("line", { x1: CX0, x2: CX1, y1: 28, y2: 28, class: "eq0" }));
   let d = "";
-  for (let f = 28; f <= 17000; f *= 1.03) d += `${d ? "L" : "M"}${lyXf(f).toFixed(1)} ${(46 - Math.max(-6, eqDb(st.fx, f)) * 3.6).toFixed(1)}`;
-  LE.eq.style.transition = "none"; LE.eq.setAttribute("d", d); LE.eq.setAttribute("stroke-dashoffset", animate ? 1 : 0);
-  if (animate) requestAnimationFrame(() => requestAnimationFrame(() => { LE.eq.style.transition = ""; LE.eq.setAttribute("stroke-dashoffset", 0); }));
+  for (const f of CE.freqs) d += `${d ? "L" : "M"}${lx(f).toFixed(1)} ${(28 - Math.max(-6, cfEq(c.fx, f)) * 3.6).toFixed(1)}`;
+  CE.eq = cfEl("path", { d, class: "eq", pathLength: 1, "stroke-dasharray": 1, "stroke-dashoffset": cfAfter ? 0 : 1 }); cf.append(CE.eq);
+  cf.append(cfEl("text", { x: CX1, y: CY0 - 22, class: "lane", "text-anchor": "end" }, tr("ENERGY", "ÉNERGIE")));
+  cf.append(cfEl("line", { x1: CX0, x2: CX1, y1: CY1, y2: CY1, class: "grid" }));
+  CE.cut = cfEl("path", { class: "cc" }); CE.keep = cfEl("path", { class: "ck" }); CE.ov = cfEl("path", { class: "ov" });
+  cf.append(CE.cut, CE.keep, CE.ov);
+  CE.nk = cfEl("text", { class: "nm", "text-anchor": "middle" }, cfName(c.keep)); CE.nc = cfEl("text", { class: "nm", "text-anchor": "middle" }, cfName(c.cut));
+  cf.append(CE.nk, CE.nc);
+  const mx = lx(c.f);
+  cf.append(cfEl("line", { x1: mx, x2: mx, y1: CY0 - 34, y2: CY1, class: "mk" }));  // repère du conflit, nommé au-dessus des courbes
+  cf.append(cfEl("text", { x: mx + 6, y: CY0 - 24, class: "mkt" }, cfHz(c.f)));
+  const ticks = [31, 63, 125, 250, 500, 1000, 2000].filter(f => f >= c.win[0] * 1.05 && lx(f) < CX1 - 34);
+  for (const f of ticks) cf.append(cfEl("text", { x: lx(f), y: CY1 + 18, class: "ax", "text-anchor": "middle" }, f < 1000 ? `${f}` : `${f / 1000}k`));
+  cf.append(cfEl("text", { x: CX1, y: CY1 + 18, class: "ax", "text-anchor": "end" }, "Hz"));
+  CE.freqs.slice(0, -1).forEach((f, i) => cf.append(cfEl("rect", { x: lx(f), y: CY1 + 26, width: lx(CE.freqs[i + 1]) - lx(f) + .5, height: 8, style: `fill:var(${cfZone(Math.sqrt(f * CE.freqs[i + 1]))})` })));
+  CE.hl = cfEl("line", { y1: CY0 - 4, y2: CY1, class: "hl", visibility: "hidden" }); cf.append(CE.hl);
+  const hit = cfEl("rect", { x: CX0, y: 0, width: CX1 - CX0, height: 330, class: "hit" });
+  const hov = e => { const r = cf.getBoundingClientRect(), x = (e.clientX - r.left) * CW / r.width;
+    cfHov = c.win[0] * (c.win[1] / c.win[0]) ** Math.max(0, Math.min(1, (x - CX0) / (CX1 - CX0))); cfDraw(); };
+  hit.onpointermove = hov; hit.onpointerleave = () => { cfHov = null; cfDraw(); };
+  cf.append(hit);
+  // légende : trait plein = la piste gardée, tirets = celle qui fait de la place, hachures = la zone commune
+  const sw = cls => `<svg viewBox="0 0 26 14" aria-hidden="true"><rect x="1" y="2" width="24" height="10" class="${cls}"/></svg>`;
+  document.getElementById("cf-leg").innerHTML = `<span><svg viewBox="0 0 26 14" aria-hidden="true"><path d="M1 7H25" stroke="var(--ink)" stroke-width="2.5"/></svg>${cfName(c.keep)}</span>`
+    + `<span><svg viewBox="0 0 26 14" aria-hidden="true"><path d="M1 7H25" stroke="var(--ink)" stroke-width="2.5" stroke-dasharray="9 5"/></svg>${cfName(c.cut)}</span>`
+    + `<span><svg viewBox="0 0 26 14" aria-hidden="true"><rect x="1" y="1" width="24" height="12" fill="url(#cf-hatch)" stroke="var(--ink)"/></svg>${tr("Shared zone", "Zone commune")}</span>`;
+  cfDraw();
 }
-function lyCaption() {
-  const cap = document.getElementById("ly-cap");
-  if (lyHov < 0) { cap.textContent = tr("Levels measured by the MixCoach sensors during playback. The fixes apply the curves of the EQ Eights suggested by MixCoach to the same measurements. Hover the chart to see a band's numbers.",
-    "Niveaux mesurés par les capteurs MixCoach pendant la lecture. Les corrections appliquent aux mêmes mesures les courbes des EQ Eight proposés par MixCoach. Survole le graphique pour voir les chiffres d'une bande."); return; }
-  const pw = lyPower(lyCur), b = lyHov, tot = pw.tot[b] || 1e-12;
-  const top = KEYS.filter(k => lyCur.vis[k] > 0.01).sort((x, y) => pw.P[y][b] - pw.P[x][b])[0];
-  cap.textContent = tr("{f} · mix {m} dB · mostly {who} ({p})", "{f} · mix {m} dB · surtout {who} ({p})").replace("{f}", fmtF(Math.round(LY.centers[b])))
-    .replace("{m}", (10 * Math.log10(tot)).toFixed(1)).replace("{who}", top ? lyName(top) : "–").replace("{p}", top ? lyPct(pw.P[top][b] / tot) : "–");
-}
-function lyTexts() {
-  const st = LSTEPS[lyStep], inCh = LSTEPS.filter(s => s.ch === st.ch), pos = LSTEPS.slice(0, lyStep + 1).filter(s => s.ch === st.ch).length;
-  document.getElementById("ly-ch").textContent = `${st.ch + 1} · ${tr(...CHAPTERS[st.ch])}` + (inCh.length > 1 ? ` · ${pos}/${inCh.length}` : "");
-  const T = document.getElementById("ly-t"), X = document.getElementById("ly-x"), esc = x => x.replace(/[&<]/g, c => c === "&" ? "&amp;" : "&lt;");
-  const change = (keep, f, before, after) => tr("{who} at {f}: {p1} → {p2}", "{who} à {f} : {p1} → {p2}").replace("{who}", lyName(keep)).replace("{f}", fmtF(f))
-    .replace("{p1}", lyPct(shareAt(before, keep, bandOf(f)))).replace("{p2}", lyPct(shareAt(after, keep, bandOf(f))));
-  if (st.ch === 0) {
-    T.textContent = "+ " + st.add.map(lyName).join(" + ");
-    X.innerHTML = `<p>${esc(tr("{n} of {N} tracks in the mix.", "{n} pistes sur {N} dans le mix.").replace("{n}", st.vis.length).replace("{N}", KEYS.length))}</p>`;
-  } else if (st.ch === 1) {
-    T.textContent = tr("MixCoach finds {n} clashes", "MixCoach repère {n} conflits").replace("{n}", LY.conflicts.length);
-    X.innerHTML = `<p>${esc(tr("Two loud tracks in the same band: the ear can no longer tell them apart. MixCoach picks which one should make room.",
-      "Deux pistes fortes dans la même bande : l'oreille ne les sépare plus. MixCoach choisit laquelle doit faire de la place."))}</p>`;
-  } else if (st.ch === 2) {
-    const fx = st.fx, lbl = fx.shape === "bell" ? tr("Add EQ Eight: bell -3 dB at {f}", "Ajouter EQ Eight : cloche -3 dB à {f}").replace("{f}", fmtF(fx.f))
-      : tr("Add EQ Eight: gentle low cut at {f} Hz", "Ajouter EQ Eight : coupe-bas doux à {f} Hz").replace("{f}", fx.f);
-    T.textContent = `${lyName(fx.t)} · ${lbl}`;
-    if (fx.why === "lowcut") X.innerHTML = `<p>${esc(tr("Useless low end: add a low cut", "Grave inutile : mets un coupe-bas"))}</p>`;
-    else X.innerHTML = `<p>${esc(tr("Clash with “{keep}” around {f}", "Conflit avec « {keep} » vers {f}").replace("{keep}", lyName(fx.why.keep)).replace("{f}", fmtF(fx.why.at)))}</p>`
-      + `<ul><li>${esc(change(fx.why.keep, fx.why.at, lyPower(lyTarget(lyStep - 1)), lyPower(lyTarget(lyStep))))}</li></ul>`;
+function cfDraw() {
+  const c = CONFLICTS[cfI], lx = CE.lx, F = CE.freqs;
+  const pw = (k, f, amt) => 10 ** ((cfLevel(k, f) + (k === c.cut ? amt * cfEq(c.fx, f) : 0)) / 10);
+  const top = Math.max(...F.map(f => Math.max(pw(c.keep, f, 0), pw(c.cut, f, 0))));
+  const y = p => CY1 - (p / top) * (CY1 - CY0);
+  const K = F.map(f => pw(c.keep, f, 0)), X = F.map(f => pw(c.cut, f, cfAmt));
+  const line = A => A.map((p, i) => `${i ? "L" : "M"}${lx(F[i]).toFixed(1)} ${y(p).toFixed(1)}`).join("");
+  const area = A => `${line(A)}L${lx(F[F.length - 1])} ${CY1}L${lx(F[0])} ${CY1}Z`;
+  CE.keep.setAttribute("d", area(K)); CE.cut.setAttribute("d", area(X));
+  // la zone commune, hachurée sur l'octave autour du conflit (là où l'oreille confond les deux)
+  const lo = c.f / Math.SQRT2, hi = c.f * Math.SQRT2, io = F.map((f, i) => i).filter(i => F[i] >= lo && F[i] <= hi);
+  CE.ov.setAttribute("d", io.map((i, j) => `${j ? "L" : "M"}${lx(F[i]).toFixed(1)} ${y(Math.min(K[i], X[i])).toFixed(1)}`).join("") + `L${lx(F[io[io.length - 1]])} ${CY1}L${lx(F[io[0]])} ${CY1}Z`);
+  // chaque nom là où sa courbe dépasse le plus l'autre (loin du repère du conflit et des bords)
+  const mx = lx(c.f), spot = (A, B) => {
+    let best = -1, bv = -Infinity;
+    A.forEach((p, i) => { const x = lx(F[i]); if (Math.abs(x - mx) < 46 || x < CX0 + 34 || x > CX1 - 34) return; const v = p - B[i] + p * 0.25; if (v > bv) { bv = v; best = i; } });
+    return best < 0 ? A.indexOf(Math.max(...A)) : best;
+  };
+  const ik = spot(K, X), ic = spot(X, K);
+  CE.nk.setAttribute("x", lx(F[ik])); CE.nk.setAttribute("y", Math.max(CY0 - 6, y(K[ik]) - 9));
+  CE.nc.setAttribute("x", lx(F[ic])); CE.nc.setAttribute("y", Math.max(CY0 - 6, y(X[ic]) - 9));
+  const cap = document.getElementById("cf-cap");
+  if (cfHov) {
+    CE.hl.setAttribute("x1", lx(cfHov)); CE.hl.setAttribute("x2", lx(cfHov)); CE.hl.style.visibility = "visible";
+    const dk = cfLevel(c.keep, cfHov), dc = cfLevel(c.cut, cfHov) + cfAmt * cfEq(c.fx, cfHov);
+    cap.textContent = `${cfHz(cfHov)} · ${cfName(c.keep)} ${dk.toFixed(1)} dB · ${cfName(c.cut)} ${dc.toFixed(1)} dB`;
   } else {
-    T.textContent = tr("Result: every track has its place", "Résultat : chaque piste a sa place");
-    const sum = a => a.reduce((x, y) => x + y, 0), d = 10 * Math.log10(sum(AFTER.tot) / sum(BEFORE.tot));
-    const seen = new Set(), items = LY.conflicts.filter(c => { const k = c.a + c.f; if (seen.has(k)) return false; seen.add(k); return true; })
-      .map(c => `<li>${esc(change(c.a, c.f, BEFORE, AFTER))}</li>`).join("");
-    X.innerHTML = `<p>${esc(tr("The mix level only changes by {d} dB: sounds only drop where they were in each other's way.",
-      "Le volume du mix ne change que de {d} dB : les sons ne baissent que là où ils se gênaient.").replace("{d}", (lang === "fr" ? d.toFixed(1).replace(".", ",") : d.toFixed(1)).replace("-", "−")))}</p><ul>${items}</ul>`
-      + `<p style="margin-top:8px">${esc(tr("The other tips have no automatic fix (the Synth's phase, a clipping Master): those are up to you.",
-      "Les autres conseils n'ont pas de correction automatique (phase du Synthé, Master qui sature) : c'est à toi de jouer."))}</p>`;
+    CE.hl.style.visibility = "hidden";
+    cap.textContent = tr("Energy measured by the MixCoach sensors during playback. “After” applies the curve of the EQ Eight suggested by MixCoach to the same measurements.",
+      "Énergie mesurée par les capteurs MixCoach pendant la lecture. « Après » applique à ces mesures la courbe de l'EQ Eight proposé par MixCoach.");
   }
 }
-function lyProgress(animate) {
-  document.querySelectorAll("#ly-steps button").forEach((btn, i) => {
-    const bar = btn.firstElementChild;
-    btn.classList.toggle("done", i < lyStep);
-    btn.setAttribute("aria-current", i === lyStep ? "step" : "false");
-    bar.style.transition = "none";
-    bar.style.width = i < lyStep ? "100%" : "0";
-    if (i === lyStep) {
-      if (lyPlaying && animate) requestAnimationFrame(() => requestAnimationFrame(() => { bar.style.transition = `width ${LSTEPS[i].dur}ms linear`; bar.style.width = "100%"; }));
-      else bar.style.width = "100%";
-    }
-  });
+function cfShareText(sh) {
+  const c = CONFLICTS[cfI];
+  document.getElementById("cf-kl").textContent = `${cfName(c.keep)} ${cfPct(sh)}`;
+  document.getElementById("cf-cl").textContent = `${cfName(c.cut)} ${cfPct(1 - sh)}`;
 }
-const lyReduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-function lyGo(i, animate = true) {
-  lyStep = Math.max(0, Math.min(LSTEPS.length - 1, i));
-  const from = JSON.parse(JSON.stringify(lyCur)), to = lyTarget(lyStep), dur = animate && !lyReduce ? 900 : 0, t0 = performance.now();
-  cancelAnimationFrame(lyRaf);
-  const ease = x => 1 - (1 - x) ** 3;
+const cfReduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+function cfShow(i, after, animate) {
+  const changed = i !== cfI; cfI = i; cfAfter = after;
+  const c = CONFLICTS[i];
+  document.querySelectorAll("#cf-tabs button").forEach((b, j) => b.setAttribute("aria-selected", String(j === i)));
+  document.querySelectorAll("[data-cfa]").forEach(b => b.setAttribute("aria-selected", String((b.dataset.cfa === "1") === after)));
+  document.getElementById("cf-n").textContent = `${tr("Clash {n}/{N}", "Conflit {n}/{N}").replace("{n}", i + 1).replace("{N}", CONFLICTS.length)} · ${cfHz(c.f)}`;
+  document.getElementById("cf-t").textContent = (after ? tr("“{keep}” gets its place back around {f}.", "« {keep} » reprend sa place vers {f}.")
+    : tr("“{cut}” and “{keep}” step on each other around {f}.", "« {cut} » et « {keep} » se marchent dessus vers {f}.")).replace("{cut}", cfName(c.cut)).replace("{keep}", cfName(c.keep)).replace("{f}", cfHz(c.f));
+  const lbl = c.fx.shape === "bell" ? tr("Add EQ Eight: bell -3 dB at {f}", "Ajouter EQ Eight : cloche -3 dB à {f}").replace("{f}", cfHz(c.fx.f))
+    : tr("Add EQ Eight: gentle low cut at {f} Hz", "Ajouter EQ Eight : coupe-bas doux à {f} Hz").replace("{f}", c.fx.f);
+  document.getElementById("cf-fix").textContent = `⚡ ${cfName(c.cut)} · ${lbl}`;
+  document.getElementById("cf-q").textContent = tr("Who you hear at {f}:", "Qui on entend à {f} :").replace("{f}", cfHz(c.f));
+  if (changed || !CE.lx) { cfAmt = after ? 1 : 0; cfBuild(); }
+  // la courbe de l'EQ se dessine, la piste se creuse, la jauge bascule (les chiffres suivent la barre)
+  const bar = document.getElementById("cf-bar"), target = cfShare(c, after ? 1 : 0), from = cfAmt, to = after ? 1 : 0;
+  const dur = animate && !cfReduce ? 1100 : 0, t0 = performance.now();
+  if (!animate || changed) { bar.style.transition = "none"; bar.style.width = `${cfShare(c, from) * 100}%`; bar.getBoundingClientRect(); bar.style.transition = ""; }
+  bar.style.width = `${target * 100}%`;
+  CE.eq.style.transition = dur ? "" : "none"; CE.eq.setAttribute("stroke-dashoffset", after ? 0 : 1);
+  cancelAnimationFrame(cfRaf);
   const frame = now => {
-    const a = dur ? ease(Math.min(1, (now - t0) / dur)) : 1;
-    for (const k of KEYS) { lyCur.vis[k] = from.vis[k] + (to.vis[k] - from.vis[k]) * a; lyCur.eq[k] = from.eq[k].map((v, b) => v + (to.eq[k][b] - v) * a); }
-    lyDraw(); if (lyHov >= 0) lyCaption();
-    if (a < 1) lyRaf = requestAnimationFrame(frame);
+    const a = dur ? Math.min(1, Math.max(0, (now - t0 - 300) / (dur - 300))) : 1, e = 1 - (1 - a) ** 3;
+    cfAmt = from + (to - from) * e; cfDraw();
+    cfShareText(Math.max(0, Math.min(1, bar.getBoundingClientRect().width / (bar.parentElement.clientWidth || 1))));
+    if (a < 1 || Math.abs(bar.getBoundingClientRect().width / (bar.parentElement.clientWidth || 1) - target) > 0.004) cfRaf = requestAnimationFrame(frame);
+    else cfShareText(target);
   };
-  if (dur) lyRaf = requestAnimationFrame(frame); else frame(t0);
-  lyTexts(); lyEq(animate && !lyReduce); lyProgress(animate);
-  clearTimeout(lyTimer);
-  if (lyPlaying) lyTimer = setTimeout(() => lyStep < LSTEPS.length - 1 ? lyGo(lyStep + 1) : lySetPlay(false), LSTEPS[lyStep].dur);
+  if (dur) cfRaf = requestAnimationFrame(frame); else { cfAmt = to; cfDraw(); cfShareText(target); }
 }
-function lySetPlay(on) {
-  lyPlaying = on; lyPlayed = true;
-  const b = document.getElementById("ly-play");
-  b.setAttribute("aria-pressed", String(on));
-  b.setAttribute("aria-label", on ? tr("Pause", "Pause") : tr("Play", "Lecture"));
-  if (on) lyGo(lyStep === LSTEPS.length - 1 ? 0 : lyStep); else { clearTimeout(lyTimer); lyProgress(false); }
-}
+function cfStop() { cfTouched = true; clearTimeout(cfAuto); }
 (() => {
-  const box = document.getElementById("ly-steps");
-  LSTEPS.forEach((st, i) => {
-    const b = document.createElement("button"); b.append(document.createElement("i"));
-    if (i && st.ch !== LSTEPS[i - 1].ch) b.className = "gap";
-    b.style.flexGrow = st.dur;
-    b.onclick = () => { lyPlayed = true; lyGo(i); };
-    box.append(b);
+  const tabs = document.getElementById("cf-tabs");
+  CONFLICTS.forEach((c, i) => {
+    const b = document.createElement("button"); b.setAttribute("role", "tab");
+    b.onclick = () => { cfStop(); cfShow(i, false, false); };
+    tabs.append(b);
   });
-  document.getElementById("ly-play").onclick = () => lySetPlay(!lyPlaying);
-  document.getElementById("ly-prev").onclick = () => { lyPlayed = true; lyGo(lyStep - 1); };
-  document.getElementById("ly-next").onclick = () => { lyPlayed = true; lyGo(lyStep + 1); };
+  document.querySelectorAll("[data-cfa]").forEach(b => b.onclick = () => { cfStop(); cfShow(cfI, b.dataset.cfa === "1", true); });
   let lastW = 0;
-  addEventListener("resize", () => { const w = Math.round(ly.getBoundingClientRect().width); if (Math.abs(w - lastW) > 24) { lastW = w; lyBuild(); } });
-  // lecture automatique une fois, quand le graphique est bien visible (pas si on préfère moins d'animations)
-  if ("IntersectionObserver" in window && !lyReduce) {
-    const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting) && !lyPlayed) { io.disconnect(); setTimeout(() => { if (!lyPlayed) lySetPlay(true); }, 800); } }, { threshold: 0.5 });
-    io.observe(ly);
+  addEventListener("resize", () => { const w = Math.round(cf.getBoundingClientRect().width); if (Math.abs(w - lastW) > 24) { lastW = w; cfBuild(); } });
+  // visite guidée, une fois, quand le graphique est visible : chaque conflit avant puis après (pas si on préfère moins d'animations)
+  if ("IntersectionObserver" in window && !cfReduce) {
+    const io = new IntersectionObserver(es => {
+      if (!es.some(e => e.isIntersecting) || cfTouched) return;
+      io.disconnect();
+      const seq = CONFLICTS.flatMap((_, i) => [[i, false, 2600], [i, true, 4200]]);
+      const run = k => { if (cfTouched || k >= seq.length) return; const [i, a, wait] = seq[k]; cfShow(i, a, a); cfAuto = setTimeout(() => run(k + 1), wait); };
+      cfAuto = setTimeout(() => run(0), 600);
+    }, { threshold: 0.5 });
+    io.observe(cf);
   }
 })();
-function lyLang() {  // à chaque changement de langue
-  document.querySelectorAll("[data-fr-label]").forEach(b => { if (b.id !== "ly-play") b.setAttribute("aria-label", tr(b.dataset.enLabel ||= b.getAttribute("aria-label"), b.dataset.frLabel)); });
-  document.querySelectorAll("#ly-steps button").forEach((b, i) => b.setAttribute("aria-label", `${tr(...CHAPTERS[LSTEPS[i].ch])} · ${i + 1}/${LSTEPS.length}`));
-  lySetPlayLabel(); lyBuild(); lyTexts(); lyCaption();
+function cfLang() {  // à chaque changement de langue
+  document.querySelectorAll("#cf-tabs button").forEach((b, i) => { const c = CONFLICTS[i]; b.textContent = `${i + 1} · ${cfName(c.keep)} / ${cfName(c.cut)}`; });
+  CE = {}; cfShow(cfI, cfAfter, false);
 }
-function lySetPlayLabel() { const b = document.getElementById("ly-play"); b.setAttribute("aria-label", lyPlaying ? tr("Pause", "Pause") : tr("Play", "Lecture")); }
 
 const picker = document.getElementById("lang");
 const codes = [...picker.options].map(o => o.value);
@@ -816,7 +729,7 @@ async function setLang(code) {
   document.documentElement.dir = code === "ar" ? "rtl" : "ltr";
   picker.value = code;
   showZone(zone, false);
-  lyLang();
+  cfLang();
   try { localStorage.setItem("mc_lang", code); } catch (e) {}
 }
 function browserLang() {

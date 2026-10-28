@@ -42,12 +42,18 @@ MixCoach goes one step further:
 - 🌍 **It speaks 18 languages.**
 - 🔓 **It's free, open source, and runs offline.** No account, no server, no AI service: just math on your audio.
 
-### The mix, layer by layer
+### What MixCoach fixes, one clash at a time
 
-Measured in Live on a real house track. The tracks come in one by one, MixCoach finds the 6 clashes, then applies its 8 EQs one at a time. Top: the sound of the mix (dotted outline = before the fixes); bottom: who owns each frequency. In the end the mix level only moves by −0.7 dB, but every sound gets its place back: the kick goes from 44% to 61% of the sound at 39 Hz, the chords from 50% to 62% at 315 Hz.
+Measured in Live on a real house track. When two tracks are loud in the same place, you only really hear the louder one. For each of the three main clashes, the EQ MixCoach suggests frees up the shared zone (hatched):
+
+| Clash | Suggested fix | Who you hear, before → after |
+|---|---|---|
+| Kick and Bass around 39 Hz | Bass: −3 dB bell at 39 Hz | Kick 44% → 61% |
+| Kick and Chords around 125 Hz | Chords: gentle low cut at 150 Hz | Kick 60% → 82% |
+| Chords and Bass around 315 Hz | Bass: −3 dB bell at 315 Hz | Chords 53% → 70% |
 
 <p align="center">
-  <img src="docs/assets/layers-en.gif" alt="Animation: the tracks stack up, the clashes appear, each EQ Eight suggested by MixCoach is applied, then the result clash by clash" width="820">
+  <img src="docs/assets/conflicts-en.gif" alt="For each clash, the two measured curves, the hatched shared zone, then the EQ Eight carving the track and the who-you-hear gauge tipping over" width="820">
 </p>
 
 ## Features

@@ -42,12 +42,18 @@ MixCoach va plus loin :
 - 🌍 **Il parle 18 langues.**
 - 🔓 **Il est gratuit, open source et fonctionne hors ligne.** Pas de compte, pas de serveur, pas d'IA en ligne : juste des calculs sur ton audio.
 
-### Le mix, couche par couche
+### Ce que MixCoach corrige, un conflit à la fois
 
-Mesuré dans Live sur un vrai morceau house. Les pistes s'ajoutent une à une, MixCoach repère les 6 conflits, puis applique ses 8 EQ un par un. En haut, le son du mix (le contour pointillé = avant les corrections) ; en bas, à qui appartient chaque fréquence. Au final, le volume du mix ne bouge que de −0,7 dB, mais chaque son récupère sa place : le kick passe de 44 % à 61 % du son à 39 Hz, les accords de 50 % à 62 % à 315 Hz.
+Mesuré dans Live sur un vrai morceau house. Quand deux pistes sont fortes au même endroit, on n'entend plus bien que la plus forte. Pour chacun des trois conflits principaux, l'EQ proposé par MixCoach libère la zone commune (hachurée) :
+
+| Conflit | Correction proposée | Qui on entend, avant → après |
+|---|---|---|
+| Kick et Basse vers 39 Hz | Basse : cloche −3 dB à 39 Hz | Kick 44 % → 61 % |
+| Kick et Accords vers 125 Hz | Accords : coupe-bas doux à 150 Hz | Kick 60 % → 82 % |
+| Accords et Basse vers 315 Hz | Basse : cloche −3 dB à 315 Hz | Accords 53 % → 70 % |
 
 <p align="center">
-  <img src="docs/assets/layers-fr.gif" alt="Animation : les pistes s'empilent, les conflits apparaissent, chaque EQ Eight proposé par MixCoach s'applique, puis le résultat chiffré conflit par conflit" width="820">
+  <img src="docs/assets/conflicts-fr.gif" alt="Pour chaque conflit, les deux courbes mesurées, la zone commune hachurée, puis l'EQ Eight qui creuse la piste et la jauge « qui on entend » qui bascule" width="820">
 </p>
 
 ## Fonctionnalités
