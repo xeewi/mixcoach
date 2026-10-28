@@ -42,12 +42,12 @@ MixCoach goes one step further:
 - 🌍 **It speaks 18 languages.**
 - 🔓 **It's free, open source, and runs offline.** No account, no server, no AI service: just math on your audio.
 
-### What one tip changes in the sound
+### The mix, layer by layer
 
-Measured in Live on a real house track. The kick and the bass both play around 39 Hz, and the bass covers the hit of the kick. MixCoach suggests a −3 dB bell at 39 Hz on the bass: only that small zone moves, and the kick goes from 44% to 61% of the sound there.
+Measured in Live on a real house track. The tracks come in one by one, MixCoach finds the 6 clashes, then applies its 8 EQs one at a time. Top: the sound of the mix (dotted outline = before the fixes); bottom: who owns each frequency. In the end the mix level only moves by −0.7 dB, but every sound gets its place back: the kick goes from 44% to 61% of the sound at 39 Hz, the chords from 50% to 62% at 315 Hz.
 
 <p align="center">
-  <img src="docs/assets/change-en.gif" alt="Before / after: the EQ Eight curve draws itself, the bass bars drop around 39 Hz and the kick's share goes from 44% to 61%" width="820">
+  <img src="docs/assets/layers-en.gif" alt="Animation: the tracks stack up, the clashes appear, each EQ Eight suggested by MixCoach is applied, then the result clash by clash" width="820">
 </p>
 
 ## Features
