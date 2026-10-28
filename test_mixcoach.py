@@ -66,7 +66,7 @@ assert "A mineur" in html_out and "Dm" in html_out
 # Revue théorie : le conseil suit le sens du déséquilibre, et un master club fort n'est pas « écrasé »
 c = mc.third_octave_bands()
 L0 = {"clipped": 0, "peak_db": -1.0, "true_peak_db": -1.0, "lufs": -7.0, "plr": 6.0, "dc": 0.0}
-dev = np.where(c >= 6000, -8.0, 0.0)  # manque d'aigus
+dev = np.where(c >= 6000, -12.0, 0.0)  # manque d'aigus (au-delà des ±9 dB tolérés dans l'air)
 f = {x["title"]: x for x in mc.diagnose(L0, c, dev, None, "master", "club", False)}
 assert "Dynamique très écrasée" not in f and "Loudness dans la cible" in f, list(f)
 assert "+1 à +2 dB" in " ".join(f["Manque d'aigus / air (6000-20000 Hz)"]["action"])

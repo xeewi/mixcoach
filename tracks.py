@@ -66,6 +66,13 @@ def punch_db(data, sr):
 
 
 LOW_NAME = re.compile(r"kick|bass|sub|808", re.I)  # pistes qu'on ne coupe jamais dans le grave
+LOW_SHARE = 0.10  # au-delà, le grave de la piste est voulu (ex. une basse « 2-Analog Lab V » au centre ~200 Hz), pas un grondement
+
+
+def is_low(tk):
+    """Élément grave (kick, basse…) : d'après le nom, le centre de la piste, ou la part de son énergie sous 100 Hz.
+    Le nom seul ne suffit pas : beaucoup de pistes gardent le nom du plugin."""
+    return bool(LOW_NAME.search(tk["name"])) or tk["f50"] < 120 or tk["low_frac"] >= LOW_SHARE
 
 
 def who_keeps_low(a, b):
@@ -74,7 +81,7 @@ def who_keeps_low(a, b):
     ka, kb = "kick" in a["name"].lower(), "kick" in b["name"].lower()
     if ka != kb:
         return (a, b) if ka else (b, a)
-    ga, gb = a["f50"] < 120, b["f50"] < 120
+    ga, gb = is_low(a), is_low(b)
     if ga != gb:
         return (a, b) if ga else (b, a)
     return (a, b) if a["punch_db"] > b["punch_db"] else (b, a)
@@ -113,9 +120,8 @@ def coach(tracks, mix_bands, ref_bands=None):
 
     # a) Coupables des déséquilibres du mix
     has_ref = ref_bands is not None
-    tol = mc.TOL_REF_DB if has_ref else mc.TOL_GENERIC_DB
     dev = mc.tonal_deviation(centers, mix_bands, ref_bands)
-    for zone, lo, hi, what, too_much, too_little, *_ in mc.REGIONS:
+    for (zone, lo, hi, what, too_much, too_little, *_), tol in zip(mc.REGIONS, mc.zone_tols(has_ref)):
         m = (centers >= lo) & (centers < hi)
         d = float(np.mean(dev[m]))
         if abs(d) <= tol:
@@ -182,7 +188,7 @@ def coach(tracks, mix_bands, ref_bands=None):
             keep, cut = (a, b) if abs(np.log2(a["f50"] / f)) < abs(np.log2(b["f50"] / f)) else (b, a)
         fr = f"{f:.0f} Hz" if f < 1000 else f"{f / 1000:.1f} kHz"
         k, c = keep["name"], cut["name"]
-        if f < 150 and cut["f50"] >= 120 and not LOW_NAME.search(c):  # pas un élément grave : rien à faire là
+        if f < 150 and not is_low(cut):  # pas un élément grave : rien à faire là
             hp = int(np.clip(round(f * 1.5, -1), 60, 150))
             act = [t("Sur « {cut} » : ajoute un EQ Eight.", cut=c), lowcut_step(hp),
                    t("Ce grave ne sert pas le morceau et vient brouiller « {keep} ». Écoute « {keep} » : il doit devenir plus net.", keep=k)]
@@ -214,7 +220,7 @@ def coach(tracks, mix_bands, ref_bands=None):
                 [t("Baisse le fader de la piste, ou la sortie de l'effet qui pousse le plus (saturateur, EQ avec gros boost) ;"),
                  t("ou ajoute un Utility en fin de chaîne et baisse son Gain jusqu'à ce que le vumètre de la piste ne passe plus au rouge.")],
                 fix={"kind": "utility_gain", "db": -3, "label": t("Ajouter Utility : gain -3 dB")}))
-        if tk["f50"] > 400 and tk["low_frac"] > 0.02 and not LOW_NAME.search(tk["name"]):
+        if tk["f50"] > 400 and tk["low_frac"] > 0.02 and not is_low(tk):
             hp = int(np.clip(round(tk["f50"] / 8, -1), 40, 150))
             adv.append(F("attention", t("Grave inutile : mets un coupe-bas"),
                 t("Le contenu principal de la piste est vers {f} Hz, mais {pc} de son énergie est sous 100 Hz.", f=f"{tk['f50']:.0f}", pc=f"{tk['low_frac']:.1%}"),

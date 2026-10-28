@@ -63,3 +63,17 @@ loud = dict(tracks[names.index("3-Pad")], name="Loud", peak=1.2)
 adv, *_ = tr.coach([loud], tracks[0]["power"])
 assert [f["level"] for f in adv["Loud"] if "0 dB" in f["title"]] == ["info"]  # pas « problème » : Live ne sature pas en interne
 print("OK — revue théorie")
+
+# Vrai cas (Octobeats #15) : la basse garde le nom du plugin et ses harmoniques mettent son centre vers 200 Hz.
+# Elle a beaucoup d'énergie sous 100 Hz : c'est une basse, on la sidechaine, on ne lui coupe pas le grave.
+synth_bass = sum(a * np.sin(2 * np.pi * 55 * h * t) for h, a in ((1, 0.25), (2, 0.15), (3, 0.25), (4, 0.25), (5, 0.2)))
+d2 = Path(tempfile.mkdtemp())
+sf.write(d2 / "1-Kick.wav", np.stack([kick, kick], 1), SR)
+sf.write(d2 / "2-Analog Lab V.wav", np.stack([synth_bass, synth_bass], 1), SR)
+tracks2, advice2, conflicts2, *_ = tr.analyze_folder(d2)
+lab = next(x for x in tracks2 if x["name"] == "2-Analog Lab V")
+assert lab["f50"] >= 120 and tr.is_low(lab), (lab["f50"], lab["low_frac"])
+acts = " ".join(" ".join(f["action"]) for f in advice2["2-Analog Lab V"])
+assert any(c["cut"] == "2-Analog Lab V" for c in conflicts2), conflicts2  # le kick garde le grave
+assert "Sidechain" in acts and "Low Cut" not in acts and "Grave inutile" not in " ".join(f["title"] for f in advice2["2-Analog Lab V"]), acts
+print("OK — basse au nom de plugin")

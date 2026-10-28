@@ -29,9 +29,8 @@ def constants():
         # toutes les traductions sont embarquées : la page change de langue sans rien charger
         "langs": i18n.LANGS, "rtl": sorted(i18n.RTL),
         "i18n": {c: i18n.catalog(c) for c in i18n.LANGS if c != i18n.SOURCE and (i18n.DIR / f"{c}.json").exists()},
-        "target_slope": mc.TARGET_SLOPE_DB_PER_OCT,
-        "low_bump": mc.LOW_BUMP_DB,
-        "tol_generic": mc.TOL_GENERIC_DB,
+        "target": [float(v) for v in mc.TARGET_DB],
+        "tol_generic": mc.TOL_GENERIC_DB,  # une tolérance par zone de « regions »
     }
 
 

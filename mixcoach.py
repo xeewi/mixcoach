@@ -163,12 +163,20 @@ def why(key):
     return (t(a) if a else "", t(b) if b else "")
 
 
-# Courbe "tonale" typique d'un morceau électro masterisé, par bande de tiers d'octave (heuristique),
-# calibrée sur des tracks pros : pente ~-3 dB/oct + bosse de grave (~+8 dB sous 100 Hz, nulle à 400 Hz), chute sous 45 Hz.
-# ponytail: courbe générique calibrée sur 2 tracks ; --reference (même style) est bien plus fiable.
-TARGET_SLOPE_DB_PER_OCT = -3.0
-LOW_BUMP_DB = 8.0
-TOL_GENERIC_DB, TOL_REF_DB = 5.0, 3.0  # les tracks pros eux-mêmes varient de ±5 dB autour de la courbe générique
+# Courbe "tonale" moyenne d'un morceau électro masterisé, une valeur par bande de tiers d'octave (31 Hz → 16 kHz),
+# à une constante près (seule la forme compte : tonal_deviation recale sur la médiane 100 Hz–10 kHz).
+# Mesurée sur 18 morceaux house / techno / minimal de 12 netlabels Creative Commons (archive.org), lissée sur 3 bandes.
+# L'ancienne courbe (pente -3 dB/oct + bosse de grave) demandait ~8 dB de grave en trop : « manque de sub » sur 17 morceaux sur 18.
+# ponytail: 18 morceaux surtout des années 2000 ; recalibrer sur plus de morceaux récents si les conseils dérivent. --reference reste plus fiable.
+TARGET_DB = np.array([4.6, 7.8, 11.0, 11.9, 11.2, 10.7, 9.6, 9.0, 7.5, 6.8, 5.1, 3.6, 2.2, 1.1,
+                      0.3, -1.1, -1.9, -2.6, -2.8, -2.9, -3.2, -3.7, -4.2, -4.5, -4.1, -4.2, -5.8, -7.6])
+# Tolérance par zone de REGIONS (sub, basses, bas-médiums, médiums, haut-médiums, air) : la dispersion de ces mêmes morceaux pros.
+# Le sub et l'air changent énormément d'un morceau pro à l'autre : sans référence, on ne signale que les cas hors norme.
+TOL_GENERIC_DB, TOL_REF_DB = [15.0, 8.0, 7.5, 5.0, 5.0, 9.0], 3.0
+
+
+def zone_tols(has_ref):
+    return [TOL_REF_DB] * len(REGIONS) if has_ref else TOL_GENERIC_DB
 
 
 def db(x):
@@ -217,12 +225,7 @@ def spectrum(data, sr):
 
 def tonal_deviation(centers, bands, ref_bands=None):
     """Écart (dB) de chaque bande par rapport à la cible, recalé sur la zone 100 Hz–10 kHz."""
-    if ref_bands is None:
-        bump = LOW_BUMP_DB * np.clip(np.log2(400 / centers) / 2, 0, 1)
-        rolloff = -12 * np.clip(np.log2(45 / centers), 0, None)  # même les pros perdent du grave sous ~45 Hz
-        target = TARGET_SLOPE_DB_PER_OCT * np.log2(centers / 1000) + bump + rolloff
-    else:
-        target = ref_bands
+    target = TARGET_DB if ref_bands is None else ref_bands
     dev = bands - target
     mid = (centers >= 100) & (centers <= 10000)
     return dev - np.median(dev[mid])
@@ -347,10 +350,9 @@ def diagnose(L, centers, dev, st, stage, target, has_ref):
             [t("Un peu de compression de bus : Glue Compressor 2:1, Attack 10 ms, Release Auto, 1 à 2 dB de réduction.")]))
 
     # 4. Équilibre tonal : le conseil dépend du sens (trop ou pas assez)
-    tol = TOL_REF_DB if has_ref else TOL_GENERIC_DB
     ref_txt = t("par rapport à ta référence") if has_ref else \
         t("par rapport à la courbe moyenne d'un mix moderne (approximatif — fournis une référence pour plus de précision)")
-    for zone, lo, hi, what, too_much, too_little, fix_more, fix_less in REGIONS:
+    for (zone, lo, hi, what, too_much, too_little, fix_more, fix_less), tol in zip(REGIONS, zone_tols(has_ref)):
         m = (centers >= lo) & (centers < hi)
         d = float(np.mean(dev[m]))
         intro = t("Cette zone, c'est {what}.", what=t(what))
@@ -468,12 +470,13 @@ def finding_zone(f):
     return next((z, r) for top, z, r in ZONES if hz <= top)
 
 
-def svg_spectrum(centers, dev, tol):
+def svg_spectrum(centers, dev, tols):
     W, H, pad = 700, 220, 30
     x = lambda f: pad + (np.log10(f) - np.log10(20)) / (np.log10(20000) - np.log10(20)) * (W - 2 * pad)
     y = lambda d: H / 2 - np.clip(d, -12, 12) / 12 * (H / 2 - pad)
-    parts = [f'<svg viewBox="0 0 {W} {H}" role="img" aria-label="{html.escape(t("Écart spectral"))}" dir="ltr">',
-             f'<rect x="{x(20):.0f}" y="{y(tol):.0f}" width="{x(20000) - x(20):.0f}" height="{y(-tol) - y(tol):.0f}" class="band"/>']
+    parts = [f'<svg viewBox="0 0 {W} {H}" role="img" aria-label="{html.escape(t("Écart spectral"))}" dir="ltr">']
+    for (_, lo, hi, *_), tol in zip(REGIONS, tols):  # la zone correcte, plus large là où même les pros varient
+        parts.append(f'<rect x="{x(lo):.1f}" y="{y(tol):.0f}" width="{x(hi) - x(lo):.1f}" height="{y(-tol) - y(tol):.0f}" class="band"/>')
     for f, lab in [(30, "30"), (60, "60"), (250, "250"), (500, "500"), (2000, "2k"), (6000, "6k"), (16000, "16k")]:
         parts.append(f'<line x1="{x(f):.1f}" x2="{x(f):.1f}" y1="{pad}" y2="{H - pad}" class="grid"/>'
                      f'<text x="{x(f):.1f}" y="{H - 8}" class="lbl">{lab} Hz</text>')
@@ -492,7 +495,8 @@ def render_html(name, stage, target, L, st, key, centers, dev, findings, has_ref
     tonic, mode = key["tonic"], key["mode"]
     notes, chords, (rel, rel_mode) = key_theory(tonic, mode)
     local = t(NOTES_LOCAL).split()
-    tol = TOL_REF_DB if has_ref else TOL_GENERIC_DB
+    tols = zone_tols(has_ref)
+    tol_txt = f"{min(tols):.0f}" if has_ref else f"{min(tols):.0f}–{max(tols):.0f}"
     cards = [card_html(f, i) for i, f in enumerate(findings, 1)]
     stereo_row = (f"<div><b>{st['corr']:.2f}</b><span>{e(t('corrélation L/R'))}</span></div>"
                   f"<div><b>{st['width_db']:.0f} dB</b><span>{e(t('largeur stéréo'))}</span></div>") if st else \
@@ -510,8 +514,8 @@ def render_html(name, stage, target, L, st, key, centers, dev, findings, has_ref
 <div><b>{e(key_txt)}</b><span>{e(t("tonalité"))} · {camelot(tonic, mode)}</span></div></section>
 <h2>{e(t("Diagnostic"))}</h2>{"".join(cards)}
 <h2>{e(t("Équilibre tonal"))}</h2>
-<p>{e(t("Écart de ton mix {ref}. La bande grise = ±{tol} dB, zone correcte. Au-dessus : trop d'énergie, en dessous : pas assez.", ref=ref, tol=f"{tol:.0f}"))}</p>
-{svg_spectrum(centers, dev, tol)}
+<p>{e(t("Écart de ton mix {ref}. La bande grise = ±{tol} dB, zone correcte. Au-dessus : trop d'énergie, en dessous : pas assez.", ref=ref, tol=tol_txt))}</p>
+{svg_spectrum(centers, dev, tols)}
 <h2>{e(t("Théorie : ta tonalité"))}</h2>
 <p>{e(t("Tonalité détectée : {key} ({local}) — détection {conf}.", key=key_txt, local=f"{local[tonic]} {t(mode)}", conf=key_conf))}
 {e(t("Code Camelot {code} (pour mixer en DJ : compatible avec ±1 et la lettre opposée).", code=camelot(tonic, mode)))}</p>

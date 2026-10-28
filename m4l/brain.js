@@ -8,6 +8,8 @@
 const C = typeof MIXCOACH_CONSTANTS !== "undefined" ? MIXCOACH_CONSTANTS : require("./constants.json");
 const CENTERS = C.centers;
 const LOW_NAME = /kick|bass|sub|808/i;  // pistes qu'on ne coupe jamais dans le grave
+const LOW_SHARE = 0.10;  // = tracks.LOW_SHARE
+const isLow = tk => LOW_NAME.test(tk.name) || tk.f50 < 120 || tk.low_frac >= LOW_SHARE;  // = tracks.is_low
 const ORDER = { "problème": 0, "attention": 1, "info": 2, "ok": 3 };
 const ROLES = [[120, "grave (kick / basse)"], [500, "bas-médium (corps)"], [2500, "médium (lead, voix, synthés)"], [1e9, "aigu (hats, cymbales, brillance)"]];
 
@@ -62,8 +64,7 @@ function features(e) {
 }
 
 function tonalDeviation(bandsDb) {
-  const target = CENTERS.map(c => C.target_slope * log2(c / 1000) + C.low_bump * clip(log2(400 / c) / 2, 0, 1) - 12 * Math.max(log2(45 / c), 0));
-  const dev = bandsDb.map((b, i) => b - target[i]);
+  const dev = bandsDb.map((b, i) => b - C.target[i]);
   const m = median(dev.filter((_, i) => CENTERS[i] >= 100 && CENTERS[i] <= 10000));
   return dev.map(d => d - m);
 }
@@ -72,7 +73,7 @@ function whoKeepsLow(a, b) {
   // le kick (nom) d'abord : un kick « clicky » peut avoir son centre au-dessus de 120 Hz
   const ka = /kick/i.test(a.name), kb = /kick/i.test(b.name);
   if (ka !== kb) return ka ? [a, b] : [b, a];
-  const ga = a.f50 < 120, gb = b.f50 < 120;
+  const ga = isLow(a), gb = isLow(b);
   if (ga !== gb) return ga ? [a, b] : [b, a];
   return a.punch_db > b.punch_db ? [a, b] : [b, a];
 }
@@ -92,9 +93,9 @@ function coach(tracks, mixPower) {
   const advice = Object.fromEntries(tracks.map(tk => [tk.key, []]));
 
   // a) Coupables des déséquilibres du mix
-  const tol = C.tol_generic;
   const dev = tonalDeviation(mixPower.map(pdb));
-  for (const [zone, lo, hi, what, tooMuch, tooLittle] of C.regions) {
+  for (const [z, [zone, lo, hi, what, tooMuch, tooLittle]] of C.regions.entries()) {
+    const tol = C.tol_generic[z];
     const idx = CENTERS.map((c, i) => c >= lo && c < hi ? i : -1).filter(i => i >= 0);
     const d = sum(idx.map(i => dev[i])) / idx.length;
     if (Math.abs(d) <= tol) continue;
@@ -160,7 +161,7 @@ function coach(tracks, mixPower) {
       : (Math.abs(log2(a.f50 / f)) < Math.abs(log2(b.f50 / f)) ? [a, b] : [b, a]);
     const fr = fmtHz(f), k = keep.name, c = cut.name;
     let act, auto;
-    if (f < 150 && cut.f50 >= 120 && !LOW_NAME.test(c)) {
+    if (f < 150 && !isLow(cut)) {
       const hp = clip(Math.round(f * 1.5 / 10) * 10, 60, 150);
       act = [t("Sur « {cut} » : ajoute un EQ Eight.", { cut: c }), lowcutStep(hp),
              t("Ce grave ne sert pas le morceau et vient brouiller « {keep} ». Écoute « {keep} » : il doit devenir plus net.", { keep: k })];
@@ -194,7 +195,7 @@ function coach(tracks, mixPower) {
         [t("Baisse le fader de la piste, ou la sortie de l'effet qui pousse le plus (saturateur, EQ avec gros boost) ;"),
          t("ou ajoute un Utility en fin de chaîne et baisse son Gain jusqu'à ce que le vumètre de la piste ne passe plus au rouge.")],
         { kind: "utility_gain", db: -3, label: t("Ajouter Utility : gain -3 dB") }));
-    if (tk.f50 > 400 && tk.low_frac > 0.02 && !LOW_NAME.test(tk.name)) {
+    if (tk.f50 > 400 && tk.low_frac > 0.02 && !isLow(tk)) {
       const hp = clip(Math.round(tk.f50 / 8 / 10) * 10, 40, 150);
       adv.push(finding("attention", t("Grave inutile : mets un coupe-bas"),
         t("Le contenu principal de la piste est vers {f} Hz, mais {pc} de son énergie est sous 100 Hz.", { f: tk.f50.toFixed(0), pc: `${(tk.low_frac * 100).toFixed(1)}%` }),
