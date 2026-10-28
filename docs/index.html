@@ -96,7 +96,7 @@ h2{font-size:clamp(32px,3.6vw,48px);line-height:1.05;letter-spacing:-.03em;font-
 /* anatomy of a tip */
 .tip{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:56px;align-items:start}
 .entry{background:var(--paper);border:1px solid var(--ink)}
-.entry header{display:flex;align-items:center;gap:0;border-bottom:1px solid var(--ink)}
+.entry header{display:flex;flex-wrap:wrap;align-items:center;gap:0;border-bottom:1px solid var(--ink)}
 .entry header .label{padding:10px 14px}
 .lvl{background:var(--ink);color:#fff} .lvl.num{border-inline-end:1px solid #fff}
 .zone{background:var(--sub);color:#fff}
@@ -152,7 +152,7 @@ code{font:500 .86em ui-monospace,"SF Mono",Menlo,Consolas,monospace;background:v
 footer{font-size:14px;color:var(--ink-2);padding:28px 0 48px;display:flex;flex-wrap:wrap;gap:8px 24px}
 
 @media (max-width:980px){
-  .hero,.tip{grid-template-columns:1fr;gap:40px}
+  .hero,.tip{grid-template-columns:minmax(0,1fr);gap:40px}
   .key{grid-template-columns:repeat(3,1fr)} .key div:nth-child(4){border-inline-start:0} .key div:nth-child(n+4){border-top:1px solid var(--ink)}
   .sides{grid-template-columns:1fr;gap:40px}
 }
@@ -164,7 +164,8 @@ footer{font-size:14px;color:var(--ink-2);padding:28px 0 48px;display:flex;flex-w
   .key{grid-template-columns:1fr 1fr} .key div{min-height:0} .key div:nth-child(odd){border-inline-start:0} .key div:nth-child(4){border-inline-start:1px solid var(--ink)} .key div:nth-child(n+3){border-top:1px solid var(--ink)}
   .key .sw{height:64px}
   .band{padding:0 14px}
-  .notes li,.steps li{grid-template-columns:44px 1fr}
+  .steps li{grid-template-columns:44px 1fr}
+  .notes li{grid-template-columns:1fr;gap:6px}
   .dl{padding:18px 20px}
 }
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;scroll-behavior:auto!important}}
@@ -239,7 +240,7 @@ footer{font-size:14px;color:var(--ink-2);padding:28px 0 48px;display:flex;flex-w
           <h4 class="label" data-fr="Comment corriger dans Ableton">How to fix it in Ableton</h4>
           <ol>
             <li data-fr="Sidechain : Compressor sur la basse, entrée Sidechain = la piste du kick, Ratio 4:1, Attack rapide.">Sidechain: Compressor on the bass, Sidechain input = the kick track, Ratio 4:1, fast Attack.</li>
-            <li data-fr="Sinon : EQ Eight sur la basse, une cloche vers 39 Hz, -2 à -3 dB.">Otherwise: EQ Eight on the bass, a Bell around 39 Hz, −2 to −3 dB.</li>
+            <li data-fr="Sinon : EQ Eight sur la basse, une cloche vers 39 Hz, -2 à -3 dB.">Otherwise: EQ Eight on the bass, a Bell around 39 Hz, −2 to −3 dB.</li>
           </ol>
           <button class="fix" type="button" id="fix"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg>
             <span data-fr="Ajouter un EQ Eight sur « Sub Bass »">Add an EQ Eight on “Sub Bass”</span></button>
@@ -250,7 +251,7 @@ footer{font-size:14px;color:var(--ink-2);padding:28px 0 48px;display:flex;flex-w
         <ul class="notes">
           <li><span class="label" data-fr="Quoi">What</span><div><b data-fr="Le fait">The fact</b><span data-fr="Quelle piste, quelle zone, combien.">Which track, which zone, how much.</span></div></li>
           <li><span class="label" data-fr="Pourquoi">Why</span><div><b data-fr="Avec des mots de tous les jours">In everyday words</b><span data-fr="Et ce que tu gagnes à corriger.">And what you gain by fixing it.</span></div></li>
-          <li><span class="label" data-fr="Comment">How</span><div><b data-fr="Les étapes dans Ableton">The steps in Ableton</b><span data-fr="Avec les vrais noms : EQ Eight → Bell → 120 Hz → −3 dB.">With the real names: EQ Eight → Bell → 120 Hz → −3 dB.</span></div></li>
+          <li><span class="label" data-fr="Comment">How</span><div><b data-fr="Les étapes dans Ableton">The steps in Ableton</b><span data-fr="Avec les vrais noms : EQ Eight → Bell → 120 Hz → −3 dB.">With the real names: EQ Eight → Bell → 120 Hz → −3 dB.</span></div></li>
           <li><span class="label" data-fr="Un clic">One click</span><div><b data-fr="La correction automatique">The automatic fix</b><span data-fr="Pan, fader, EQ Eight ou Utility réglés pour toi. Cmd+Z / Ctrl+Z annule.">Pan, fader, EQ Eight or Utility set for you. Cmd+Z / Ctrl+Z undoes it.</span></div></li>
         </ul>
       </div>
