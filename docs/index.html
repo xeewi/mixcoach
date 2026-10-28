@@ -47,7 +47,7 @@ svg.i{width:1.1em;height:1.1em;flex:none}
 .top a.label{text-decoration:none}
 .top a.label:hover{text-decoration:underline}
 .top button{font:inherit;background:none;border:1px solid var(--ink);color:var(--ink);padding:5px 10px;cursor:pointer}
-.top button:hover{background:var(--ink);color:var(--silver)}
+@media (hover:hover){.top button:hover{background:var(--ink);color:var(--silver)}}
 
 /* ---------- hero */
 .hero{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:56px;padding:64px 0 72px;align-items:center}
@@ -61,7 +61,8 @@ svg.i{width:1.1em;height:1.1em;flex:none}
 .dl svg{width:30px;height:30px;grid-row:span 2}
 .dl b{font-size:22px;font-weight:700;letter-spacing:-.01em;color:#fff}
 .dl small{font-size:14px}
-.dl:hover{background:#fff;color:var(--ink)} .dl:hover b{color:var(--ink)}
+@media (hover:hover){.dl:hover{background:#fff;color:var(--ink)} .dl:hover b{color:var(--ink)}}
+.dl:active{transform:translateY(1px)}
 .meta{margin-top:18px;font-size:14px;color:var(--ink-2)}
 .copy .spacer{flex:1}
 
@@ -108,8 +109,10 @@ h2{font-size:clamp(32px,3.6vw,48px);line-height:1.05;letter-spacing:-.03em;font-
 .entry ol{margin:0;padding-inline-start:22px}
 .entry li{margin:4px 0}
 .fix{display:inline-flex;align-items:center;gap:10px;margin-top:22px;background:var(--ink);color:#fff;border:0;font:inherit;font-weight:600;padding:12px 18px;cursor:pointer}
-.fix:hover{background:#fff;color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
-.fix[disabled]{background:var(--ink-2);cursor:default}
+@media (hover:hover){.fix:hover{background:#fff;color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}}
+.fix:active{transform:translateY(1px)}
+/* done: readable paper state, whatever hover or tap left behind */
+.fix[disabled],.fix[disabled]:hover{background:var(--paper);color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink);transform:none;cursor:default}
 .notes{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink)}
 .notes li{display:grid;grid-template-columns:92px 1fr;gap:16px;padding:18px 0;border-bottom:1px solid var(--ink)}
 .notes b{display:block;font-weight:600;margin-bottom:2px}
@@ -142,13 +145,13 @@ code{font:500 .86em ui-monospace,"SF Mono",Menlo,Consolas,monospace;background:v
 .close{background:var(--ink);color:#fff;border-top:0;padding:96px 0}
 .close .sub{color:#B9BDC3}
 .close .dl{background:#fff;color:var(--ink)} .close .dl b{color:var(--ink)}
-.close .dl:hover{background:var(--silver)}
+@media (hover:hover){.close .dl:hover{background:var(--silver)}}
 .credits{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:16px 40px;padding:40px 0 32px;border-bottom:1px solid var(--ink)}
 .credits p{margin:0;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 16px}
 .credits b{font-size:clamp(24px,2.4vw,32px);font-weight:500;letter-spacing:-.02em}
 .credits ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px 28px;font-size:17px}
 .credits a{text-decoration:none;border-bottom:1px solid var(--ink)}
-.credits a:hover{border-bottom-width:3px}
+@media (hover:hover){.credits a:hover{border-bottom-width:3px}}
 footer{font-size:14px;color:var(--ink-2);padding:28px 0 48px;display:flex;flex-wrap:wrap;gap:8px 24px}
 
 @media (max-width:980px){

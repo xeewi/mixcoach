@@ -410,8 +410,9 @@ h1{margin:0 0 4px;font-weight:700;letter-spacing:-.02em} h2{margin-top:32px;padd
 .fact{margin:0 0 6px} summary{cursor:pointer;color:var(--fg);text-decoration:underline;text-underline-offset:.2em;text-decoration-thickness:1px}
 .action{border-top:1px solid var(--line);padding:8px 0 0;margin:10px 0 0} .action ol{margin:6px 0 4px;padding-inline-start:22px}
 .autofix{display:inline-flex;align-items:center;gap:8px;font:inherit;font-size:.92em;font-weight:600;margin:8px 0 2px;padding:7px 12px;border:1px solid var(--fg);background:var(--fg);color:var(--bg);cursor:pointer}
-.autofix:hover{background:var(--bg);color:var(--fg)}
-.autofix:disabled{opacity:.5;cursor:default} .fixstatus{margin-inline-start:10px;color:var(--mut);font-size:.9em}
+@media (hover:hover){.autofix:hover{background:var(--bg);color:var(--fg)}}
+.autofix:active{transform:translateY(1px)}
+.autofix:disabled,.autofix:disabled:hover{background:transparent;color:var(--mut);border-color:var(--line);transform:none;cursor:default} .fixstatus{margin-inline-start:10px;color:var(--mut);font-size:.9em}
 .bolt{width:1em;height:1em;flex:none;vertical-align:-.12em}
 svg{width:100%;height:auto;background:var(--card);border:1px solid var(--line)}
 .axis{stroke:var(--fg)} .grid{stroke:var(--line)} .band{fill:var(--fg);opacity:.1}
