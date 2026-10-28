@@ -42,6 +42,14 @@ MixCoach goes one step further:
 - 🌍 **It speaks 18 languages.**
 - 🔓 **It's free, open source, and runs offline.** No account, no server, no AI service: just math on your audio.
 
+### What one tip changes in the sound
+
+Measured in Live on a real house track. The kick and the bass both play around 39 Hz, and the bass covers the hit of the kick. MixCoach suggests a −3 dB bell at 39 Hz on the bass: only that small zone moves, and the kick goes from 44% to 61% of the sound there.
+
+<p align="center">
+  <img src="docs/assets/change-en.gif" alt="Before / after: the EQ Eight curve draws itself, the bass bars drop around 39 Hz and the kick's share goes from 44% to 61%" width="820">
+</p>
+
 ## Features
 
 | | |

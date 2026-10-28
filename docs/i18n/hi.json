@@ -110,5 +110,18 @@
  "Lead. 2–6 kHz. Un peu agressif : adoucis-le.": "Lead. 2–6 kHz. थोड़ा तीखा: इसे नरम करें।",
  "Hats. 6–20 kHz. 81 % de l'air vient d'eux.": "Hats. 6–20 kHz. 81% एयर इन्हीं से।",
  "Fait. Cmd+Z / Ctrl+Z pour annuler.": "हो गया। अनडू के लिए Cmd+Z / Ctrl+Z।",
- "Ce que dit MixCoach": "MixCoach क्या कहता है"
+ "Ce que dit MixCoach": "MixCoach क्या कहता है",
+ "Ce qu'un conseil change, sur un vrai morceau": "एक सलाह असली ट्रैक पर क्या बदलती है",
+ "Mesuré dans Live sur un morceau house. Le kick et la basse jouent tous les deux vers 39 Hz : la basse couvre le coup du kick. MixCoach propose une cloche de −3 dB à 39 Hz sur la basse.": "Live में एक हाउस ट्रैक पर मापा गया। किक और बेस दोनों 39 Hz के आसपास बजते हैं: बेस किक की चोट को ढक देता है। MixCoach बेस पर 39 Hz पर −3 dB का बेल सुझाता है।",
+ "Avant": "पहले",
+ "Après": "बाद में",
+ "Basse": "बेस",
+ "La basse ne baisse qu'autour de 39 Hz, là où les deux sons se battent ; ailleurs, rien ne bouge. Le kick redevient net, sans monter le son.": "बेस सिर्फ़ 39 Hz के आसपास कम होता है, जहाँ दोनों आवाज़ें टकराती हैं; बाकी कुछ नहीं बदलता। किक फिर से साफ़ सुनाई देता है, आवाज़ बढ़ाए बिना।",
+ "Niveau du kick et de la basse dans chaque bande, de 31 à 400 Hz.": "हर बैंड में किक और बेस का लेवल, 31 से 400 Hz तक।",
+ "EQ EIGHT SUR LA BASSE": "बेस पर EQ EIGHT",
+ "BASSES": "बेस",
+ "BAS-MÉDIUMS": "लो-मिड",
+ "Niveaux mesurés par les capteurs MixCoach pendant la lecture. « Après » applique la courbe de l'EQ Eight aux mêmes mesures. Survole une bande pour voir ses chiffres.": "प्लेबैक के दौरान MixCoach सेंसर द्वारा मापे गए लेवल। “बाद में” उन्हीं मापों पर EQ Eight का कर्व लगाता है। किसी बैंड पर माउस ले जाकर उसके आँकड़े देखें।",
+ "{f} Hz · kick {k} dB · basse {b} dB · le kick a {p} de cette bande.": "{f} Hz · किक {k} dB · बेस {b} dB · इस बैंड का {p} किक का है।",
+ "À 39 Hz, le kick a {p} du son.": "39 Hz पर आवाज़ का {p} किक का है।"
 }

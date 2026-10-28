@@ -110,5 +110,18 @@
  "Lead. 2–6 kHz. Un peu agressif : adoucis-le.": "Lead. 2–6 kHz. Etwas scharf: zähm ihn.",
  "Hats. 6–20 kHz. 81 % de l'air vient d'eux.": "Hats. 6–20 kHz. 81 % der Luft kommen von ihnen.",
  "Fait. Cmd+Z / Ctrl+Z pour annuler.": "Erledigt. Cmd+Z / Ctrl+Z zum Rückgängigmachen.",
- "Ce que dit MixCoach": "Was MixCoach sagt"
+ "Ce que dit MixCoach": "Was MixCoach sagt",
+ "Ce qu'un conseil change, sur un vrai morceau": "Was ein Tipp an einem echten Track ändert",
+ "Mesuré dans Live sur un morceau house. Le kick et la basse jouent tous les deux vers 39 Hz : la basse couvre le coup du kick. MixCoach propose une cloche de −3 dB à 39 Hz sur la basse.": "Gemessen in Live an einem House-Track. Kick und Bass spielen beide um 39 Hz: Der Bass verdeckt den Schlag der Kick. MixCoach schlägt eine Glocke mit −3 dB bei 39 Hz auf dem Bass vor.",
+ "Avant": "Vorher",
+ "Après": "Nachher",
+ "Basse": "Bass",
+ "La basse ne baisse qu'autour de 39 Hz, là où les deux sons se battent ; ailleurs, rien ne bouge. Le kick redevient net, sans monter le son.": "Der Bass wird nur um 39 Hz leiser, wo sich die beiden Sounds streiten; sonst ändert sich nichts. Die Kick klingt wieder klar, ohne dass etwas lauter gedreht wird.",
+ "Niveau du kick et de la basse dans chaque bande, de 31 à 400 Hz.": "Pegel von Kick und Bass in jedem Band, von 31 bis 400 Hz.",
+ "EQ EIGHT SUR LA BASSE": "EQ EIGHT AUF DEM BASS",
+ "BASSES": "BASS",
+ "BAS-MÉDIUMS": "TIEFMITTEN",
+ "Niveaux mesurés par les capteurs MixCoach pendant la lecture. « Après » applique la courbe de l'EQ Eight aux mêmes mesures. Survole une bande pour voir ses chiffres.": "Pegel, die die MixCoach-Sensoren während der Wiedergabe gemessen haben. „Nachher“ wendet die Kurve des EQ Eight auf dieselben Messungen an. Fahr über ein Band, um seine Zahlen zu sehen.",
+ "{f} Hz · kick {k} dB · basse {b} dB · le kick a {p} de cette bande.": "{f} Hz · Kick {k} dB · Bass {b} dB · die Kick hat {p} dieses Bands.",
+ "À 39 Hz, le kick a {p} du son.": "Bei 39 Hz hat die Kick {p} des Sounds."
 }

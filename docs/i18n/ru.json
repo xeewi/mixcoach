@@ -110,5 +110,18 @@
  "Lead. 2–6 kHz. Un peu agressif : adoucis-le.": "Lead. 2–6 kHz. Резковато: смягчи его.",
  "Hats. 6–20 kHz. 81 % de l'air vient d'eux.": "Hats. 6–20 kHz. 81 % воздуха — от них.",
  "Fait. Cmd+Z / Ctrl+Z pour annuler.": "Готово. Cmd+Z / Ctrl+Z — отменить.",
- "Ce que dit MixCoach": "Что говорит MixCoach"
+ "Ce que dit MixCoach": "Что говорит MixCoach",
+ "Ce qu'un conseil change, sur un vrai morceau": "Что меняет один совет на настоящем треке",
+ "Mesuré dans Live sur un morceau house. Le kick et la basse jouent tous les deux vers 39 Hz : la basse couvre le coup du kick. MixCoach propose une cloche de −3 dB à 39 Hz sur la basse.": "Измерено в Live на хаус-треке. Кик и бас оба звучат около 39 Hz: бас закрывает удар кика. MixCoach предлагает колокол −3 dB на 39 Hz на басу.",
+ "Avant": "До",
+ "Après": "После",
+ "Basse": "Бас",
+ "La basse ne baisse qu'autour de 39 Hz, là où les deux sons se battent ; ailleurs, rien ne bouge. Le kick redevient net, sans monter le son.": "Бас становится тише только около 39 Hz, где два звука спорят; остальное не меняется. Кик снова звучит чётко, без прибавления громкости.",
+ "Niveau du kick et de la basse dans chaque bande, de 31 à 400 Hz.": "Уровень кика и баса в каждой полосе, от 31 до 400 Hz.",
+ "EQ EIGHT SUR LA BASSE": "EQ EIGHT НА БАСУ",
+ "BASSES": "БАС",
+ "BAS-MÉDIUMS": "НИЖНЯЯ СЕРЕДИНА",
+ "Niveaux mesurés par les capteurs MixCoach pendant la lecture. « Après » applique la courbe de l'EQ Eight aux mêmes mesures. Survole une bande pour voir ses chiffres.": "Уровни, измеренные датчиками MixCoach во время воспроизведения. «После» применяет кривую EQ Eight к тем же измерениям. Наведи на полосу, чтобы увидеть цифры.",
+ "{f} Hz · kick {k} dB · basse {b} dB · le kick a {p} de cette bande.": "{f} Hz · кик {k} dB · бас {b} dB · у кика {p} этой полосы.",
+ "À 39 Hz, le kick a {p} du son.": "На 39 Hz у кика {p} звука."
 }

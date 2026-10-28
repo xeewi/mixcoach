@@ -110,5 +110,18 @@
  "Lead. 2–6 kHz. Un peu agressif : adoucis-le.": "Lead. ⁦2–6 kHz⁩. حادّ قليلًا: نعّمه.",
  "Hats. 6–20 kHz. 81 % de l'air vient d'eux.": "Hats. ⁦6–20 kHz⁩. ‏81% من الهواء منها.",
  "Fait. Cmd+Z / Ctrl+Z pour annuler.": "تم. Cmd+Z / Ctrl+Z للتراجع.",
- "Ce que dit MixCoach": "ما يقوله MixCoach"
+ "Ce que dit MixCoach": "ما يقوله MixCoach",
+ "Ce qu'un conseil change, sur un vrai morceau": "ما الذي تغيّره نصيحة واحدة في مقطوعة حقيقية",
+ "Mesuré dans Live sur un morceau house. Le kick et la basse jouent tous les deux vers 39 Hz : la basse couvre le coup du kick. MixCoach propose une cloche de −3 dB à 39 Hz sur la basse.": "قيس في Live على مقطوعة هاوس. الـ kick والباس يعزفان كلاهما حول 39 Hz: الباس يغطي ضربة الـ kick. يقترح MixCoach جرسًا بمقدار −3 dB عند 39 Hz على الباس.",
+ "Avant": "قبل",
+ "Après": "بعد",
+ "Basse": "الباس",
+ "La basse ne baisse qu'autour de 39 Hz, là où les deux sons se battent ; ailleurs, rien ne bouge. Le kick redevient net, sans monter le son.": "ينخفض الباس فقط حول 39 Hz، حيث يتصارع الصوتان؛ ولا يتغير شيء آخر. يعود الـ kick واضحًا دون رفع الصوت.",
+ "Niveau du kick et de la basse dans chaque bande, de 31 à 400 Hz.": "مستوى الـ kick والباس في كل نطاق، من 31 إلى 400 Hz.",
+ "EQ EIGHT SUR LA BASSE": "EQ EIGHT على الباس",
+ "BASSES": "الباس",
+ "BAS-MÉDIUMS": "المتوسطات المنخفضة",
+ "Niveaux mesurés par les capteurs MixCoach pendant la lecture. « Après » applique la courbe de l'EQ Eight aux mêmes mesures. Survole une bande pour voir ses chiffres.": "مستويات قاستها مستشعرات MixCoach أثناء التشغيل. «بعد» يطبّق منحنى EQ Eight على القياسات نفسها. مرّر المؤشر فوق نطاق لرؤية أرقامه.",
+ "{f} Hz · kick {k} dB · basse {b} dB · le kick a {p} de cette bande.": "{f} Hz · الـ kick {k} dB · الباس {b} dB · للـ kick {p} من هذا النطاق.",
+ "À 39 Hz, le kick a {p} du son.": "عند 39 Hz، للـ kick {p} من الصوت."
 }

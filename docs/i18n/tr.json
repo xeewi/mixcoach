@@ -110,5 +110,18 @@
  "Lead. 2–6 kHz. Un peu agressif : adoucis-le.": "Lead. 2–6 kHz. Biraz sert: yumuşat.",
  "Hats. 6–20 kHz. 81 % de l'air vient d'eux.": "Hats. 6–20 kHz. Havanın %81'i onlardan.",
  "Fait. Cmd+Z / Ctrl+Z pour annuler.": "Tamam. Geri almak için Cmd+Z / Ctrl+Z.",
- "Ce que dit MixCoach": "MixCoach ne diyor"
+ "Ce que dit MixCoach": "MixCoach ne diyor",
+ "Ce qu'un conseil change, sur un vrai morceau": "Bir ipucu gerçek bir parçada neyi değiştirir",
+ "Mesuré dans Live sur un morceau house. Le kick et la basse jouent tous les deux vers 39 Hz : la basse couvre le coup du kick. MixCoach propose une cloche de −3 dB à 39 Hz sur la basse.": "Live'da bir house parçasında ölçüldü. Kick ve bas ikisi de 39 Hz civarında çalıyor: bas, kick'in vuruşunu örtüyor. MixCoach basa 39 Hz'de −3 dB'lik bir çan öneriyor.",
+ "Avant": "Önce",
+ "Après": "Sonra",
+ "Basse": "Bas",
+ "La basse ne baisse qu'autour de 39 Hz, là où les deux sons se battent ; ailleurs, rien ne bouge. Le kick redevient net, sans monter le son.": "Bas yalnızca iki sesin çatıştığı 39 Hz civarında düşer; başka hiçbir şey değişmez. Kick, sesi açmadan yeniden net duyulur.",
+ "Niveau du kick et de la basse dans chaque bande, de 31 à 400 Hz.": "Her bantta kick ve basın seviyesi, 31'den 400 Hz'e.",
+ "EQ EIGHT SUR LA BASSE": "BASTA EQ EIGHT",
+ "BASSES": "BAS",
+ "BAS-MÉDIUMS": "ALT ORTA",
+ "Niveaux mesurés par les capteurs MixCoach pendant la lecture. « Après » applique la courbe de l'EQ Eight aux mêmes mesures. Survole une bande pour voir ses chiffres.": "Çalma sırasında MixCoach sensörlerinin ölçtüğü seviyeler. “Sonra”, EQ Eight eğrisini aynı ölçümlere uygular. Rakamları görmek için bir bandın üzerine gel.",
+ "{f} Hz · kick {k} dB · basse {b} dB · le kick a {p} de cette bande.": "{f} Hz · kick {k} dB · bas {b} dB · bu bandın {p} kadarı kick'te.",
+ "À 39 Hz, le kick a {p} du son.": "39 Hz'de sesin {p} kadarı kick'te."
 }

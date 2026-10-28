@@ -110,5 +110,18 @@
  "Lead. 2–6 kHz. Un peu agressif : adoucis-le.": "Lead. 2–6 kHz. 조금 거칠어요: 부드럽게.",
  "Hats. 6–20 kHz. 81 % de l'air vient d'eux.": "Hats. 6–20 kHz. 에어의 81 %가 여기서 나와요.",
  "Fait. Cmd+Z / Ctrl+Z pour annuler.": "완료. Cmd+Z / Ctrl+Z로 취소.",
- "Ce que dit MixCoach": "MixCoach의 한마디"
+ "Ce que dit MixCoach": "MixCoach의 한마디",
+ "Ce qu'un conseil change, sur un vrai morceau": "조언 하나가 실제 곡에서 바꾸는 것",
+ "Mesuré dans Live sur un morceau house. Le kick et la basse jouent tous les deux vers 39 Hz : la basse couvre le coup du kick. MixCoach propose une cloche de −3 dB à 39 Hz sur la basse.": "하우스 곡을 Live에서 측정했습니다. 킥과 베이스가 둘 다 39 Hz 근처에서 울려, 베이스가 킥의 타격을 가립니다. MixCoach는 베이스에 39 Hz −3 dB 벨을 제안합니다.",
+ "Avant": "전",
+ "Après": "후",
+ "Basse": "베이스",
+ "La basse ne baisse qu'autour de 39 Hz, là où les deux sons se battent ; ailleurs, rien ne bouge. Le kick redevient net, sans monter le son.": "베이스는 두 소리가 부딪히는 39 Hz 근처에서만 줄어들고, 나머지는 그대로입니다. 볼륨을 올리지 않아도 킥이 다시 또렷해집니다.",
+ "Niveau du kick et de la basse dans chaque bande, de 31 à 400 Hz.": "31~400 Hz 각 대역에서 킥과 베이스의 레벨.",
+ "EQ EIGHT SUR LA BASSE": "베이스에 EQ EIGHT",
+ "BASSES": "저역",
+ "BAS-MÉDIUMS": "중저역",
+ "Niveaux mesurés par les capteurs MixCoach pendant la lecture. « Après » applique la courbe de l'EQ Eight aux mêmes mesures. Survole une bande pour voir ses chiffres.": "재생 중 MixCoach 센서가 측정한 레벨입니다. ‘후’는 같은 측정값에 EQ Eight 커브를 적용한 것입니다. 대역에 마우스를 올리면 수치가 보입니다.",
+ "{f} Hz · kick {k} dB · basse {b} dB · le kick a {p} de cette bande.": "{f} Hz · 킥 {k} dB · 베이스 {b} dB · 이 대역의 {p}가 킥입니다.",
+ "À 39 Hz, le kick a {p} du son.": "39 Hz에서 소리의 {p}가 킥입니다."
 }

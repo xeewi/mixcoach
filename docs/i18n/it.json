@@ -110,5 +110,18 @@
  "Lead. 2–6 kHz. Un peu agressif : adoucis-le.": "Lead. 2–6 kHz. Un po' aggressivo: addolciscilo.",
  "Hats. 6–20 kHz. 81 % de l'air vient d'eux.": "Hats. 6–20 kHz. L'81% dell'aria viene da loro.",
  "Fait. Cmd+Z / Ctrl+Z pour annuler.": "Fatto. Cmd+Z / Ctrl+Z per annullare.",
- "Ce que dit MixCoach": "Cosa dice MixCoach"
+ "Ce que dit MixCoach": "Cosa dice MixCoach",
+ "Ce qu'un conseil change, sur un vrai morceau": "Cosa cambia un consiglio, su un brano vero",
+ "Mesuré dans Live sur un morceau house. Le kick et la basse jouent tous les deux vers 39 Hz : la basse couvre le coup du kick. MixCoach propose une cloche de −3 dB à 39 Hz sur la basse.": "Misurato in Live su un brano house. Kick e basso suonano entrambi intorno ai 39 Hz: il basso copre il colpo del kick. MixCoach propone una campana di −3 dB a 39 Hz sul basso.",
+ "Avant": "Prima",
+ "Après": "Dopo",
+ "Basse": "Basso",
+ "La basse ne baisse qu'autour de 39 Hz, là où les deux sons se battent ; ailleurs, rien ne bouge. Le kick redevient net, sans monter le son.": "Il basso si abbassa solo intorno ai 39 Hz, dove i due suoni si scontrano; il resto non cambia. Il kick torna nitido, senza alzare il volume.",
+ "Niveau du kick et de la basse dans chaque bande, de 31 à 400 Hz.": "Livello di kick e basso in ogni banda, da 31 a 400 Hz.",
+ "EQ EIGHT SUR LA BASSE": "EQ EIGHT SUL BASSO",
+ "BASSES": "BASSI",
+ "BAS-MÉDIUMS": "MEDIO-BASSI",
+ "Niveaux mesurés par les capteurs MixCoach pendant la lecture. « Après » applique la courbe de l'EQ Eight aux mêmes mesures. Survole une bande pour voir ses chiffres.": "Livelli misurati dai sensori di MixCoach durante la riproduzione. «Dopo» applica la curva dell'EQ Eight alle stesse misure. Passa sopra una banda per vederne i numeri.",
+ "{f} Hz · kick {k} dB · basse {b} dB · le kick a {p} de cette bande.": "{f} Hz · kick {k} dB · basso {b} dB · il kick ha il {p} di questa banda.",
+ "À 39 Hz, le kick a {p} du son.": "A 39 Hz il kick ha il {p} del suono."
 }

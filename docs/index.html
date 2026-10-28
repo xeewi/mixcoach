@@ -83,6 +83,29 @@ svg.i{width:1.1em;height:1.1em;flex:none}
 .b-mid{background:var(--mid)} .b-himid{background:var(--himid)} .b-air{background:var(--air)}
 .sleeve figcaption{display:flex;justify-content:space-between;gap:16px;padding-top:12px;font-size:13px;color:var(--ink-2)}
 
+/* ce qu'un conseil change : vraies mesures d'un morceau, avant / après */
+.chg{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:56px;align-items:start}
+.chg .say2{font-size:28px;font-weight:600;line-height:1.15;letter-spacing:-.02em;margin:0 0 20px;min-height:2.3em}
+.share{display:flex;height:34px;border:1px solid var(--ink);background:#fff}
+.share i{display:block;background:var(--ink);transition:width .7s var(--ease) .35s}
+.share-k{display:flex;justify-content:space-between;margin:8px 0 28px;font-size:14px;color:var(--ink-2)}
+.chg .os{margin:0 0 20px}
+.legend{display:flex;gap:20px;font-size:14px;color:var(--ink-2);margin:0 0 6px}
+.legend span{display:inline-flex;align-items:center;gap:8px}
+.legend span::before{content:"";width:14px;height:14px;background:var(--ink)}
+.legend span.lb::before{background:#fff;box-shadow:inset 0 0 0 1.5px var(--ink)}
+.plot{margin:0;background:var(--paper);border:1px solid var(--ink);padding:16px 12px 8px}
+.plot svg{display:block;width:100%;height:auto;font-family:var(--font);direction:ltr}
+.plot .ax{font-size:11px;fill:var(--ink-2);font-variant-numeric:tabular-nums}
+.plot .lane{font-size:10px;font-weight:600;letter-spacing:.14em;fill:var(--ink)}
+.plot .grid{stroke:var(--ink);stroke-opacity:.18;stroke-width:1}
+.plot .bk{fill:var(--ink)} .plot .bb{fill:#fff;stroke:var(--ink);stroke-width:1.5}
+.plot .bb{transform-box:fill-box;transform-origin:50% 100%;transition:transform .7s var(--ease) .35s}
+.plot .hit{fill:transparent;cursor:crosshair} .plot .hit:focus{outline:none}
+.plot .col{fill:#fff;fill-opacity:0;transition:fill-opacity .2s} .plot .col.on{fill-opacity:.8}
+.plot .eq{fill:none;stroke:var(--ink);stroke-width:2.5;transition:stroke-dashoffset .6s var(--ease)}
+.plot .eq0{stroke:var(--ink);stroke-width:1;stroke-dasharray:3 4}
+.plot figcaption{min-height:3em;margin:10px 4px 6px;font-size:14px;color:var(--ink-2)}
 /* ---------- sections */
 section{padding:88px 0;border-top:1px solid var(--ink)}
 h2{font-size:clamp(32px,3.6vw,48px);line-height:1.05;letter-spacing:-.03em;font-weight:500;margin:0 0 16px;max-width:18em;text-wrap:balance}
@@ -159,7 +182,7 @@ code{font:500 .86em ui-monospace,"SF Mono",Menlo,Consolas,monospace;background:v
 footer{font-size:14px;color:var(--ink-2);padding:28px 0 48px;display:flex;flex-wrap:wrap;gap:8px 24px}
 
 @media (max-width:980px){
-  .hero,.tip{grid-template-columns:minmax(0,1fr);gap:40px}
+  .hero,.tip,.chg{grid-template-columns:minmax(0,1fr);gap:40px}
   .key{grid-template-columns:repeat(3,1fr)} .key div:nth-child(4){border-inline-start:0} .key div:nth-child(n+4){border-top:1px solid var(--ink)}
   .sides{grid-template-columns:1fr;gap:40px}
 }
@@ -172,6 +195,7 @@ footer{font-size:14px;color:var(--ink-2);padding:28px 0 48px;display:flex;flex-w
   .key .sw{height:64px}
   .band{padding:0 14px}
   .steps li{grid-template-columns:44px 1fr}
+  .chg .say2{font-size:22px;min-height:0} .plot{padding:12px 4px 4px}
   .notes li{grid-template-columns:1fr;gap:6px}
   .dl{padding:18px 20px}
 }
@@ -239,6 +263,29 @@ footer{font-size:14px;color:var(--ink-2);padding:28px 0 48px;display:flex;flex-w
         <p data-fr="L'attaque et la présence des sons ; l'oreille y est très sensible.">The attack and presence of sounds; your ear is very sensitive here.</p></div>
       <div><span class="sw" style="background:var(--air)"></span><h3 data-fr="Aigus / air">Highs / air</h3><p class="hz label num">6–20 kHz</p>
         <p data-fr="La brillance, les cymbales, le souffle, « l'air ».">Brightness, cymbals, breath, “air”.</p></div>
+    </div>
+  </section>
+
+  <section id="change">
+    <h2 data-fr="Ce qu'un conseil change, sur un vrai morceau">What one tip changes, on a real track</h2>
+    <p class="sub" data-fr="Mesuré dans Live sur un morceau house. Le kick et la basse jouent tous les deux vers 39 Hz : la basse couvre le coup du kick. MixCoach propose une cloche de −3 dB à 39 Hz sur la basse.">
+      Measured in Live on a house track. The kick and the bass both play around 39 Hz: the bass covers the hit of the kick. MixCoach suggests a −3 dB bell at 39 Hz on the bass.</p>
+    <div class="chg">
+      <div>
+        <div class="os label" role="tablist" aria-label="Before / after">
+          <button role="tab" data-ba="0" aria-selected="true" data-fr="Avant">Before</button>
+          <button role="tab" data-ba="1" aria-selected="false" data-fr="Après">After</button>
+        </div>
+        <p class="say2" id="say2" aria-live="polite"></p>
+        <div class="share" aria-hidden="true"><i id="shk"></i></div>
+        <div class="share-k"><span id="shk-l"></span><span id="shb-l"></span></div>
+        <p class="sub" style="font-size:17px;margin:0" data-fr="La basse ne baisse qu'autour de 39 Hz, là où les deux sons se battent ; ailleurs, rien ne bouge. Le kick redevient net, sans monter le son.">The bass only drops around 39 Hz, where the two sounds fight; nothing else moves. The kick sounds clear again, without turning anything up.</p>
+      </div>
+      <figure class="plot">
+        <div class="legend"><span>Kick</span><span class="lb" data-fr="Basse">Bass</span></div>
+        <svg id="chg" viewBox="0 0 760 392" role="img"></svg>
+        <figcaption id="chg-cap"></figcaption>
+      </figure>
     </div>
   </section>
 
@@ -487,6 +534,105 @@ document.querySelectorAll(".band").forEach(b => {
   if (hover) b.onmouseenter = () => { if (zone !== b.dataset.z) showZone(b.dataset.z, true); };
 });
 
+// Ce qu'un conseil change : niveaux mesurés par les capteurs dans Live (Octobeats #15, piste kick et piste basse),
+// en dB sous la bande la plus forte. « Après » = les mêmes mesures + la courbe de l'EQ Eight (cloche -3 dB, 39 Hz, Q 2).
+const CHG = [[31,-10.7,-6.1,-1.60],[39,-3.9,-2.8,-3.00],[50,0,-5.1,-1.60],[63,-0.2,-5.9,-0.65],[79,-0.5,-5.7,-0.30],[99,-1.8,-6.5,-0.16],
+  [125,-5.3,-6.0,-0.09],[158,-9.0,-5.3,-0.05],[198,-12.3,-5.1,-0.03],[250,-16.6,-5.1,-0.02],[315,-17.6,-4.6,-0.01],[397,-17.2,-4.6,-0.01]];
+const SVGNS = "http://www.w3.org/2000/svg", chg = document.getElementById("chg");
+// Le dessin suit la largeur réelle (1 unité ≈ 1 px) : les textes restent lisibles sur téléphone.
+let VW = 760, X0 = 44, PW = 708, BW = PW / CHG.length;
+const YT = 74, YB = 300, FLOOR = -21;
+const yOf = d => YT + (d / FLOOR) * (YB - YT);
+const xOfF = f => X0 + (Math.log2(f / 31.25) * 3 + 0.5) * BW;
+const kShare = (k, b) => 10 ** (k / 10) / (10 ** (k / 10) + 10 ** (b / 10));
+let after = false, hov = -1;
+const pct = x => `${Math.round(x * 100)}${lang === "fr" ? "\u202f" : ""}%`;  // espace fine avant % en français seulement
+const el = (tag, at, txt) => { const e = document.createElementNS(SVGNS, tag); for (const k in at) e.setAttribute(k, at[k]); if (txt != null) e.textContent = txt; return e; };
+function buildChange() {
+  VW = Math.round(Math.max(330, Math.min(760, chg.getBoundingClientRect().width || 760)));
+  X0 = VW < 500 ? 34 : 44; PW = VW - X0 - 8; BW = PW / CHG.length;
+  chg.setAttribute("viewBox", `0 0 ${VW} 392`);
+  chg.textContent = "";
+  chg.setAttribute("aria-label", tr("Level of the kick and the bass in each band, from 31 to 400 Hz.", "Niveau du kick et de la basse dans chaque bande, de 31 à 400 Hz."));
+  // couloir de l'EQ : 0 dB en pointillé, la cloche se dessine quand on passe à « après »
+  chg.append(el("text", { x: X0, y: 12, class: "lane" }, tr("EQ EIGHT ON THE BASS", "EQ EIGHT SUR LA BASSE")));
+  chg.append(el("line", { x1: X0, x2: X0 + PW, y1: 26, y2: 26, class: "eq0" }));
+  let d = "";
+  for (let f = 28; f <= 445; f *= 1.02) {
+    const w = Math.log2(f / 39.4), gain = -3 / (1 + (w / 0.36) ** 2);  // ≈ cloche Q 2 de l'EQ Eight (à 0,05 dB près sur les bandes)
+    d += (d ? "L" : "M") + xOfF(f).toFixed(1) + " " + (26 - gain * 9).toFixed(1);
+  }
+  chg.append(el("path", { d, class: "eq", id: "eqp", pathLength: 1, "stroke-dasharray": 1, "stroke-dashoffset": after ? 0 : 1 }));
+  for (const db of [0, -6, -12, -18]) {
+    chg.append(el("line", { x1: X0, x2: X0 + PW, y1: yOf(db), y2: yOf(db), class: "grid" }));
+    chg.append(el("text", { x: X0 - 8, y: yOf(db) + 4, class: "ax", "text-anchor": "end" }, db ? `${db}` : "0 dB"));
+  }
+  CHG.forEach(([f, k, b, eq], i) => {
+    const x = X0 + i * BW, w = (BW - 10) / 2;
+    chg.append(el("rect", { x, y: YT - 6, width: BW, height: YB - YT + 6, class: "col" + (i === hov ? " on" : ""), id: `col${i}` }));
+    chg.append(el("rect", { x: x + 4, y: yOf(k), width: w, height: YB - yOf(k), class: "bk" }));
+    const bb = el("rect", { x: x + 6 + w, y: yOf(b), width: w, height: YB - yOf(b), class: "bb" });
+    bb.style.transform = `scaleY(${after ? (YB - yOf(b + eq)) / (YB - yOf(b)) : 1})`;
+    chg.append(bb);
+    chg.append(el("text", { x: x + BW / 2, y: YB + 18, class: "ax", "text-anchor": "middle" }, String(f)));
+    const zc = f < 60 ? "--sub" : f < 250 ? "--bass" : "--lowmid";
+    chg.append(el("rect", { x: x + (i ? 1 : 0), y: YB + 28, width: BW - (i ? 1 : 0), height: 10, style: `fill:var(${zc})` }));
+    const hit = el("rect", { x, y: 0, width: BW, height: 392, class: "hit", tabindex: 0 });
+    hit.onmouseenter = hit.onfocus = () => { hov = i; markCol(); caption(); };
+    hit.onmouseleave = hit.onblur = () => { hov = -1; markCol(); caption(); };
+    chg.append(hit);
+  });
+  chg.append(el("text", { x: X0 + 1.5 * BW, y: YB + 56, class: "lane", "text-anchor": "middle" }, "SUB"));
+  chg.append(el("text", { x: X0 + 6 * BW, y: YB + 56, class: "lane", "text-anchor": "middle" }, tr("BASS", "BASSES")));
+  chg.append(el("text", { x: X0 + 10.5 * BW, y: YB + 56, class: "lane", "text-anchor": "middle" }, tr("LOW MIDS", "BAS-MÉDIUMS")));
+  chg.append(el("text", { x: X0 - 8, y: YB + 18, class: "ax", "text-anchor": "end" }, "Hz"));  // sous l'axe des dB, à gauche des fréquences
+}
+function markCol() { CHG.forEach((_, i) => document.getElementById(`col${i}`).classList.toggle("on", i === hov || (hov < 0 && i === 1))); }
+function caption() {
+  const cap = document.getElementById("chg-cap");
+  if (hov < 0) { cap.textContent = tr("Levels measured by the MixCoach sensors during playback. “After” applies the EQ Eight curve to the same measurements. Hover a band for its numbers.",
+    "Niveaux mesurés par les capteurs MixCoach pendant la lecture. « Après » applique la courbe de l'EQ Eight aux mêmes mesures. Survole une bande pour voir ses chiffres."); return; }
+  const [f, k, b, eq] = CHG[hov], b2 = after ? b + eq : b;
+  cap.textContent = tr("{f} Hz · kick {k} dB · bass {b} dB · the kick has {p} of this band.", "{f} Hz · kick {k} dB · basse {b} dB · le kick a {p} de cette bande.")
+    .replace("{f}", f).replace("{k}", k.toFixed(1)).replace("{b}", b2.toFixed(1)).replace("{p}", pct(kShare(k, b2)));
+}
+function setShare(sh) {
+  document.getElementById("say2").textContent = tr("At 39 Hz, the kick has {p} of the sound.", "À 39 Hz, le kick a {p} du son.").replace("{p}", pct(sh));
+  document.getElementById("shk-l").textContent = `Kick ${pct(sh)}`;
+  document.getElementById("shb-l").textContent = `${tr("Bass", "Basse")} ${pct(1 - sh)}`;
+}
+function showChange(a, animate) {
+  after = a;
+  document.querySelectorAll("[data-ba]").forEach(t => t.setAttribute("aria-selected", String(t.dataset.ba === (a ? "1" : "0"))));
+  const [, k, b, eq] = CHG[1], sh = kShare(k, a ? b + eq : b), bar = document.getElementById("shk");
+  bar.style.width = `${Math.round(sh * 100)}%`;
+  setShare(sh);
+  // pendant la transition, les chiffres suivent la largeur réelle de la barre
+  if (animate) { const t0 = performance.now(), tick = () => {
+    setShare(bar.getBoundingClientRect().width / bar.parentElement.clientWidth);
+    if (performance.now() - t0 < 20000 && Math.abs(bar.getBoundingClientRect().width / bar.parentElement.clientWidth - sh) > 0.004) requestAnimationFrame(tick); else setShare(sh);
+  }; setShare(kShare(k, a ? b : b + eq)); requestAnimationFrame(tick); }
+  if (!animate) { buildChange(); markCol(); caption(); return; }
+  document.getElementById("eqp").setAttribute("stroke-dashoffset", a ? 0 : 1);
+  chg.querySelectorAll(".bb").forEach((r, i) => {
+    const [, , b0, e0] = CHG[i];
+    r.style.transform = `scaleY(${a ? (YB - yOf(b0 + e0)) / (YB - yOf(b0)) : 1})`;
+  });
+  caption();
+}
+let lastW = 0;
+addEventListener("resize", () => { const w = Math.round(chg.getBoundingClientRect().width); if (Math.abs(w - lastW) > 24) { lastW = w; buildChange(); markCol(); } });
+document.querySelectorAll("[data-ba]").forEach(t => t.onclick = () => { played = true; showChange(t.dataset.ba === "1", true); });
+// La première fois que la section est bien visible, on applique le conseil tout seul (sauf si on préfère moins d'animations).
+let played = false;
+if ("IntersectionObserver" in window && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  const io = new IntersectionObserver(es => {
+    if (!es.some(e => e.isIntersecting) || played) return;
+    io.disconnect(); setTimeout(() => { if (!played) { played = true; showChange(true, true); } }, 1200);
+  }, { threshold: 0.6 });
+  io.observe(chg);
+}
+
 const picker = document.getElementById("lang");
 const codes = [...picker.options].map(o => o.value);
 async function setLang(code) {
@@ -500,6 +646,7 @@ async function setLang(code) {
   document.documentElement.dir = code === "ar" ? "rtl" : "ltr";
   picker.value = code;
   showZone(zone, false);
+  showChange(after, false);
   try { localStorage.setItem("mc_lang", code); } catch (e) {}
 }
 function browserLang() {

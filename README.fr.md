@@ -42,6 +42,14 @@ MixCoach va plus loin :
 - 🌍 **Il parle 18 langues.**
 - 🔓 **Il est gratuit, open source et fonctionne hors ligne.** Pas de compte, pas de serveur, pas d'IA en ligne : juste des calculs sur ton audio.
 
+### Ce qu'un conseil change sur le son
+
+Mesuré dans Live sur un vrai morceau house. Le kick et la basse jouent tous les deux vers 39 Hz, et la basse couvre le coup du kick. MixCoach propose une cloche de −3 dB à 39 Hz sur la basse : seule cette petite zone bouge, et le kick passe de 44 % à 61 % du son à cet endroit.
+
+<p align="center">
+  <img src="docs/assets/change-fr.gif" alt="Avant / après : la courbe de l'EQ Eight se dessine, les barres de la basse baissent autour de 39 Hz et la part du kick passe de 44 % à 61 %" width="820">
+</p>
+
 ## Fonctionnalités
 
 | | |

@@ -110,5 +110,18 @@
  "Lead. 2–6 kHz. Un peu agressif : adoucis-le.": "Lead. 2–6 kHz. Agak kasar: lembutkan.",
  "Hats. 6–20 kHz. 81 % de l'air vient d'eux.": "Hats. 6–20 kHz. 81% udaranya dari mereka.",
  "Fait. Cmd+Z / Ctrl+Z pour annuler.": "Beres. Cmd+Z / Ctrl+Z untuk membatalkan.",
- "Ce que dit MixCoach": "Kata MixCoach"
+ "Ce que dit MixCoach": "Kata MixCoach",
+ "Ce qu'un conseil change, sur un vrai morceau": "Apa yang diubah satu saran, di lagu sungguhan",
+ "Mesuré dans Live sur un morceau house. Le kick et la basse jouent tous les deux vers 39 Hz : la basse couvre le coup du kick. MixCoach propose une cloche de −3 dB à 39 Hz sur la basse.": "Diukur di Live pada sebuah lagu house. Kick dan bass sama-sama berbunyi di sekitar 39 Hz: bass menutupi pukulan kick. MixCoach menyarankan bell −3 dB di 39 Hz pada bass.",
+ "Avant": "Sebelum",
+ "Après": "Sesudah",
+ "Basse": "Bass",
+ "La basse ne baisse qu'autour de 39 Hz, là où les deux sons se battent ; ailleurs, rien ne bouge. Le kick redevient net, sans monter le son.": "Bass hanya turun di sekitar 39 Hz, tempat kedua suara berebut; selebihnya tidak berubah. Kick kembali jelas, tanpa menaikkan volume.",
+ "Niveau du kick et de la basse dans chaque bande, de 31 à 400 Hz.": "Level kick dan bass di setiap band, dari 31 sampai 400 Hz.",
+ "EQ EIGHT SUR LA BASSE": "EQ EIGHT DI BASS",
+ "BASSES": "BASS",
+ "BAS-MÉDIUMS": "LOW-MID",
+ "Niveaux mesurés par les capteurs MixCoach pendant la lecture. « Après » applique la courbe de l'EQ Eight aux mêmes mesures. Survole une bande pour voir ses chiffres.": "Level yang diukur sensor MixCoach selama pemutaran. “Sesudah” menerapkan kurva EQ Eight pada ukuran yang sama. Arahkan kursor ke sebuah band untuk melihat angkanya.",
+ "{f} Hz · kick {k} dB · basse {b} dB · le kick a {p} de cette bande.": "{f} Hz · kick {k} dB · bass {b} dB · kick memegang {p} dari band ini.",
+ "À 39 Hz, le kick a {p} du son.": "Di 39 Hz, kick memegang {p} dari suara."
 }

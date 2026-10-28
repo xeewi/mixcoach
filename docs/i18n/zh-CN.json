@@ -110,5 +110,18 @@
  "Lead. 2–6 kHz. Un peu agressif : adoucis-le.": "Lead。2–6 kHz。有点刺耳：柔和一下。",
  "Hats. 6–20 kHz. 81 % de l'air vient d'eux.": "Hats。6–20 kHz。81 % 的空气感来自它们。",
  "Fait. Cmd+Z / Ctrl+Z pour annuler.": "好了。Cmd+Z / Ctrl+Z 可撤销。",
- "Ce que dit MixCoach": "MixCoach 的建议"
+ "Ce que dit MixCoach": "MixCoach 的建议",
+ "Ce qu'un conseil change, sur un vrai morceau": "一条建议在真实作品上带来的变化",
+ "Mesuré dans Live sur un morceau house. Le kick et la basse jouent tous les deux vers 39 Hz : la basse couvre le coup du kick. MixCoach propose une cloche de −3 dB à 39 Hz sur la basse.": "在 Live 中对一首 house 作品测量。底鼓和贝斯都在 39 Hz 附近发声：贝斯盖住了底鼓的冲击。MixCoach 建议在贝斯上做一个 39 Hz、−3 dB 的钟形衰减。",
+ "Avant": "之前",
+ "Après": "之后",
+ "Basse": "贝斯",
+ "La basse ne baisse qu'autour de 39 Hz, là où les deux sons se battent ; ailleurs, rien ne bouge. Le kick redevient net, sans monter le son.": "贝斯只在两个声音打架的 39 Hz 附近变小，其他地方都不变。不用提高音量，底鼓就重新清晰了。",
+ "Niveau du kick et de la basse dans chaque bande, de 31 à 400 Hz.": "31 到 400 Hz 每个频段中底鼓和贝斯的电平。",
+ "EQ EIGHT SUR LA BASSE": "贝斯上的 EQ EIGHT",
+ "BASSES": "低频",
+ "BAS-MÉDIUMS": "中低频",
+ "Niveaux mesurés par les capteurs MixCoach pendant la lecture. « Après » applique la courbe de l'EQ Eight aux mêmes mesures. Survole une bande pour voir ses chiffres.": "这些电平由 MixCoach 传感器在播放时测得。“之后”是把 EQ Eight 的曲线应用到同样的测量值上。把鼠标移到某个频段上可查看数值。",
+ "{f} Hz · kick {k} dB · basse {b} dB · le kick a {p} de cette bande.": "{f} Hz · 底鼓 {k} dB · 贝斯 {b} dB · 这个频段中底鼓占 {p}。",
+ "À 39 Hz, le kick a {p} du son.": "在 39 Hz，底鼓占声音的 {p}。"
 }
