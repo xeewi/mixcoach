@@ -16,7 +16,7 @@ const ROLES = [[120, "grave (kick / basse)"], [500, "bas-médium (corps)"], [250
 // ------------------------------------------------------------ traduction
 
 let LANG = "fr", CAT = {};
-function setLang(code) { LANG = C.langs && C.langs[code] ? code : "fr"; CAT = (C.i18n && C.i18n[LANG]) || {}; return LANG; }
+function setLang(code) { LANG = C.langs && C.langs[code] ? code : "en"; CAT = (C.i18n && C.i18n[LANG]) || {}; return LANG; }
 function t(s, v) {
   const out = CAT[s] || s;
   return v ? out.replace(/\{(\w+)\}/g, (m, k) => (k in v ? String(v[k]) : m)) : out;
