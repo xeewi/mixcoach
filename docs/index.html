@@ -46,8 +46,8 @@ svg.i{width:1.1em;height:1.1em;flex:none}
 .brand .cat{white-space:nowrap;margin-inline-start:12px;padding-inline-start:14px;border-inline-start:1px solid var(--ink)}
 .top a.label{text-decoration:none}
 .top a.label:hover{text-decoration:underline}
-.top button{font:inherit;background:none;border:1px solid var(--ink);color:var(--ink);padding:5px 10px;cursor:pointer}
-@media (hover:hover){.top button:hover{background:var(--ink);color:var(--silver)}}
+.top select{font:inherit;text-transform:none;letter-spacing:.04em;background:none;border:1px solid var(--ink);border-radius:0;color:var(--ink);padding:5px 10px;cursor:pointer;max-width:48vw}
+@media (hover:hover){.top select:hover{box-shadow:inset 0 0 0 1px var(--ink)}}
 
 /* ---------- hero */
 .hero{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:56px;padding:64px 0 72px;align-items:center}
@@ -86,6 +86,7 @@ h2{font-size:clamp(32px,3.6vw,48px);line-height:1.05;letter-spacing:-.03em;font-
 .sub{margin:0 0 48px;max-width:38em;font-size:19px;color:var(--ink-2)}
 
 /* the key: six zones */
+.how{margin:0;overflow-x:auto} .how svg{display:block;width:100%;min-width:760px;height:auto}
 .key{display:grid;grid-template-columns:repeat(6,1fr);border:1px solid var(--ink)}
 .key div{display:flex;flex-direction:column;min-height:300px;border-inline-start:1px solid var(--ink)}
 .key div:first-child{border-inline-start:0}
@@ -180,8 +181,14 @@ footer{font-size:14px;color:var(--ink-2);padding:28px 0 48px;display:flex;flex-w
     <a class="brand" href="#"><img src="assets/logo.svg?v=0.3.0" alt=""><b>MixCoach</b><span class="label cat num">MXC 001</span></a>
     <a class="label hide" href="#how" data-fr="Comment">How</a>
     <a class="label hide" href="#install" data-fr="Installer">Install</a>
-    <a class="label" href="https://github.com/xeewi/mixcoach">GitHub</a>
-    <button class="label" id="lang" aria-label="Language">FR</button>
+    <a class="label hide" href="https://github.com/xeewi/mixcoach">GitHub</a>
+    <select class="label" id="lang" aria-label="Language">
+      <option value="en">English</option><option value="fr">Français</option><option value="es">Español</option><option value="de">Deutsch</option>
+      <option value="it">Italiano</option><option value="pt-BR">Português (BR)</option><option value="nl">Nederlands</option><option value="pl">Polski</option>
+      <option value="ru">Русский</option><option value="uk">Українська</option><option value="tr">Türkçe</option><option value="ar">العربية</option>
+      <option value="hi">हिन्दी</option><option value="id">Indonesia</option><option value="ja">日本語</option><option value="ko">한국어</option>
+      <option value="zh-CN">简体中文</option><option value="zh-TW">繁體中文</option>
+    </select>
   </header>
 
   <main>
@@ -211,7 +218,7 @@ footer{font-size:14px;color:var(--ink-2);padding:28px 0 48px;display:flex;flex-w
     </figure>
   </div>
 
-  <section id="how">
+  <section id="zones">
     <h2 data-fr="Ton mix, en six zones">Your mix, in six zones</h2>
     <p class="sub" data-fr="Les analyseurs de spectre dessinent des courbes. MixCoach compare tes pistes entre elles et te dit laquelle encombre quelle zone, puis quoi faire.">
       Spectrum analyzers draw curves. MixCoach compares your tracks with each other, tells you which one crowds which zone, then what to do about it.</p>
@@ -229,6 +236,113 @@ footer{font-size:14px;color:var(--ink-2);padding:28px 0 48px;display:flex;flex-w
       <div><span class="sw" style="background:var(--air)"></span><h3 data-fr="Aigus / air">Highs / air</h3><p class="hz label num">6–20 kHz</p>
         <p data-fr="La brillance, les cymbales, le souffle, « l'air ».">Brightness, cymbals, breath, “air”.</p></div>
     </div>
+  </section>
+
+  <section id="how">
+    <h2 data-fr="De chaque piste à une correction">From every track to one fix</h2>
+    <p class="sub" data-fr="Un capteur sur chaque piste mesure 28 bandes de fréquences et partage une quarantaine de nombres par seconde, jamais le son. Le panneau sur le Master compare les pistes entre elles, nomme celle à corriger, et peut le faire pour toi.">
+      A Sensor on each track measures 28 frequency bands and shares about 40 numbers a second, never the audio. The panel on the Master compares the tracks with each other, names the one to fix, and can fix it for you.</p>
+    <figure class="how"><svg xmlns="http://www.w3.org/2000/svg" id="mc-how" viewBox="0 0 1200 590" role="img" aria-labelledby="mc-how-t">
+<title id="mc-how-t" data-fr="Un capteur sur chaque piste envoie ses mesures au panneau MixCoach, qui compare les pistes, nomme le Pad et ajoute un EQ Eight dans Live.">A Sensor on each track sends its measurements to the MixCoach panel, which compares the tracks, names the Pad and adds an EQ Eight in Live.</title>
+<style>
+#mc-how{direction:ltr}
+#mc-how text{font-family:Archivo,"Helvetica Neue",Helvetica,Arial,sans-serif}
+#mc-how .l{font-size:12px;font-weight:600;letter-spacing:.16em;font-stretch:125%}
+#mc-how .c{font-stretch:100%;letter-spacing:.08em}
+#mc-how .d{font-size:15px;fill:#34373D}
+#mc-how .n{font-variant-numeric:tabular-nums}
+</style>
+<defs><marker id="mc-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto"><path d="M0 0L10 5L0 10z" fill="#0E0E0F"/></marker></defs>
+<rect width="1200" height="590" fill="#C8CBD0"/>
+<rect x=".5" y=".5" width="1199" height="589" fill="none" stroke="#0E0E0F"/>
+
+<!-- column heads -->
+<path d="M0 44.5H1200M540.5 0V44M900.5 0V44" stroke="#0E0E0F"/>
+<text class="l n" x="24" y="27" fill="#0E0E0F" data-fr="01 · MESURER">01 · MEASURE</text>
+<text class="l n" x="560" y="27" fill="#0E0E0F" data-fr="02 · COMPARER">02 · COMPARE</text>
+<text class="l n" x="920" y="27" fill="#0E0E0F" data-fr="03 · CORRIGER">03 · FIX</text>
+<text class="d" x="24" y="72" data-fr="Un capteur sur chaque piste, six zones">A Sensor on every track, six zones</text>
+<text class="d" x="560" y="72" data-fr="Le panneau compare les pistes">The panel compares the tracks</text>
+<text class="d" x="920" y="72" data-fr="Un clic, et c'est fait dans Live">One click, done in Live</text>
+
+<!-- 01 sensors: track tag + six zone cells (filled = the track has energy there) -->
+<g class="l c n" font-size="10" fill="#34373D"><text x="170" y="504">20</text><text x="210" y="504">60</text><text x="250" y="504">250</text><text x="290" y="504">500</text><text x="330" y="504">2K</text><text x="370" y="504">6K</text></g>
+<g stroke="#0E0E0F">
+  <rect x="24.5" y="92.5" width="120" height="40" fill="none"/>
+  <rect x="170.5" y="92.5" width="40" height="40" fill="#2343B0"/><rect x="210.5" y="92.5" width="40" height="40" fill="#2FA35F"/><rect x="250.5" y="92.5" width="40" height="40" fill="#E4E6E9"/><rect x="290.5" y="92.5" width="40" height="40" fill="#E4E6E9"/><rect x="330.5" y="92.5" width="40" height="40" fill="#E4E6E9"/><rect x="370.5" y="92.5" width="40" height="40" fill="#E4E6E9"/>
+  <rect x="24.5" y="180.5" width="120" height="40" fill="none"/>
+  <rect x="170.5" y="180.5" width="40" height="40" fill="#2343B0"/><rect x="210.5" y="180.5" width="40" height="40" fill="#2FA35F"/><rect x="250.5" y="180.5" width="40" height="40" fill="#E4E6E9"/><rect x="290.5" y="180.5" width="40" height="40" fill="#E4E6E9"/><rect x="330.5" y="180.5" width="40" height="40" fill="#E4E6E9"/><rect x="370.5" y="180.5" width="40" height="40" fill="#E4E6E9"/>
+  <rect x="24.5" y="268.5" width="120" height="40" fill="#0E0E0F"/>
+  <rect x="170.5" y="268.5" width="40" height="40" fill="#E4E6E9"/><rect x="210.5" y="268.5" width="40" height="40" fill="#E4E6E9"/><rect x="250.5" y="268.5" width="40" height="40" fill="#F4C300"/><rect x="290.5" y="268.5" width="40" height="40" fill="#E8471C"/><rect x="330.5" y="268.5" width="40" height="40" fill="#E4E6E9"/><rect x="370.5" y="268.5" width="40" height="40" fill="#E4E6E9"/>
+  <rect x="24.5" y="356.5" width="120" height="40" fill="none"/>
+  <rect x="170.5" y="356.5" width="40" height="40" fill="#E4E6E9"/><rect x="210.5" y="356.5" width="40" height="40" fill="#E4E6E9"/><rect x="250.5" y="356.5" width="40" height="40" fill="#F4C300"/><rect x="290.5" y="356.5" width="40" height="40" fill="#E8471C"/><rect x="330.5" y="356.5" width="40" height="40" fill="#D9468E"/><rect x="370.5" y="356.5" width="40" height="40" fill="#E4E6E9"/>
+  <rect x="24.5" y="444.5" width="120" height="40" fill="none"/>
+  <rect x="170.5" y="444.5" width="40" height="40" fill="#E4E6E9"/><rect x="210.5" y="444.5" width="40" height="40" fill="#E4E6E9"/><rect x="250.5" y="444.5" width="40" height="40" fill="#E4E6E9"/><rect x="290.5" y="444.5" width="40" height="40" fill="#E4E6E9"/><rect x="330.5" y="444.5" width="40" height="40" fill="#E4E6E9"/><rect x="370.5" y="444.5" width="40" height="40" fill="#8EC3EA"/>
+</g>
+<!-- the culprit: ink frame on Pad's low-mid cell, like the selected band of the sleeve -->
+<rect x="253.5" y="271.5" width="34" height="34" fill="none" stroke="#0E0E0F" stroke-width="6"/>
+<g class="l">
+  <text x="38" y="117" fill="#0E0E0F">KICK</text>
+  <text x="38" y="205" fill="#0E0E0F">SUB BASS</text>
+  <text x="38" y="293" fill="#FFFFFF">PAD</text>
+  <text x="38" y="381" fill="#0E0E0F">LEAD</text>
+  <text x="38" y="469" fill="#0E0E0F">HATS</text>
+</g>
+<!-- bus to the panel -->
+<path d="M411 112.5H436.5M411 200.5H436.5M411 288.5H436.5M411 376.5H436.5M411 464.5H436.5M436.5 112V465" fill="none" stroke="#0E0E0F"/>
+<path d="M436.5 288.5H558" fill="none" stroke="#0E0E0F" stroke-width="2" marker-end="url(#mc-arr)"/>
+<text class="d n" x="498" y="278" text-anchor="middle" font-size="13" data-fr="≈ 40 nombres / s">≈ 40 numbers / s</text>
+
+<!-- 02 the panel on the Master (dark, as inside Ableton) -->
+<rect x="560" y="92" width="280" height="412" fill="#151617"/>
+<text class="l" x="576" y="118" fill="#EDEEF0">MIXCOACH · MASTER</text>
+<path d="M560 132.5H840" stroke="#3A3C40"/>
+<rect x="576.5" y="148.5" width="247" height="230" fill="#1E1F21" stroke="#3A3C40"/>
+<rect x="577" y="149" width="36" height="32" fill="#EDEEF0"/>
+<text class="l c n" x="586" y="170" fill="#151617">01</text>
+<rect x="614" y="149" width="112" height="32" fill="#EDEEF0"/>
+<text class="l c" x="622" y="170" fill="#151617" data-fr="ATTENTION">WARNING</text>
+<rect x="727" y="149" width="96" height="32" fill="#F4C300"/>
+<text class="l c n" x="735" y="170" fill="#0E0E0F" font-size="11">250–500 HZ</text>
+<path d="M577 181.5H823" stroke="#3A3C40"/>
+<text x="592" y="214" font-size="20" font-weight="600" fill="#EDEEF0" data-fr="Le Pad apporte 60 %">Pad brings 60%</text>
+<text x="592" y="240" font-size="20" font-weight="600" fill="#EDEEF0" data-fr="de la boue.">of the mud.</text>
+<text class="l" x="592" y="282" fill="#A4A8AF" font-size="10" data-fr="PART PAR PISTE">SHARE BY TRACK</text>
+<rect x="592" y="294" width="129" height="24" fill="#F4C300"/>
+<rect x="721" y="294" width="86" height="24" fill="#3A3C40"/>
+<text class="l n" x="592" y="340" fill="#EDEEF0">PAD 60%</text>
+<text class="l n" x="807" y="340" fill="#A4A8AF" text-anchor="end" data-fr="AUTRES 40%">OTHERS 40%</text>
+<rect x="576" y="436" width="248" height="44" fill="#EDEEF0"/>
+<path d="M598 446L590 458h6l-1 10 8-12h-6z" fill="none" stroke="#151617" stroke-width="2" stroke-linejoin="miter"/>
+<text x="614" y="463" font-size="15" font-weight="600" fill="#151617" data-fr="EQ Eight sur « Pad »">EQ Eight on “Pad”</text>
+<path d="M841 458.5H918" fill="none" stroke="#0E0E0F" stroke-width="2" marker-end="url(#mc-arr)"/>
+<text class="l" x="879" y="448" text-anchor="middle" fill="#0E0E0F" font-size="11" data-fr="CLIC">CLICK</text>
+
+<!-- 03 inside Live: the device that was added -->
+<rect x="920.5" y="92.5" width="255" height="411" fill="#E4E6E9" stroke="#0E0E0F"/>
+<text class="l" x="936" y="118" fill="#0E0E0F">ABLETON LIVE</text>
+<path d="M921 132.5H1175" stroke="#0E0E0F"/>
+<text class="l" x="936" y="160" fill="#0E0E0F">PAD → EQ EIGHT</text>
+<!-- EQ curve on a log axis 20 Hz–20 kHz; the low-mid zone in its cipher colour -->
+<rect x="1019" y="180" width="22" height="96" fill="#F4C300"/>
+<path d="M940.5 180V276M940 228.5H1156" stroke="#8E9298"/>
+<path d="M940 228C1004 228 1016 228 1022 236C1026 244 1028 252 1030 252C1032 252 1034 244 1038 236C1044 228 1056 228 1156 228" fill="none" stroke="#0E0E0F" stroke-width="2"/>
+<rect x="940.5" y="180.5" width="215" height="95" fill="none" stroke="#0E0E0F"/>
+<g class="l c n" font-size="10" fill="#34373D"><text x="940" y="294">20</text><text x="1030" y="294" text-anchor="middle">353</text><text x="1156" y="294" text-anchor="end">20K HZ</text></g>
+<g font-size="15">
+  <text x="936" y="334" fill="#0E0E0F" data-fr="Cloche (Bell)">Bell</text><text class="n" x="1160" y="334" text-anchor="end" fill="#0E0E0F">353 Hz</text>
+  <text x="936" y="362" fill="#0E0E0F">Gain</text><text class="n" x="1160" y="362" text-anchor="end" fill="#0E0E0F">−3 dB</text>
+  <text x="936" y="390" fill="#0E0E0F">Q</text><text class="n" x="1160" y="390" text-anchor="end" fill="#0E0E0F">1</text>
+</g>
+<path d="M936 342.5H1160M936 370.5H1160M936 398.5H1160" stroke="#8E9298"/>
+<text class="d" x="936" y="440" font-size="14" data-fr="Cmd+Z / Ctrl+Z annule.">Cmd+Z / Ctrl+Z undoes it.</text>
+<text class="d" x="936" y="464" font-size="14" data-fr="Aussi : fader, pan, Utility.">Also: fader, pan, Utility.</text>
+
+<!-- offline strip -->
+<path d="M0 540.5H1200" stroke="#0E0E0F"/>
+<text class="l" x="24" y="570" fill="#0E0E0F" data-fr="TON ORDINATEUR, HORS LIGNE">YOUR COMPUTER, OFFLINE</text>
+<text class="d" x="1176" y="570" text-anchor="end" data-fr="Aucun son ne quitte les capteurs. Pas de compte, pas de serveur.">No audio leaves the Sensors. No account, no server.</text>
+</svg></figure>
   </section>
 
   <section>
@@ -288,12 +402,11 @@ footer{font-size:14px;color:var(--ink-2);padding:28px 0 48px;display:flex;flex-w
       <button role="tab" data-tab="win" aria-selected="false">Windows</button>
     </div>
     <ol class="steps">
-      <li><div><span data-fr="Télécharge"><b>Download</b></span> <a href="https://github.com/xeewi/mixcoach/releases/latest/download/MixCoach.zip"><b>MixCoach.zip</b></a>
-        <span data-fr="et décompresse-le.">and unzip it.</span></div></li>
-      <li><div><span data-fr="Copie le dossier"><b>Copy</b> the</span> <b>MixCoach</b> <span data-fr="dans">folder to</span>
+      <li><div><span data-fr="<b>Télécharge</b> <a href='https://github.com/xeewi/mixcoach/releases/latest/download/MixCoach.zip'><b>MixCoach.zip</b></a> et décompresse-le."><b>Download</b> <a href="https://github.com/xeewi/mixcoach/releases/latest/download/MixCoach.zip"><b>MixCoach.zip</b></a> and unzip it.</span></div></li>
+      <li><div><span data-fr="<b>Copie</b> le dossier <b>MixCoach</b> dans"><b>Copy</b> the <b>MixCoach</b> folder to</span>
         <code data-os="mac">~/Music/Ableton/User Library/Presets/Audio Effects/Max Audio Effect/</code>
         <code data-os="win">Documents\Ableton\User Library\Presets\Audio Effects\Max Audio Effect\</code></div></li>
-      <li><div><span data-fr="Facultatif, mais magique : copie"><i>Optional, but magic:</i> copy</span> <b>MixCoachAuto</b> <span data-fr="dans">to</span>
+      <li><div><span data-fr="<i>Facultatif, mais magique :</i> copie <b>MixCoachAuto</b> dans"><i>Optional, but magic:</i> copy <b>MixCoachAuto</b> to</span>
         <code data-os="mac">~/Music/Ableton/User Library/Remote Scripts/</code><code data-os="win">Documents\Ableton\User Library\Remote Scripts\</code>,
         <span data-fr="redémarre Live et choisis MixCoachAuto comme Surface de contrôle (Réglages → Link, Tempo &amp; MIDI). Les capteurs se posent alors tout seuls.">restart Live and pick MixCoachAuto as a Control Surface (Settings → Link, Tempo &amp; MIDI). Sensors then add themselves.</span></div></li>
       <li><div><span data-fr="Sinon, glisse MixCoach Sensor sur chaque piste et MixCoach sur le Master. Lance la lecture : c'est parti.">Otherwise, drop MixCoach Sensor on each track and MixCoach on the Master. Press play: you're done.</span></div></li>
@@ -350,12 +463,15 @@ const HL = {
   himid:  ["Lead. 2–6 kHz. A little harsh: tame it.", "Lead. 2–6 kHz. Un peu agressif : adoucis-le."],
   air:    ["Hats. 6–20 kHz. 81% of the air is theirs.", "Hats. 6–20 kHz. 81 % de l'air vient d'eux."],
 };
-let fr = false, zone = "lowmid";
+// Les autres langues : docs/i18n/<code>.json, indexé par le texte français (comme le logiciel).
+let lang = "en", zone = "lowmid";
+const dicts = {};
+const tr = (en, frText) => lang === "en" ? en : lang === "fr" ? frText : dicts[lang][frText] ?? en;
 const hl = document.getElementById("hl");
 function showZone(z, animate) {
   zone = z;
   document.querySelectorAll(".band").forEach(b => b.setAttribute("aria-pressed", b.dataset.z === z));
-  const text = HL[z][fr ? 1 : 0];
+  const text = tr(...HL[z]);
   if (!animate) { hl.firstElementChild.textContent = text; return; }
   hl.classList.add("swap");
   setTimeout(() => { hl.firstElementChild.textContent = text; hl.classList.remove("swap"); }, 180);
@@ -366,21 +482,38 @@ document.querySelectorAll(".band").forEach(b => {
   if (hover) b.onmouseenter = () => { if (zone !== b.dataset.z) showZone(b.dataset.z, true); };
 });
 
-function setLang(isFr) {
-  fr = isFr;
-  els.forEach(e => e.innerHTML = fr ? e.dataset.fr : e.dataset.en);
-  document.documentElement.lang = fr ? "fr" : "en";
-  document.getElementById("lang").textContent = fr ? "EN" : "FR";
+const picker = document.getElementById("lang");
+const codes = [...picker.options].map(o => o.value);
+async function setLang(code) {
+  if (!codes.includes(code)) code = "en";
+  if (code !== "en" && code !== "fr" && !dicts[code]) {
+    try { dicts[code] = await (await fetch(`i18n/${code}.json`)).json(); } catch (e) { code = "en"; }
+  }
+  lang = code;
+  els.forEach(e => e.innerHTML = tr(e.dataset.en, e.dataset.fr));
+  document.documentElement.lang = code;
+  document.documentElement.dir = code === "ar" ? "rtl" : "ltr";
+  picker.value = code;
   showZone(zone, false);
-  try { localStorage.setItem("mc_lang", fr ? "fr" : "en"); } catch (e) {}
+  try { localStorage.setItem("mc_lang", code); } catch (e) {}
+}
+function browserLang() {
+  for (const l of navigator.languages || [navigator.language]) {
+    const x = l.toLowerCase();
+    if (/^zh-(tw|hk|mo|hant)/.test(x)) return "zh-TW";
+    if (x.startsWith("zh")) return "zh-CN";
+    if (x.startsWith("pt")) return "pt-BR";
+    if (codes.includes(x.split("-")[0])) return x.split("-")[0];
+  }
+  return "en";
 }
 let saved = null; try { saved = localStorage.getItem("mc_lang"); } catch (e) {}
-setLang(saved ? saved === "fr" : navigator.language.toLowerCase().startsWith("fr"));
-document.getElementById("lang").onclick = () => setLang(!fr);
+setLang(saved || browserLang());
+picker.onchange = () => setLang(picker.value);
 
 // Le bouton ⚡ de l'exemple : montre ce qui se passe dans Live, sans rien faire ici.
 const fix = document.getElementById("fix");
-fix.onclick = () => { fix.disabled = true; fix.lastElementChild.textContent = fr ? "Fait. Cmd+Z / Ctrl+Z pour annuler." : "Done. Cmd+Z / Ctrl+Z to undo."; };
+fix.onclick = () => { fix.disabled = true; fix.lastElementChild.textContent = tr("Done. Cmd+Z / Ctrl+Z to undo.", "Fait. Cmd+Z / Ctrl+Z pour annuler."); };
 
 // Onglets macOS / Windows (Windows présélectionné sur un PC)
 function setOS(os) {

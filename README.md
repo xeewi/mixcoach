@@ -108,17 +108,9 @@ The master file is recognized automatically. Group tracks (Drums, etc.) are dete
 
 ## How it works
 
-```mermaid
-flowchart LR
-  subgraph Live["Ableton Live"]
-    S1["🎛️ Sensor<br/>Kick"] --> D
-    S2["🎛️ Sensor<br/>Bass"] --> D
-    S3["🎛️ Sensor<br/>Pad…"] --> D
-    D[("shared<br/>measurements")] --> M["🧠 MixCoach panel<br/>(on the Master)"]
-    M -- "⚡ fix" --> API["Live API<br/>faders · pan · EQ Eight · Utility"]
-    M -- "one-line summary" --> S1
-  end
-```
+<p align="center">
+  <img src="docs/assets/how.png" alt="How MixCoach works: a Sensor on each track, the panel on the Master compares the tracks, one click adds an EQ Eight in Live" width="900">
+</p>
 
 1. **Measure.** Each sensor runs a bank of 28 third-octave filters (31 Hz → 16 kHz), plus stereo and peak meters. It takes the track's fader, pan and mute into account. No audio leaves the device: it only shares about 40 averaged numbers, once per second.
 2. **Compare.** The brain (`m4l/brain.js`) looks at who occupies which frequency, where the mix deviates from a target curve calibrated on professional electronic tracks, and which pairs of tracks mask each other.

@@ -108,17 +108,9 @@ Le fichier master est reconnu tout seul. Les pistes groupe (Drums, etc.) sont re
 
 ## Comment ça marche
 
-```mermaid
-flowchart LR
-  subgraph Live["Ableton Live"]
-    S1["🎛️ Capteur<br/>Kick"] --> D
-    S2["🎛️ Capteur<br/>Basse"] --> D
-    S3["🎛️ Capteur<br/>Pad…"] --> D
-    D[("mesures<br/>partagées")] --> M["🧠 Panneau MixCoach<br/>(sur le Master)"]
-    M -- "⚡ correction" --> API["Live API<br/>faders · pan · EQ Eight · Utility"]
-    M -- "résumé d'une ligne" --> S1
-  end
-```
+<p align="center">
+  <img src="docs/assets/how-fr.png" alt="Comment marche MixCoach : un capteur sur chaque piste, le panneau sur le Master compare les pistes, un clic ajoute un EQ Eight dans Live" width="900">
+</p>
 
 1. **Mesurer.** Chaque capteur fait passer le son dans 28 filtres d'un tiers d'octave (31 Hz → 16 kHz), plus des mesures de stéréo et de crête. Il tient compte du fader, du panoramique et du mute de la piste. Aucun audio ne sort du device : il partage seulement une quarantaine de nombres moyennés, une fois par seconde.
 2. **Comparer.** Le cerveau (`m4l/brain.js`) regarde qui occupe quelle fréquence, où le mix s'écarte d'une courbe cible calibrée sur des morceaux électro professionnels, et quelles paires de pistes se masquent.
