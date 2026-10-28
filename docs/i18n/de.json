@@ -1,7 +1,8 @@
 {
  "Comment": "So geht's",
  "Installer": "Installieren",
- "Quelle piste corriger dans Ableton, comment, et pourquoi. Avec des mots simples.": "Welche Spur du in Ableton korrigieren sollst, wie und warum. In einfachen Worten.",
+ "Ton mix sonne brouillon ? MixCoach te dit quelle piste corriger.": "Dein Mix klingt matschig? MixCoach sagt dir, welche Spur du korrigieren sollst.",
+ "Il écoute chaque piste de ton projet Ableton Live, puis te dit quoi changer, comment le faire et pourquoi. Avec des mots simples, sans jargon.": "Er hört jede Spur deines Ableton-Live-Projekts und sagt dir dann, was du ändern sollst, wie und warum. In einfachen Worten, ohne Fachchinesisch.",
  "Télécharger MixCoach": "MixCoach herunterladen",
  "Gratuit · macOS et Windows": "Kostenlos · macOS und Windows",
  "Pour Ableton Live 12 avec Max for Live.": "Für Ableton Live 12 mit Max for Live.",
@@ -108,5 +109,6 @@
  "Lead et Pad. 1,3 kHz. Creuse le Lead.": "Lead und Pad. 1,3 kHz. Senk den Lead ab.",
  "Lead. 2–6 kHz. Un peu agressif : adoucis-le.": "Lead. 2–6 kHz. Etwas scharf: zähm ihn.",
  "Hats. 6–20 kHz. 81 % de l'air vient d'eux.": "Hats. 6–20 kHz. 81 % der Luft kommen von ihnen.",
- "Fait. Cmd+Z / Ctrl+Z pour annuler.": "Erledigt. Cmd+Z / Ctrl+Z zum Rückgängigmachen."
+ "Fait. Cmd+Z / Ctrl+Z pour annuler.": "Erledigt. Cmd+Z / Ctrl+Z zum Rückgängigmachen.",
+ "Ce que dit MixCoach": "Was MixCoach sagt"
 }

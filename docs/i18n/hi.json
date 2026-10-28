@@ -1,7 +1,8 @@
 {
  "Comment": "कैसे",
  "Installer": "इंस्टॉल",
- "Quelle piste corriger dans Ableton, comment, et pourquoi. Avec des mots simples.": "Ableton में कौन-सा ट्रैक ठीक करें, कैसे, और क्यों। आसान शब्दों में।",
+ "Ton mix sonne brouillon ? MixCoach te dit quelle piste corriger.": "आपका मिक्स धुंधला लगता है? MixCoach बताता है कि कौन-सा ट्रैक ठीक करना है।",
+ "Il écoute chaque piste de ton projet Ableton Live, puis te dit quoi changer, comment le faire et pourquoi. Avec des mots simples, sans jargon.": "यह आपके Ableton Live प्रोजेक्ट के हर ट्रैक को सुनता है, फिर बताता है कि क्या बदलना है, कैसे और क्यों। आसान शब्दों में, बिना तकनीकी भाषा के।",
  "Télécharger MixCoach": "MixCoach डाउनलोड करें",
  "Gratuit · macOS et Windows": "मुफ़्त · macOS और Windows",
  "Pour Ableton Live 12 avec Max for Live.": "Max for Live के साथ Ableton Live 12 के लिए।",
@@ -108,5 +109,6 @@
  "Lead et Pad. 1,3 kHz. Creuse le Lead.": "Lead और Pad. 1.3 kHz. Lead को कट करें।",
  "Lead. 2–6 kHz. Un peu agressif : adoucis-le.": "Lead. 2–6 kHz. थोड़ा तीखा: इसे नरम करें।",
  "Hats. 6–20 kHz. 81 % de l'air vient d'eux.": "Hats. 6–20 kHz. 81% एयर इन्हीं से।",
- "Fait. Cmd+Z / Ctrl+Z pour annuler.": "हो गया। अनडू के लिए Cmd+Z / Ctrl+Z।"
+ "Fait. Cmd+Z / Ctrl+Z pour annuler.": "हो गया। अनडू के लिए Cmd+Z / Ctrl+Z।",
+ "Ce que dit MixCoach": "MixCoach क्या कहता है"
 }

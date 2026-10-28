@@ -1,7 +1,8 @@
 {
  "Comment": "工作原理",
  "Installer": "安装",
- "Quelle piste corriger dans Ableton, comment, et pourquoi. Avec des mots simples.": "在 Ableton 里该改哪条音轨、怎么改、为什么。用简单的话说清楚。",
+ "Ton mix sonne brouillon ? MixCoach te dit quelle piste corriger.": "混音听起来浑浊？MixCoach 告诉你该修哪条音轨。",
+ "Il écoute chaque piste de ton projet Ableton Live, puis te dit quoi changer, comment le faire et pourquoi. Avec des mots simples, sans jargon.": "它会聆听你 Ableton Live 工程中的每条音轨，然后告诉你改什么、怎么改、为什么。用简单的话，不讲术语。",
  "Télécharger MixCoach": "下载 MixCoach",
  "Gratuit · macOS et Windows": "免费 · macOS 和 Windows",
  "Pour Ableton Live 12 avec Max for Live.": "适用于带 Max for Live 的 Ableton Live 12。",
@@ -108,5 +109,6 @@
  "Lead et Pad. 1,3 kHz. Creuse le Lead.": "Lead 和 Pad。1.3 kHz。削 Lead。",
  "Lead. 2–6 kHz. Un peu agressif : adoucis-le.": "Lead。2–6 kHz。有点刺耳：柔和一下。",
  "Hats. 6–20 kHz. 81 % de l'air vient d'eux.": "Hats。6–20 kHz。81 % 的空气感来自它们。",
- "Fait. Cmd+Z / Ctrl+Z pour annuler.": "好了。Cmd+Z / Ctrl+Z 可撤销。"
+ "Fait. Cmd+Z / Ctrl+Z pour annuler.": "好了。Cmd+Z / Ctrl+Z 可撤销。",
+ "Ce que dit MixCoach": "MixCoach 的建议"
 }

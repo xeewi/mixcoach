@@ -22,7 +22,7 @@
 
 ---
 
-**MixCoach listens to every track of your Ableton Live project and tells you, in plain words, what to fix in your mix, how to do it in Ableton, and *why* it matters.**
+**Your mix sounds muddy and you don't know which track to touch? MixCoach listens to every track of your Ableton Live project and tells you which one to fix, how to do it in Ableton, and *why*.**
 It's made for producers who never learned mixing or music theory. You don't need to know what "masking" or "headroom" means: MixCoach explains it like a friend sitting next to you in the studio. When you're in a hurry, a ⚡ button applies the fix for you.
 
 <p align="center">
@@ -76,7 +76,9 @@ MixCoach goes one step further:
 4. Otherwise, drag **MixCoach Sensor** onto each track (at the end of the chain) and **MixCoach** onto the **Master**.
 5. Press play. After a few seconds, the panel fills up. Click **⤢** to open it in a big window, and pick your language in the top-right menu.
 
-### 2. Analyze an exported mix (mastering report)
+### 2. Advanced: analyze an exported mix (mastering report)
+
+> Optional, command line (Python). You don't need it to use MixCoach in Live.
 
 ```bash
 git clone https://github.com/xeewi/mixcoach.git && cd mixcoach
@@ -92,7 +94,7 @@ Export from Ableton with *File → Export Audio/Video*, **Normalize off**. An HT
 
 > 💡 **Use `--reference`** with a professional track in the style you're aiming for. The generic target curve is only a rough guide: even pro tracks deviate from it by ±5 dB.
 
-### 3. Analyze every track of an export
+### 3. Advanced: analyze every track of an export
 
 In Ableton, export with *Rendered Track: **All Individual Tracks***, then:
 
@@ -113,7 +115,7 @@ The master file is recognized automatically. Group tracks (Drums, etc.) are dete
 </p>
 
 1. **Measure.** Each sensor runs a bank of 28 third-octave filters (31 Hz → 16 kHz), plus stereo and peak meters. It takes the track's fader, pan and mute into account. No audio leaves the device: it only shares about 40 averaged numbers, once per second.
-2. **Compare.** The brain (`m4l/brain.js`) looks at who occupies which frequency, where the mix deviates from a target curve calibrated on professional electronic tracks, and which pairs of tracks mask each other.
+2. **Compare.** The brain (`m4l/brain.js`) looks at who occupies which frequency, where the mix deviates from a target curve measured on 18 electronic tracks (house, techno, minimal, Creative Commons licensed), and which pairs of tracks mask each other.
 3. **Explain.** Each finding comes with the facts, a plain-language "Why?", what you gain by fixing it, the steps in Ableton, and, when possible, a ⚡ automatic fix.
 
 The Python tools (`mixcoach.py`, `tracks.py`) and the Max for Live brain share the same rules and the same sentences. A test checks that both give **exactly the same advice** on the same audio.
@@ -183,7 +185,8 @@ Please run `python run_tests.py` before opening a pull request.
 
 - **Live 12.3+** is needed for ⚡ fixes that *add* a device (EQ Eight, Utility). Fader and pan fixes work on any Live 12.
 - Clashes are judged on the average spectrum: two sounds that never play at the same time may still be flagged.
-- The generic target curve is tuned for modern electronic music. For other genres, use `--reference`.
+- The generic target curve is the average of 18 electronic tracks. Sub and highs vary so much between pro tracks that, without a reference, MixCoach only flags outliers. For finer advice, or another genre, use `--reference`.
+- In Live, the panel judges roughly the last minute played: loop the busiest part (the drop) before reading the advice.
 - **Windows:** supported, and the analysis is tested on Windows by CI, but the devices haven't yet been tried inside Live on a Windows PC. Feedback welcome.
 
 ## License

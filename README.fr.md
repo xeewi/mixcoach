@@ -22,7 +22,7 @@
 
 ---
 
-**MixCoach écoute chaque piste de ton projet Ableton Live et te dit, avec des mots simples, quoi corriger dans ton mix, comment le faire dans Ableton, et *pourquoi* c'est important.**
+**Ton mix sonne brouillon, et tu ne sais pas quelle piste toucher ? MixCoach écoute chaque piste de ton projet Ableton Live et te dit laquelle corriger, comment le faire dans Ableton, et *pourquoi*.**
 Il est fait pour les producteurs qui n'ont jamais appris le mixage ni la théorie musicale. Pas besoin de savoir ce que veulent dire « masquage » ou « headroom » : MixCoach t'explique tout comme un ami assis à côté de toi au studio. Et si tu es pressé, un bouton ⚡ applique la correction à ta place.
 
 <p align="center">
@@ -76,7 +76,9 @@ MixCoach va plus loin :
 4. Sinon, glisse **MixCoach Sensor** sur chaque piste (en fin de chaîne) et **MixCoach** sur le **Master**.
 5. Lance la lecture. Après quelques secondes, le panneau se remplit. Clique sur **⤢** pour l'ouvrir en grand, et choisis ta langue dans le menu en haut à droite.
 
-### 2. Analyser un mix exporté (rapport de mastering)
+### 2. Avancé : analyser un mix exporté (rapport de mastering)
+
+> Facultatif, en ligne de commande (Python). Tu n'en as pas besoin pour utiliser MixCoach dans Live.
 
 ```bash
 git clone https://github.com/xeewi/mixcoach.git && cd mixcoach
@@ -92,7 +94,7 @@ Exporte depuis Ableton avec *Fichier → Exporter audio/vidéo*, **Normaliser d�
 
 > 💡 **Utilise `--reference`** avec un morceau pro du style que tu vises. La courbe cible générique n'est qu'un repère : même les morceaux pros s'en écartent de ±5 dB.
 
-### 3. Analyser chaque piste d'un export
+### 3. Avancé : analyser chaque piste d'un export
 
 Dans Ableton, exporte avec *Piste rendue : **Toutes les pistes individuelles***, puis :
 
@@ -113,7 +115,7 @@ Le fichier master est reconnu tout seul. Les pistes groupe (Drums, etc.) sont re
 </p>
 
 1. **Mesurer.** Chaque capteur fait passer le son dans 28 filtres d'un tiers d'octave (31 Hz → 16 kHz), plus des mesures de stéréo et de crête. Il tient compte du fader, du panoramique et du mute de la piste. Aucun audio ne sort du device : il partage seulement une quarantaine de nombres moyennés, une fois par seconde.
-2. **Comparer.** Le cerveau (`m4l/brain.js`) regarde qui occupe quelle fréquence, où le mix s'écarte d'une courbe cible calibrée sur des morceaux électro professionnels, et quelles paires de pistes se masquent.
+2. **Comparer.** Le cerveau (`m4l/brain.js`) regarde qui occupe quelle fréquence, où le mix s'écarte d'une courbe cible mesurée sur 18 morceaux électro (house, techno, minimal, licence Creative Commons), et quelles paires de pistes se masquent.
 3. **Expliquer.** Chaque constat est accompagné des chiffres, d'un « Pourquoi ? » en langage simple, de ce que tu gagnes à corriger, des étapes dans Ableton et, quand c'est possible, d'une correction ⚡ automatique.
 
 Les outils Python (`mixcoach.py`, `tracks.py`) et le cerveau Max for Live partagent les mêmes règles et les mêmes phrases. Un test vérifie que les deux donnent **exactement les mêmes conseils** sur le même audio.
@@ -183,7 +185,8 @@ Lance `python run_tests.py` avant d'ouvrir une pull request.
 
 - Il faut **Live 12.3+** pour les corrections ⚡ qui *ajoutent* un device (EQ Eight, Utility). Les corrections de fader et de panoramique marchent sur tout Live 12.
 - Les conflits sont jugés sur le spectre moyen : deux sons qui ne jouent jamais en même temps peuvent quand même être signalés.
-- La courbe cible générique est réglée pour la musique électronique moderne. Pour d'autres styles, utilise `--reference`.
+- La courbe cible générique est la moyenne de 18 morceaux électro. Le sub et les aigus varient tellement d'un morceau pro à l'autre que, sans référence, MixCoach ne signale que les écarts hors norme. Pour un avis plus fin, ou pour un autre style, utilise `--reference`.
+- Dans Live, le panneau juge environ la dernière minute jouée : fais tourner la partie la plus chargée (le drop) avant de lire les conseils.
 - **Windows :** pris en charge, et l'analyse est testée sous Windows par la CI, mais les devices n'ont pas encore été essayés dans Live sur un PC. Tes retours sont les bienvenus.
 
 ## Licence

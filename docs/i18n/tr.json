@@ -1,7 +1,8 @@
 {
  "Comment": "Nasıl",
  "Installer": "Kurulum",
- "Quelle piste corriger dans Ableton, comment, et pourquoi. Avec des mots simples.": "Ableton'da hangi kanalı düzeltmeli, nasıl ve neden. Basit sözlerle.",
+ "Ton mix sonne brouillon ? MixCoach te dit quelle piste corriger.": "Miksin bulanık mı geliyor? MixCoach hangi kanalı düzeltmen gerektiğini söyler.",
+ "Il écoute chaque piste de ton projet Ableton Live, puis te dit quoi changer, comment le faire et pourquoi. Avec des mots simples, sans jargon.": "Ableton Live projendeki her kanalı dinler, sonra neyi değiştireceğini, nasıl yapacağını ve nedenini söyler. Sade sözlerle, jargonsuz.",
  "Télécharger MixCoach": "MixCoach'u indir",
  "Gratuit · macOS et Windows": "Ücretsiz · macOS ve Windows",
  "Pour Ableton Live 12 avec Max for Live.": "Max for Live ile Ableton Live 12 için.",
@@ -108,5 +109,6 @@
  "Lead et Pad. 1,3 kHz. Creuse le Lead.": "Lead ve Pad. 1,3 kHz. Lead'i kes.",
  "Lead. 2–6 kHz. Un peu agressif : adoucis-le.": "Lead. 2–6 kHz. Biraz sert: yumuşat.",
  "Hats. 6–20 kHz. 81 % de l'air vient d'eux.": "Hats. 6–20 kHz. Havanın %81'i onlardan.",
- "Fait. Cmd+Z / Ctrl+Z pour annuler.": "Tamam. Geri almak için Cmd+Z / Ctrl+Z."
+ "Fait. Cmd+Z / Ctrl+Z pour annuler.": "Tamam. Geri almak için Cmd+Z / Ctrl+Z.",
+ "Ce que dit MixCoach": "MixCoach ne diyor"
 }

@@ -1,7 +1,8 @@
 {
  "Comment": "しくみ",
  "Installer": "インストール",
- "Quelle piste corriger dans Ableton, comment, et pourquoi. Avec des mots simples.": "Ableton でどのトラックを、どう直すか、そしてその理由。やさしい言葉で。",
+ "Ton mix sonne brouillon ? MixCoach te dit quelle piste corriger.": "ミックスがこもって聞こえる？ MixCoachが、直すべきトラックを教えます。",
+ "Il écoute chaque piste de ton projet Ableton Live, puis te dit quoi changer, comment le faire et pourquoi. Avec des mots simples, sans jargon.": "Ableton Liveプロジェクトのすべてのトラックを聴いて、何を変えるか、どうやるか、なぜかを教えます。専門用語なしの、わかりやすい言葉で。",
  "Télécharger MixCoach": "MixCoach をダウンロード",
  "Gratuit · macOS et Windows": "無料 · macOS &amp; Windows",
  "Pour Ableton Live 12 avec Max for Live.": "Ableton Live 12 + Max for Live 用。",
@@ -108,5 +109,6 @@
  "Lead et Pad. 1,3 kHz. Creuse le Lead.": "Lead と Pad。1.3 kHz。Lead を削ろう。",
  "Lead. 2–6 kHz. Un peu agressif : adoucis-le.": "Lead。2–6 kHz。少し耳に痛い。やわらげよう。",
  "Hats. 6–20 kHz. 81 % de l'air vient d'eux.": "Hats。6–20 kHz。エアの 81 % はここから。",
- "Fait. Cmd+Z / Ctrl+Z pour annuler.": "完了。Cmd+Z / Ctrl+Z で取り消し。"
+ "Fait. Cmd+Z / Ctrl+Z pour annuler.": "完了。Cmd+Z / Ctrl+Z で取り消し。",
+ "Ce que dit MixCoach": "MixCoachのアドバイス"
 }

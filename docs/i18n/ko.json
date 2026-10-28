@@ -1,7 +1,8 @@
 {
  "Comment": "작동 방식",
  "Installer": "설치",
- "Quelle piste corriger dans Ableton, comment, et pourquoi. Avec des mots simples.": "Ableton에서 어떤 트랙을, 어떻게, 왜 고쳐야 하는지. 쉬운 말로.",
+ "Ton mix sonne brouillon ? MixCoach te dit quelle piste corriger.": "믹스가 탁하게 들리나요? MixCoach가 어떤 트랙을 고쳐야 할지 알려 줍니다.",
+ "Il écoute chaque piste de ton projet Ableton Live, puis te dit quoi changer, comment le faire et pourquoi. Avec des mots simples, sans jargon.": "Ableton Live 프로젝트의 모든 트랙을 듣고, 무엇을 바꿀지, 어떻게, 왜 그런지 알려 줍니다. 전문 용어 없이 쉬운 말로.",
  "Télécharger MixCoach": "MixCoach 다운로드",
  "Gratuit · macOS et Windows": "무료 · macOS &amp; Windows",
  "Pour Ableton Live 12 avec Max for Live.": "Max for Live가 있는 Ableton Live 12용.",
@@ -108,5 +109,6 @@
  "Lead et Pad. 1,3 kHz. Creuse le Lead.": "Lead와 Pad. 1.3 kHz. Lead를 깎으세요.",
  "Lead. 2–6 kHz. Un peu agressif : adoucis-le.": "Lead. 2–6 kHz. 조금 거칠어요: 부드럽게.",
  "Hats. 6–20 kHz. 81 % de l'air vient d'eux.": "Hats. 6–20 kHz. 에어의 81 %가 여기서 나와요.",
- "Fait. Cmd+Z / Ctrl+Z pour annuler.": "완료. Cmd+Z / Ctrl+Z로 취소."
+ "Fait. Cmd+Z / Ctrl+Z pour annuler.": "완료. Cmd+Z / Ctrl+Z로 취소.",
+ "Ce que dit MixCoach": "MixCoach의 한마디"
 }

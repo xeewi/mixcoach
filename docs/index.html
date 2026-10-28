@@ -52,9 +52,12 @@ svg.i{width:1.1em;height:1.1em;flex:none}
 /* ---------- hero */
 .hero{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:56px;padding:64px 0 72px;align-items:center}
 .copy{display:flex;flex-direction:column}
-.hl{min-height:2em;font-size:clamp(40px,5.4vw,76px);line-height:1;letter-spacing:-.035em;font-weight:500;margin:0 0 28px;text-wrap:balance}
-.hl span{display:block;transition:opacity .28s var(--ease),transform .28s var(--ease)}
-.hl.swap span{opacity:0;transform:translateY(8px)}
+.hl{font-size:clamp(38px,4.6vw,64px);line-height:1.02;letter-spacing:-.035em;font-weight:500;margin:0 0 28px;text-wrap:balance}
+/* l'exemple de conseil, au-dessus des zones : change avec la zone choisie */
+.say{margin:0 0 14px;display:flex;flex-direction:column;gap:6px}
+.say q{min-height:2.3em;font-size:clamp(22px,2.2vw,30px);line-height:1.15;letter-spacing:-.02em;font-weight:600;quotes:none;
+ transition:opacity .28s var(--ease),transform .28s var(--ease)}
+.say.swap q{opacity:0;transform:translateY(8px)}
 .lead{font-size:20px;line-height:1.5;margin:0 0 48px;max-width:30em;color:var(--ink-2)}
 .dl{display:inline-grid;grid-template-columns:auto 1fr;align-items:center;gap:6px 16px;width:fit-content;background:var(--ink);color:var(--silver);
   text-decoration:none;padding:20px 28px;transition:background .2s var(--ease),color .2s var(--ease)}
@@ -163,7 +166,7 @@ footer{font-size:14px;color:var(--ink-2);padding:28px 0 48px;display:flex;flex-w
 @media (max-width:620px){
   .wrap{padding:0 16px}
   .top{gap:16px} .top a.hide,.brand .cat{display:none}
-  .hero{padding:40px 0 56px} .hl{min-height:0}
+  .hero{padding:40px 0 56px} .say q{min-height:0}
   section{padding:64px 0}
   .key{grid-template-columns:1fr 1fr} .key div{min-height:0} .key div:nth-child(odd){border-inline-start:0} .key div:nth-child(4){border-inline-start:1px solid var(--ink)} .key div:nth-child(n+3){border-top:1px solid var(--ink)}
   .key .sw{height:64px}
@@ -194,8 +197,8 @@ footer{font-size:14px;color:var(--ink-2);padding:28px 0 48px;display:flex;flex-w
   <main>
   <div class="hero">
     <div class="copy">
-      <h1 class="hl" id="hl" aria-live="polite"><span>Pad. 250⁠–⁠500 Hz. Cut it there.</span></h1>
-      <p class="lead" data-fr="Quelle piste corriger dans Ableton, comment, et pourquoi. Avec des mots simples.">Which track to fix in Ableton, how, and why. In plain words.</p>
+      <h1 class="hl" data-fr="Ton mix sonne brouillon&nbsp;? MixCoach te dit quelle piste corriger.">Mix sounds muddy? MixCoach tells you which track to fix.</h1>
+      <p class="lead" data-fr="Il écoute chaque piste de ton projet Ableton Live, puis te dit quoi changer, comment le faire et pourquoi. Avec des mots simples, sans jargon.">It listens to every track of your Ableton Live project, then tells you what to change, how to do it, and why. In plain words, no jargon.</p>
       <a class="dl" href="https://github.com/xeewi/mixcoach/releases/latest/download/MixCoach.zip">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true"><path d="M12 3v13m0 0l-6-6m6 6l6-6M4 21h16"/></svg>
         <b data-fr="Télécharger MixCoach">Download MixCoach</b>
@@ -206,6 +209,7 @@ footer{font-size:14px;color:var(--ink-2);padding:28px 0 48px;display:flex;flex-w
     </div>
 
     <figure class="sleeve">
+      <p class="say" id="hl" aria-live="polite"><span class="label" data-fr="Ce que dit MixCoach">What MixCoach says</span><q>Pad. 250⁠–⁠500 Hz. Cut it there.</q></p>
       <div class="bands" role="group" aria-label="Frequency zones of an example mix">
         <button class="band b-air"    data-z="air"    aria-pressed="false" style="flex-grow:1.4"><span class="label">Air <span class="num">6–20k</span></span><span class="who">HATS 81%</span></button>
         <button class="band b-himid"  data-z="himid"  aria-pressed="false" style="flex-grow:2"><span class="label" data-fr="Haut-médiums 2–6k">High mids 2–6k</span><span class="who">LEAD</span></button>
@@ -472,9 +476,10 @@ function showZone(z, animate) {
   zone = z;
   document.querySelectorAll(".band").forEach(b => b.setAttribute("aria-pressed", b.dataset.z === z));
   const text = tr(...HL[z]);
-  if (!animate) { hl.firstElementChild.textContent = text; return; }
+  const q = hl.querySelector("q");
+  if (!animate) { q.textContent = text; return; }
   hl.classList.add("swap");
-  setTimeout(() => { hl.firstElementChild.textContent = text; hl.classList.remove("swap"); }, 180);
+  setTimeout(() => { q.textContent = text; hl.classList.remove("swap"); }, 180);
 }
 const hover = matchMedia("(hover: hover)").matches;
 document.querySelectorAll(".band").forEach(b => {

@@ -1,7 +1,8 @@
 {
  "Comment": "Hoe",
  "Installer": "Installeren",
- "Quelle piste corriger dans Ableton, comment, et pourquoi. Avec des mots simples.": "Welke track je in Ableton moet aanpakken, hoe, en waarom. In gewone woorden.",
+ "Ton mix sonne brouillon ? MixCoach te dit quelle piste corriger.": "Klinkt je mix modderig? MixCoach vertelt je welk spoor je moet aanpassen.",
+ "Il écoute chaque piste de ton projet Ableton Live, puis te dit quoi changer, comment le faire et pourquoi. Avec des mots simples, sans jargon.": "Het luistert naar elk spoor van je Ableton Live-project en vertelt je wat je moet veranderen, hoe en waarom. In gewone woorden, zonder jargon.",
  "Télécharger MixCoach": "MixCoach downloaden",
  "Gratuit · macOS et Windows": "Gratis · macOS en Windows",
  "Pour Ableton Live 12 avec Max for Live.": "Voor Ableton Live 12 met Max for Live.",
@@ -108,5 +109,6 @@
  "Lead et Pad. 1,3 kHz. Creuse le Lead.": "Lead en Pad. 1,3 kHz. Haal het uit de Lead.",
  "Lead. 2–6 kHz. Un peu agressif : adoucis-le.": "Lead. 2–6 kHz. Wat scherp: maak hem zachter.",
  "Hats. 6–20 kHz. 81 % de l'air vient d'eux.": "Hats. 6–20 kHz. 81% van de air komt van hen.",
- "Fait. Cmd+Z / Ctrl+Z pour annuler.": "Klaar. Cmd+Z / Ctrl+Z om ongedaan te maken."
+ "Fait. Cmd+Z / Ctrl+Z pour annuler.": "Klaar. Cmd+Z / Ctrl+Z om ongedaan te maken.",
+ "Ce que dit MixCoach": "Wat MixCoach zegt"
 }
