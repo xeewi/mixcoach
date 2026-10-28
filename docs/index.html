@@ -143,6 +143,12 @@ code{font:500 .86em ui-monospace,"SF Mono",Menlo,Consolas,monospace;background:v
 .close .sub{color:#B9BDC3}
 .close .dl{background:#fff;color:var(--ink)} .close .dl b{color:var(--ink)}
 .close .dl:hover{background:var(--silver)}
+.credits{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:16px 40px;padding:40px 0 32px;border-bottom:1px solid var(--ink)}
+.credits p{margin:0;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 16px}
+.credits b{font-size:clamp(24px,2.4vw,32px);font-weight:500;letter-spacing:-.02em}
+.credits ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px 28px;font-size:17px}
+.credits a{text-decoration:none;border-bottom:1px solid var(--ink)}
+.credits a:hover{border-bottom-width:3px}
 footer{font-size:14px;color:var(--ink-2);padding:28px 0 48px;display:flex;flex-wrap:wrap;gap:8px 24px}
 
 @media (max-width:980px){
@@ -311,8 +317,17 @@ footer{font-size:14px;color:var(--ink-2);padding:28px 0 48px;display:flex;flex-w
 </section>
 
 <div class="wrap">
+  <div class="credits">
+    <p><span class="label" data-fr="Conçu et développé par">Designed &amp; built by</span><b>Guillaume Gautier</b></p>
+    <ul>
+      <li><a href="https://xeewi.cool">xeewi.cool</a></li>
+      <li><a href="https://www.linkedin.com/in/gautierg">LinkedIn</a></li>
+      <li><a href="https://github.com/xeewi">GitHub</a></li>
+      <li><a href="mailto:gg-xeewi@pm.me">gg-xeewi@pm.me</a></li>
+    </ul>
+  </div>
   <footer>
-    <a href="https://github.com/xeewi/mixcoach">GitHub</a>
+    <a href="https://github.com/xeewi/mixcoach" data-fr="Code source">Source code</a>
     <a href="https://github.com/xeewi/mixcoach/issues" data-fr="Signaler un problème">Report a problem</a>
     <span data-fr="Projet indépendant, non affilié à Ableton.">Independent project, not affiliated with Ableton.</span>
   </footer>
