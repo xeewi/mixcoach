@@ -1,0 +1,14 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "design-system-font",
+        "value": "sf mono",
+        "createdAt": "2026-10-28T11:36:59.121Z",
+        "reason": "Claude: mono stack for install paths in <code> only; recorded in DESIGN.md typography (Mono line)"
+      }
+    ]
+  }
+}

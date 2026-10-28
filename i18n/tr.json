@@ -116,7 +116,7 @@
  "tonalité": "ton",
  "Diagnostic": "Teşhis",
  "Équilibre tonal": "Ton dengesi",
- "Écart de ton mix {ref}. La bande verte = ±{tol} dB, zone correcte. Au-dessus : trop d'énergie, en dessous : pas assez.": "Miksinin sapması ({ref}). Yeşil bant = ±{tol} dB, doğru bölge. Üstü: fazla enerji, altı: yetersiz.",
+ "Écart de ton mix {ref}. La bande grise = ±{tol} dB, zone correcte. Au-dessus : trop d'énergie, en dessous : pas assez.": "Miksinin sapması ({ref}). Gri bant = ±{tol} dB, doğru bölge. Üstü: fazla enerji, altı: yetersiz.",
  "Théorie : ta tonalité": "Teori: şarkının tonu",
  "Tonalité détectée : {key} ({local}) — détection {conf}.": "Bulunan ton: {key} ({local}) — tespit: {conf}.",
  "Code Camelot {code} (pour mixer en DJ : compatible avec ±1 et la lettre opposée).": "Camelot kodu {code} (DJ mikslemek için: ±1 ve karşı harf ile uyumlu).",

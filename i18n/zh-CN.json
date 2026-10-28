@@ -116,7 +116,7 @@
  "tonalité": "调性",
  "Diagnostic": "诊断",
  "Équilibre tonal": "频率平衡",
- "Écart de ton mix {ref}. La bande verte = ±{tol} dB, zone correcte. Au-dessus : trop d'énergie, en dessous : pas assez.": "你的混音的频率差距（{ref}）。绿色带 = ±{tol} dB，是正常范围。高于它：能量太多；低于它：能量不够。",
+ "Écart de ton mix {ref}. La bande grise = ±{tol} dB, zone correcte. Au-dessus : trop d'énergie, en dessous : pas assez.": "你的混音的频率差距（{ref}）。灰色带 = ±{tol} dB，是正常范围。高于它：能量太多；低于它：能量不够。",
  "Théorie : ta tonalité": "乐理：你的调性",
  "Tonalité détectée : {key} ({local}) — détection {conf}.": "检测到的调性：{key}（{local}）——检测结果{conf}。",
  "Code Camelot {code} (pour mixer en DJ : compatible avec ±1 et la lettre opposée).": "Camelot 代码 {code}（DJ 混音用：可以接 ±1 的代码，以及字母相反的同号代码）。",

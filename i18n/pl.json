@@ -116,7 +116,7 @@
  "tonalité": "tonacja",
  "Diagnostic": "Diagnoza",
  "Équilibre tonal": "Balans tonalny",
- "Écart de ton mix {ref}. La bande verte = ±{tol} dB, zone correcte. Au-dessus : trop d'énergie, en dessous : pas assez.": "Odchylenie twojego miksu {ref}. Zielony pas = ±{tol} dB, poprawny zakres. Powyżej: za dużo energii, poniżej: za mało.",
+ "Écart de ton mix {ref}. La bande grise = ±{tol} dB, zone correcte. Au-dessus : trop d'énergie, en dessous : pas assez.": "Odchylenie twojego miksu {ref}. Szary pas = ±{tol} dB, poprawny zakres. Powyżej: za dużo energii, poniżej: za mało.",
  "Théorie : ta tonalité": "Teoria: twoja tonacja",
  "Tonalité détectée : {key} ({local}) — détection {conf}.": "Wykryta tonacja: {key} ({local}) — wykrycie {conf}.",
  "Code Camelot {code} (pour mixer en DJ : compatible avec ±1 et la lettre opposée).": "Kod Camelot {code} (do miksowania jako DJ: pasuje do ±1 i przeciwnej litery).",

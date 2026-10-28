@@ -5,8 +5,8 @@
 <p align="center">
   <a href="https://github.com/xeewi/mixcoach/actions/workflows/tests.yml"><img src="https://github.com/xeewi/mixcoach/actions/workflows/tests.yml/badge.svg" alt="Tests"></a>
   <img src="https://img.shields.io/badge/Ableton%20Live-12-000000?logo=abletonlive&logoColor=white" alt="Ableton Live 12">
-  <img src="https://img.shields.io/badge/Max%20for%20Live-device-7b5cff" alt="Max for Live">
-  <img src="https://img.shields.io/badge/langues-18-ff5e8a" alt="18 langues">
+  <img src="https://img.shields.io/badge/Max%20for%20Live-device-0E0E0F" alt="Max for Live">
+  <img src="https://img.shields.io/badge/langues-18-0E0E0F" alt="18 langues">
   <img src="https://img.shields.io/badge/python-3.10%2B-3776AB?logo=python&logoColor=white" alt="Python 3.10+">
   <a href="LICENSE"><img src="https://img.shields.io/badge/licence-MIT-green" alt="Licence MIT"></a>
 </p>
@@ -16,7 +16,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/xeewi/mixcoach/releases/latest/download/MixCoach.zip"><img src="https://img.shields.io/badge/%E2%AC%87%EF%B8%8F%20T%C3%A9l%C3%A9charger%20MixCoach-7b5cff?style=for-the-badge" alt="T%C3%A9l%C3%A9charger MixCoach" height="42"></a>
+  <a href="https://github.com/xeewi/mixcoach/releases/latest/download/MixCoach.zip"><img src="https://img.shields.io/badge/%E2%AC%87%EF%B8%8F%20T%C3%A9l%C3%A9charger%20MixCoach-0E0E0F?style=for-the-badge" alt="T%C3%A9l%C3%A9charger MixCoach" height="42"></a>
   <br><sub>Gratuit · macOS &amp; Windows · Ableton Live 12 + Max for Live · <a href="https://github.com/xeewi/mixcoach/releases">toutes les versions</a></sub>
 </p>
 

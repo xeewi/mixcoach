@@ -4,181 +4,365 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>MixCoach — mixing coach for Ableton Live</title>
-<meta name="description" content="Free mixing & mastering coach for Ableton Live. It tells you what to fix in your mix, how to do it in Ableton, and why. Max for Live, one-click fixes, 18 languages.">
-<meta property="og:title" content="MixCoach — your friendly mixing coach for Ableton Live">
-<meta property="og:description" content="It tells you what to fix in your mix, how, and why. Free & open source.">
+<meta name="description" content="Free mixing & mastering coach for Ableton Live. It tells you which track to fix, how to do it in Ableton, and why. Max for Live, one-click fixes, 18 languages.">
+<meta property="og:title" content="MixCoach — your mixing coach for Ableton Live">
+<meta property="og:description" content="It tells you which track to fix, how, and why. Free & open source.">
 <meta property="og:image" content="https://xeewi.github.io/mixcoach/assets/banner.png">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#C8CBD0">
 <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
 <style>
-:root{--bg:#0e0820;--bg2:#170c2e;--card:#1d1336;--line:rgba(255,255,255,.12);--fg:#f4efff;--mut:#b9a9de;--acc:#7b5cff;--pink:#ff5e8a;--yel:#ffd23f}
+/* Archivo (SIL Open Font License), served from fonts.gstatic.com, self-hosted here */
+@font-face{font-family:Archivo;src:url(assets/fonts/archivo-latin.woff2) format("woff2");font-weight:100 900;font-stretch:62% 125%;font-display:swap;
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:Archivo;src:url(assets/fonts/archivo-latin-ext.woff2) format("woff2");font-weight:100 900;font-stretch:62% 125%;font-display:swap;
+  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF}
+
+:root{
+  --silver:#C8CBD0; --silver-2:#B9BDC3; --ink:#0E0E0F; --ink-2:#34373D; --paper:#E4E6E9;
+  /* the cipher: one colour per frequency zone, nothing else is coloured */
+  --sub:#2343B0; --bass:#2FA35F; --lowmid:#F4C300; --mid:#E8471C; --himid:#D9468E; --air:#8EC3EA;
+  --ease:cubic-bezier(.2,.7,0,1);
+  --font:Archivo,"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;
+}
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.6 -apple-system,"SF Pro Text",system-ui,"Segoe UI",Roboto,sans-serif}
-a{color:inherit}
-.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
-nav{display:flex;align-items:center;gap:12px;padding:18px 0}
-nav img{width:34px;height:34px;border-radius:9px}
-nav b{font-size:19px;flex:1}
-nav a{color:var(--mut);text-decoration:none;font-size:15px}
-nav button{font:inherit;font-size:14px;background:none;border:1px solid var(--line);color:var(--mut);border-radius:8px;padding:4px 10px;cursor:pointer}
-.hero{background:radial-gradient(900px 500px at 80% 0%,#3b1d6e 0%,transparent 70%);padding-bottom:40px}
-.hero-in{display:grid;grid-template-columns:1.05fr 1fr;gap:40px;align-items:center;padding-top:40px}
-h1{font-size:clamp(38px,6vw,64px);line-height:1.05;margin:0 0 18px;letter-spacing:-1.5px}
-h1 em{font-style:normal;background:linear-gradient(90deg,var(--pink),var(--acc));-webkit-background-clip:text;background-clip:text;color:transparent}
-.lead{font-size:20px;color:var(--mut);margin:0 0 28px}
-.dl{display:inline-flex;align-items:center;gap:12px;background:linear-gradient(90deg,var(--acc),var(--pink));color:#fff;text-decoration:none;
-  font-weight:700;font-size:19px;padding:16px 26px;border-radius:14px;box-shadow:0 12px 40px rgba(123,92,255,.45);transition:transform .15s}
-.dl:hover{transform:translateY(-2px)}
-.dl svg{width:22px;height:22px}
-.meta{margin-top:14px;color:var(--mut);font-size:14px}
-.meta a{color:var(--fg)}
-.shot{width:100%;border-radius:16px;border:1px solid var(--line);box-shadow:0 30px 80px rgba(0,0,0,.5)}
-section{padding:56px 0}
-h2{font-size:clamp(28px,4vw,38px);margin:0 0 10px;letter-spacing:-.5px}
-.sub{color:var(--mut);margin:0 0 30px;max-width:720px}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px}
-.card .ic{font-size:26px}
-.card h3{margin:8px 0 6px;font-size:18px}
-.card p{margin:0;color:var(--mut);font-size:15px}
-.steps{counter-reset:s;display:grid;gap:14px;margin:0;padding:0;list-style:none}
-.steps li{counter-increment:s;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px 16px 64px;position:relative}
-.steps li::before{content:counter(s);position:absolute;left:18px;top:14px;width:32px;height:32px;border-radius:50%;background:var(--acc);
-  display:grid;place-items:center;font-weight:700}
-code{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:6px;font-size:.88em;word-break:break-word}
-.tabs{display:inline-flex;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:4px;margin-bottom:16px}
-.tabs button{font:inherit;font-size:15px;background:none;border:0;color:var(--mut);padding:6px 16px;border-radius:7px;cursor:pointer}
-.tabs button[aria-selected=true]{background:var(--acc);color:#fff}
+html{scroll-behavior:smooth;scrollbar-color:var(--ink) var(--silver)}
+body{margin:0;background:var(--silver);color:var(--ink);font:400 17px/1.55 var(--font);-webkit-font-smoothing:antialiased}
+::selection{background:var(--ink);color:#fff}
+a{color:inherit;text-underline-offset:.2em;text-decoration-thickness:1px}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.close :focus-visible{outline-color:#fff}
+.wrap{max-width:1240px;margin:0 auto;padding:0 32px}
+.label{font-stretch:125%;font-weight:600;font-size:12px;letter-spacing:.16em;text-transform:uppercase}
+.num{font-variant-numeric:tabular-nums}
+svg.i{width:1.1em;height:1.1em;flex:none}
+
+/* ---------- top */
+.top{display:flex;align-items:center;gap:28px;padding:22px 0;border-bottom:1px solid var(--ink)}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;flex:1}
+.brand img{width:28px;height:28px}
+.brand b{font-weight:700;font-size:19px;letter-spacing:-.01em}
+.brand .cat{white-space:nowrap;margin-inline-start:12px;padding-inline-start:14px;border-inline-start:1px solid var(--ink)}
+.top a.label{text-decoration:none}
+.top a.label:hover{text-decoration:underline}
+.top button{font:inherit;background:none;border:1px solid var(--ink);color:var(--ink);padding:5px 10px;cursor:pointer}
+.top button:hover{background:var(--ink);color:var(--silver)}
+
+/* ---------- hero */
+.hero{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:56px;padding:64px 0 72px;align-items:center}
+.copy{display:flex;flex-direction:column}
+.hl{min-height:2em;font-size:clamp(40px,5.4vw,76px);line-height:1;letter-spacing:-.035em;font-weight:500;margin:0 0 28px;text-wrap:balance}
+.hl span{display:block;transition:opacity .28s var(--ease),transform .28s var(--ease)}
+.hl.swap span{opacity:0;transform:translateY(8px)}
+.lead{font-size:20px;line-height:1.5;margin:0 0 48px;max-width:30em;color:var(--ink-2)}
+.dl{display:inline-grid;grid-template-columns:auto 1fr;align-items:center;gap:6px 16px;width:fit-content;background:var(--ink);color:var(--silver);
+  text-decoration:none;padding:20px 28px;transition:background .2s var(--ease),color .2s var(--ease)}
+.dl svg{width:30px;height:30px;grid-row:span 2}
+.dl b{font-size:22px;font-weight:700;letter-spacing:-.01em;color:#fff}
+.dl small{font-size:14px}
+.dl:hover{background:#fff;color:var(--ink)} .dl:hover b{color:var(--ink)}
+.meta{margin-top:18px;font-size:14px;color:var(--ink-2)}
+.copy .spacer{flex:1}
+
+.sleeve{margin:0;display:flex;flex-direction:column}
+.bands{aspect-ratio:1;display:flex;flex-direction:column;background:var(--ink);padding:0}
+.band{all:unset;box-sizing:border-box;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:0 22px;
+  color:var(--ink);transition:flex-grow .4s var(--ease),box-shadow .2s var(--ease);min-height:34px}
+.band .label{font-size:12px}
+.band .who{font-weight:700;font-size:15px;letter-spacing:.02em;opacity:0;transition:opacity .25s var(--ease)}
+.band[aria-pressed=true]{box-shadow:inset 0 0 0 6px var(--ink)}
+.band[aria-pressed=true] .who{opacity:1}
+.band:focus-visible{outline:none;box-shadow:inset 0 0 0 6px var(--ink),inset 0 0 0 9px #fff}
+.band:hover .who{opacity:1}
+.b-sub{background:var(--sub);color:#fff} .b-bass{background:var(--bass)} .b-lowmid{background:var(--lowmid)}
+.b-mid{background:var(--mid)} .b-himid{background:var(--himid)} .b-air{background:var(--air)}
+.sleeve figcaption{display:flex;justify-content:space-between;gap:16px;padding-top:12px;font-size:13px;color:var(--ink-2)}
+
+/* ---------- sections */
+section{padding:88px 0;border-top:1px solid var(--ink)}
+h2{font-size:clamp(32px,3.6vw,48px);line-height:1.05;letter-spacing:-.03em;font-weight:500;margin:0 0 16px;max-width:18em;text-wrap:balance}
+.sub{margin:0 0 48px;max-width:38em;font-size:19px;color:var(--ink-2)}
+
+/* the key: six zones */
+.key{display:grid;grid-template-columns:repeat(6,1fr);border:1px solid var(--ink)}
+.key div{display:flex;flex-direction:column;min-height:300px;border-inline-start:1px solid var(--ink)}
+.key div:first-child{border-inline-start:0}
+.key .sw{height:120px}
+.key h3{margin:16px 16px 2px;font-size:20px;font-weight:600;letter-spacing:-.01em}
+.key .hz{margin:0 16px 12px;font-size:13px}
+.key p{margin:0 16px 18px;font-size:15px;line-height:1.45;color:var(--ink-2)}
+
+/* anatomy of a tip */
+.tip{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:56px;align-items:start}
+.entry{background:var(--paper);border:1px solid var(--ink)}
+.entry header{display:flex;align-items:center;gap:0;border-bottom:1px solid var(--ink)}
+.entry header .label{padding:10px 14px}
+.lvl{background:var(--ink);color:#fff} .lvl.num{border-inline-end:1px solid #fff}
+.zone{background:var(--sub);color:#fff}
+.entry header .label:last-child{margin-inline-start:auto}
+.entry .body{padding:24px 28px 28px}
+.entry h3{font-size:28px;line-height:1.15;letter-spacing:-.02em;font-weight:600;margin:0 0 10px}
+.entry p{margin:0 0 14px}
+.entry h4{margin:22px 0 8px;font-size:12px}
+.entry ol{margin:0;padding-inline-start:22px}
+.entry li{margin:4px 0}
+.fix{display:inline-flex;align-items:center;gap:10px;margin-top:22px;background:var(--ink);color:#fff;border:0;font:inherit;font-weight:600;padding:12px 18px;cursor:pointer}
+.fix:hover{background:#fff;color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.fix[disabled]{background:var(--ink-2);cursor:default}
+.notes{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink)}
+.notes li{display:grid;grid-template-columns:92px 1fr;gap:16px;padding:18px 0;border-bottom:1px solid var(--ink)}
+.notes b{display:block;font-weight:600;margin-bottom:2px}
+.notes span.label{padding-top:4px}
+
+/* side A / side B */
+.sides{display:grid;grid-template-columns:1fr 1fr;gap:0 56px}
+.sides h3{margin:0;padding:0 0 12px;border-bottom:3px solid var(--ink)}
+.sides ol{list-style:none;margin:0;padding:0}
+.sides li{display:grid;grid-template-columns:52px 1fr;gap:12px;padding:16px 0;border-bottom:1px solid var(--ink)}
+.sides li b{font-weight:600;font-size:19px;letter-spacing:-.01em}
+.sides li p{margin:2px 0 0;color:var(--ink-2);font-size:16px}
+.sides .label{padding-top:6px}
+
+/* install */
+.os{display:inline-flex;border:1px solid var(--ink);margin-bottom:28px}
+.os button{font:inherit;background:none;border:0;color:var(--ink);padding:8px 18px;cursor:pointer}
+.os button[aria-selected=true]{background:var(--ink);color:#fff}
 [data-os]{display:none} body.mac [data-os=mac],body.win [data-os=win]{display:inline}
-.split{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center}
-.langs{display:flex;flex-wrap:wrap;gap:8px}
-.langs span{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:15px}
-.cta{text-align:center;background:radial-gradient(700px 300px at 50% 100%,#3b1d6e,transparent 70%)}
-footer{color:var(--mut);font-size:14px;padding:30px 0 50px;text-align:center}
-@media (max-width:820px){.hero-in,.split{grid-template-columns:1fr}.grid{grid-template-columns:1fr}nav a.hide{display:none}}
+.steps{list-style:none;margin:0;padding:0;counter-reset:s;max-width:62em}
+.steps li{counter-increment:s;display:grid;grid-template-columns:64px 1fr;padding:18px 0;border-bottom:1px solid var(--ink)}
+.steps li::before{content:counter(s);font-size:28px;font-weight:500;line-height:1;letter-spacing:-.02em}
+code{font:500 .86em ui-monospace,"SF Mono",Menlo,Consolas,monospace;background:var(--paper);padding:2px 6px;word-break:break-word}
+
+/* languages */
+.langs{font-size:clamp(24px,2.8vw,38px);line-height:1.3;letter-spacing:-.02em;margin:0;max-width:30em}
+.langs span:not(:last-child)::after{content:" / ";color:var(--ink-2)}
+
+/* close */
+.close{background:var(--ink);color:#fff;border-top:0;padding:96px 0}
+.close .sub{color:#B9BDC3}
+.close .dl{background:#fff;color:var(--ink)} .close .dl b{color:var(--ink)}
+.close .dl:hover{background:var(--silver)}
+footer{font-size:14px;color:var(--ink-2);padding:28px 0 48px;display:flex;flex-wrap:wrap;gap:8px 24px}
+
+@media (max-width:980px){
+  .hero,.tip{grid-template-columns:1fr;gap:40px}
+  .key{grid-template-columns:repeat(3,1fr)} .key div:nth-child(4){border-inline-start:0} .key div:nth-child(n+4){border-top:1px solid var(--ink)}
+  .sides{grid-template-columns:1fr;gap:40px}
+}
+@media (max-width:620px){
+  .wrap{padding:0 16px}
+  .top{gap:16px} .top a.hide,.brand .cat{display:none}
+  .hero{padding:40px 0 56px} .hl{min-height:0}
+  section{padding:64px 0}
+  .key{grid-template-columns:1fr 1fr} .key div{min-height:0} .key div:nth-child(odd){border-inline-start:0} .key div:nth-child(4){border-inline-start:1px solid var(--ink)} .key div:nth-child(n+3){border-top:1px solid var(--ink)}
+  .key .sw{height:64px}
+  .band{padding:0 14px}
+  .notes li,.steps li{grid-template-columns:44px 1fr}
+  .dl{padding:18px 20px}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body class="mac">
-<div class="hero">
-  <div class="wrap">
-    <nav>
-      <img src="assets/logo.svg" alt=""><b>MixCoach</b>
-      <a class="hide" href="#install" data-fr="Installation">Install</a>
-      <a href="https://github.com/xeewi/mixcoach">GitHub</a>
-      <button id="lang" aria-label="Language">FR</button>
-    </nav>
-    <div class="hero-in">
-      <div>
-        <h1 data-fr="Ton coach de mixage, <em>directement dans Ableton.</em>">Your mixing coach, <em>right inside Ableton.</em></h1>
-        <p class="lead" data-fr="MixCoach écoute chaque piste et te dit, avec des mots simples, quoi corriger, comment le faire dans Ableton, et pourquoi. Pas besoin de connaître la théorie.">
-          MixCoach listens to every track and tells you, in plain words, what to fix, how to do it in Ableton, and why. No theory needed.</p>
-        <a class="dl" href="https://github.com/xeewi/mixcoach/releases/latest/download/MixCoach.zip">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 19h16"/></svg>
-          <span data-fr="Télécharger MixCoach">Download MixCoach</span></a>
-        <div class="meta"><span data-fr="Gratuit · macOS &amp; Windows · Ableton Live 12 + Max for Live">Free · macOS &amp; Windows · Ableton Live 12 + Max for Live</span>
-          <span id="ver"></span> · <a href="https://github.com/xeewi/mixcoach/releases" data-fr="Toutes les versions">All versions</a></div>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="#"><img src="assets/logo.svg" alt=""><b>MixCoach</b><span class="label cat num">MXC 001</span></a>
+    <a class="label hide" href="#how" data-fr="Comment">How</a>
+    <a class="label hide" href="#install" data-fr="Installer">Install</a>
+    <a class="label" href="https://github.com/xeewi/mixcoach">GitHub</a>
+    <button class="label" id="lang" aria-label="Language">FR</button>
+  </header>
+
+  <main>
+  <div class="hero">
+    <div class="copy">
+      <h1 class="hl" id="hl" aria-live="polite"><span>Pad. 250⁠–⁠500 Hz. Cut it there.</span></h1>
+      <p class="lead" data-fr="Quelle piste corriger dans Ableton, comment, et pourquoi. Avec des mots simples.">Which track to fix in Ableton, how, and why. In plain words.</p>
+      <a class="dl" href="https://github.com/xeewi/mixcoach/releases/latest/download/MixCoach.zip">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true"><path d="M12 3v13m0 0l-6-6m6 6l6-6M4 21h16"/></svg>
+        <b data-fr="Télécharger MixCoach">Download MixCoach</b>
+        <small><span data-fr="Gratuit · macOS et Windows">Free · macOS &amp; Windows</span><span id="ver" class="num"></span></small>
+      </a>
+      <p class="meta"><span data-fr="Pour Ableton Live 12 avec Max for Live.">For Ableton Live 12 with Max for Live.</span>
+        <a href="https://github.com/xeewi/mixcoach/releases" data-fr="Toutes les versions">All versions</a></p>
+    </div>
+
+    <figure class="sleeve">
+      <div class="bands" role="group" aria-label="Frequency zones of an example mix">
+        <button class="band b-air"    data-z="air"    aria-pressed="false" style="flex-grow:1.4"><span class="label">Air <span class="num">6–20k</span></span><span class="who">HATS 81%</span></button>
+        <button class="band b-himid"  data-z="himid"  aria-pressed="false" style="flex-grow:2"><span class="label" data-fr="Haut-médiums 2–6k">High mids 2–6k</span><span class="who">LEAD</span></button>
+        <button class="band b-mid"    data-z="mid"    aria-pressed="false" style="flex-grow:2.6"><span class="label" data-fr="Médiums 500–2k">Mids 500–2k</span><span class="who">LEAD ↔ PAD</span></button>
+        <button class="band b-lowmid" data-z="lowmid" aria-pressed="true"  style="flex-grow:4.6"><span class="label" data-fr="Bas-médiums 250–500">Low mids 250–500</span><span class="who">PAD 60%</span></button>
+        <button class="band b-bass"   data-z="bass"   aria-pressed="false" style="flex-grow:3.4"><span class="label" data-fr="Basses 60–250">Bass 60–250</span><span class="who">SUB BASS</span></button>
+        <button class="band b-sub"    data-z="sub"    aria-pressed="false" style="flex-grow:3"><span class="label">Sub 20–60</span><span class="who">KICK ↔ SUB BASS</span></button>
       </div>
-      <img class="shot" src="assets/card.png" alt="A MixCoach tip with its explanation, steps and one-click fix">
-    </div>
+      <figcaption><span data-fr="Un mix d'exemple, zone par zone. Clique une zone.">An example mix, zone by zone. Pick a zone.</span><span class="label">Hz</span></figcaption>
+    </figure>
   </div>
-</div>
 
-<section>
-  <div class="wrap">
-    <h2 data-fr="Comme un ami au studio">Like a friend in the studio</h2>
-    <p class="sub" data-fr="Les analyseurs de spectre montrent des courbes. MixCoach te dit quoi en faire.">Spectrum analyzers show you curves. MixCoach tells you what to do about them.</p>
-    <div class="grid">
-      <div class="card"><div class="ic">🎯</div><h3 data-fr="Piste par piste">Track by track</h3>
-        <p data-fr="« Le Pad apporte 60 % de la boue entre 250 et 500 Hz : creuse-le là. » Il compare tes pistes entre elles, pas seulement le master.">“The Pad brings 60% of the mud between 250 and 500 Hz: cut it there.” It compares your tracks with each other, not just the master.</p></div>
-      <div class="card"><div class="ic">🗣️</div><h3 data-fr="Des mots simples">Plain words</h3>
-        <p data-fr="Chaque conseil explique pourquoi, avec des images de tous les jours, et ce que tu gagnes à corriger.">Every tip explains why, with everyday images, and what you gain by fixing it.</p></div>
-      <div class="card"><div class="ic">⚡</div><h3 data-fr="Corrections en un clic">One-click fixes</h3>
-        <p data-fr="Recentrer un panoramique, monter un fader, ajouter un EQ Eight bien réglé. Tout s'annule.">Recenter a pan, raise a fader, add a well-tuned EQ Eight. Everything is undoable.</p></div>
-      <div class="card"><div class="ic">🥁</div><h3 data-fr="Conflits kick / basse">Kick vs. bass clashes</h3>
-        <p data-fr="Il repère les sons qui se battent pour les mêmes fréquences et décide lequel doit faire de la place.">Finds sounds fighting for the same frequencies and decides which one should make room.</p></div>
-      <div class="card"><div class="ic">🎚️</div><h3 data-fr="Prêt pour le mastering">Ready for mastering</h3>
-        <p data-fr="Marge, saturation, phase, grave en mono, volume LUFS pour le streaming ou le club.">Headroom, clipping, phase, mono low end, LUFS loudness for streaming or club.</p></div>
-      <div class="card"><div class="ic">🔓</div><h3 data-fr="Gratuit et hors ligne">Free &amp; offline</h3>
-        <p data-fr="Open source, pas de compte, pas de serveur, pas d'IA en ligne. Juste des calculs sur ton son.">Open source, no account, no server, no online AI. Just math on your sound.</p></div>
+  <section id="how">
+    <h2 data-fr="Ton mix, en six zones">Your mix, in six zones</h2>
+    <p class="sub" data-fr="Les analyseurs de spectre dessinent des courbes. MixCoach compare tes pistes entre elles et te dit laquelle encombre quelle zone, puis quoi faire.">
+      Spectrum analyzers draw curves. MixCoach compares your tracks with each other, tells you which one crowds which zone, then what to do about it.</p>
+    <div class="key">
+      <div><span class="sw" style="background:var(--sub)"></span><h3>Sub</h3><p class="hz label num">20–60 Hz</p>
+        <p data-fr="La vibration très grave qu'on sent dans le ventre plus qu'on ne l'entend.">The very deep vibration you feel in your belly more than you hear it.</p></div>
+      <div><span class="sw" style="background:var(--bass)"></span><h3 data-fr="Basses">Bass</h3><p class="hz label num">60–250 Hz</p>
+        <p data-fr="Le corps et la chaleur du kick et de la basse.">The body and warmth of the kick and the bass.</p></div>
+      <div><span class="sw" style="background:var(--lowmid)"></span><h3 data-fr="Bas-médiums">Low mids</h3><p class="hz label num">250–500 Hz</p>
+        <p data-fr="La zone où presque tous les instruments ont de l'énergie, donc où tout s'empile.">Where almost every instrument has energy, so everything piles up.</p></div>
+      <div><span class="sw" style="background:var(--mid)"></span><h3 data-fr="Médiums">Mids</h3><p class="hz label num">500–2000 Hz</p>
+        <p data-fr="Le cœur des instruments et de la voix, la seule chose qu'un téléphone arrive vraiment à jouer.">The heart of instruments and vocals, the only thing a phone can really play.</p></div>
+      <div><span class="sw" style="background:var(--himid)"></span><h3 data-fr="Haut-médiums">High mids</h3><p class="hz label num">2–6 kHz</p>
+        <p data-fr="L'attaque et la présence des sons ; l'oreille y est très sensible.">The attack and presence of sounds; your ear is very sensitive here.</p></div>
+      <div><span class="sw" style="background:var(--air)"></span><h3 data-fr="Aigus / air">Highs / air</h3><p class="hz label num">6–20 kHz</p>
+        <p data-fr="La brillance, les cymbales, le souffle, « l'air ».">Brightness, cymbals, breath, “air”.</p></div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section>
-  <div class="wrap split">
-    <img class="shot" src="assets/panel.png" alt="The MixCoach panel inside Ableton Live">
-    <div>
-      <h2 data-fr="Tout ton mix d'un coup d'œil">Your whole mix at a glance</h2>
-      <p class="sub" data-fr="Un petit capteur sur chaque piste, le panneau MixCoach sur le Master. Lance la lecture : en quelques secondes, tu vois quelle piste corriger et comment. Avec MixCoach Auto, les capteurs se posent tout seuls.">
-        A small sensor on each track, the MixCoach panel on the Master. Press play: in a few seconds you see which track to fix and how. With MixCoach Auto, sensors add themselves.</p>
+  <section>
+    <div class="tip">
+      <article class="entry" aria-label="Example tip">
+        <header><span class="label lvl num">01</span><span class="label lvl" data-fr="Attention">Warning</span><span class="label zone">Sub</span><span class="label num">Kick ↔ Sub Bass</span></header>
+        <div class="body">
+          <h3 data-fr="Le kick et la Sub Bass se battent vers 39 Hz">The kick and the Sub Bass clash around 39 Hz</h3>
+          <p data-fr="Les deux pistes sont fortes dans la même bande, au même endroit du mix. Le kick garde le grave : on fait de la place dans la Sub Bass.">Both tracks are loud in the same band, at the same place in the mix. The kick keeps the low end: the Sub Bass makes room.</p>
+          <p data-fr="<b>Pourquoi ?</b> Quand deux sons jouent dans les mêmes fréquences, l'oreille n'arrive plus à les séparer : ils se cachent l'un l'autre, comme deux personnes qui parlent en même temps.">
+            <b>Why?</b> When two sounds play in the same frequencies, your ear can't separate them anymore: they hide each other, like two people talking at the same time.</p>
+          <h4 class="label" data-fr="Comment corriger dans Ableton">How to fix it in Ableton</h4>
+          <ol>
+            <li data-fr="Sidechain : Compressor sur la basse, entrée Sidechain = la piste du kick, Ratio 4:1, Attack rapide.">Sidechain: Compressor on the bass, Sidechain input = the kick track, Ratio 4:1, fast Attack.</li>
+            <li data-fr="Sinon : EQ Eight sur la basse, une cloche vers 39 Hz, -2 à -3 dB.">Otherwise: EQ Eight on the bass, a Bell around 39 Hz, −2 to −3 dB.</li>
+          </ol>
+          <button class="fix" type="button" id="fix"><svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg>
+            <span data-fr="Ajouter un EQ Eight sur « Sub Bass »">Add an EQ Eight on “Sub Bass”</span></button>
+        </div>
+      </article>
+      <div>
+        <h2 data-fr="Un conseil, quatre réponses">One tip, four answers</h2>
+        <ul class="notes">
+          <li><span class="label" data-fr="Quoi">What</span><div><b data-fr="Le fait">The fact</b><span data-fr="Quelle piste, quelle zone, combien.">Which track, which zone, how much.</span></div></li>
+          <li><span class="label" data-fr="Pourquoi">Why</span><div><b data-fr="Avec des mots de tous les jours">In everyday words</b><span data-fr="Et ce que tu gagnes à corriger.">And what you gain by fixing it.</span></div></li>
+          <li><span class="label" data-fr="Comment">How</span><div><b data-fr="Les étapes dans Ableton">The steps in Ableton</b><span data-fr="Avec les vrais noms : EQ Eight → Bell → 120 Hz → −3 dB.">With the real names: EQ Eight → Bell → 120 Hz → −3 dB.</span></div></li>
+          <li><span class="label" data-fr="Un clic">One click</span><div><b data-fr="La correction automatique">The automatic fix</b><span data-fr="Pan, fader, EQ Eight ou Utility réglés pour toi. Cmd+Z / Ctrl+Z annule.">Pan, fader, EQ Eight or Utility set for you. Cmd+Z / Ctrl+Z undoes it.</span></div></li>
+        </ul>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section id="install">
-  <div class="wrap">
+  <section>
+    <h2 data-fr="Ce qu'il y a sur le disque">What's on the record</h2>
+    <p class="sub" data-fr="Dans Ableton pendant que tu joues, ou sur un fichier exporté.">Inside Ableton while you play, or on an exported file.</p>
+    <div class="sides">
+      <div><h3 class="label" data-fr="Face A · Dans Ableton">Side A · Inside Ableton</h3><ol>
+        <li><span class="label">A1</span><div><b data-fr="Conflits entre pistes">Track-vs-track clashes</b><p data-fr="Les paires de pistes qui se battent pour les mêmes fréquences, et laquelle doit céder (le kick gagne le grave).">Pairs of tracks fighting for the same frequencies, and which one should make room (the kick wins the low end).</p></div></li>
+        <li><span class="label">A2</span><div><b data-fr="Le coupable">Culprit finder</b><p data-fr="Trop ou pas assez d'une zone ? Il nomme les pistes responsables.">Too much or too little of a zone? It names the tracks responsible.</p></div></li>
+        <li><span class="label">A3</span><div><b data-fr="Hygiène du grave">Low-end hygiene</b><p data-fr="Grave inutile sur les nappes, basse en stéréo, kick ou basse décentrés.">Useless rumble on pads, stereo bass, off-center kick or bass.</p></div></li>
+        <li><span class="label">A4</span><div><b data-fr="Installation automatique">Automatic setup</b><p data-fr="Le script MixCoach Auto pose les capteurs sur chaque piste, même les nouvelles.">The MixCoach Auto script adds the sensors to every track, new ones included.</p></div></li>
+      </ol></div>
+      <div><h3 class="label" data-fr="Face B · Sur un export">Side B · On an export</h3><ol>
+        <li><span class="label">B1</span><div><b data-fr="Contrôles du master">Master checks</b><p data-fr="Marge pour le mastering, saturation, phase, compatibilité mono.">Headroom for mastering, clipping, phase, mono compatibility.</p></div></li>
+        <li><span class="label">B2</span><div><b data-fr="Rapport de mastering">Mastering report</b><p data-fr="LUFS pour le streaming ou le club, true peak, dynamique, équilibre tonal face à ton morceau de référence.">LUFS for streaming or club, true peak, dynamics, tonal balance against your own reference track.</p></div></li>
+        <li><span class="label">B3</span><div><b data-fr="Coin théorie">Music theory corner</b><p data-fr="La tonalité de ton morceau, sa gamme, ses accords, son code Camelot, et le mode Scale de Live 12.">Your song's key, its scale, its chords, its Camelot code, and Live 12's Scale mode.</p></div></li>
+        <li><span class="label">B4</span><div><b data-fr="Hors ligne">Offline</b><p data-fr="Pas de compte, pas de serveur, pas d'IA en ligne. Juste des calculs sur ton son.">No account, no server, no online AI. Just maths on your sound.</p></div></li>
+      </ol></div>
+    </div>
+  </section>
+
+  <section id="install">
     <h2 data-fr="Installation en 2 minutes">Install in 2 minutes</h2>
     <p class="sub" data-fr="Il te faut Ableton Live 12 (Suite, ou Standard + Max for Live).">You need Ableton Live 12 (Suite, or Standard + Max for Live).</p>
-    <div class="tabs" role="tablist">
+    <div class="os label" role="tablist">
       <button role="tab" data-tab="mac" aria-selected="true">macOS</button>
       <button role="tab" data-tab="win" aria-selected="false">Windows</button>
     </div>
     <ol class="steps">
-      <li><span data-fr="Télécharge"><b>Download</b></span> <a href="https://github.com/xeewi/mixcoach/releases/latest/download/MixCoach.zip"><b>MixCoach.zip</b></a>
-        <span data-fr="et décompresse-le.">and unzip it.</span></li>
-      <li><span data-fr="Copie le dossier"><b>Copy</b> the</span> <b>MixCoach</b> <span data-fr="dans">folder to</span>
+      <li><div><span data-fr="Télécharge"><b>Download</b></span> <a href="https://github.com/xeewi/mixcoach/releases/latest/download/MixCoach.zip"><b>MixCoach.zip</b></a>
+        <span data-fr="et décompresse-le.">and unzip it.</span></div></li>
+      <li><div><span data-fr="Copie le dossier"><b>Copy</b> the</span> <b>MixCoach</b> <span data-fr="dans">folder to</span>
         <code data-os="mac">~/Music/Ableton/User Library/Presets/Audio Effects/Max Audio Effect/</code>
-        <code data-os="win">Documents\Ableton\User Library\Presets\Audio Effects\Max Audio Effect\</code></li>
-      <li><span data-fr="Facultatif, mais magique : copie"><i>Optional, but magic:</i> copy</span> <b>MixCoachAuto</b> <span data-fr="dans">to</span>
+        <code data-os="win">Documents\Ableton\User Library\Presets\Audio Effects\Max Audio Effect\</code></div></li>
+      <li><div><span data-fr="Facultatif, mais magique : copie"><i>Optional, but magic:</i> copy</span> <b>MixCoachAuto</b> <span data-fr="dans">to</span>
         <code data-os="mac">~/Music/Ableton/User Library/Remote Scripts/</code><code data-os="win">Documents\Ableton\User Library\Remote Scripts\</code>,
-        <span data-fr="redémarre Live et choisis MixCoachAuto comme Surface de contrôle (Réglages → Link, Tempo &amp; MIDI). Les capteurs se posent alors tout seuls.">restart Live and pick MixCoachAuto as a Control Surface (Settings → Link, Tempo &amp; MIDI). Sensors then add themselves.</span></li>
-      <li><span data-fr="Sinon, glisse MixCoach Sensor sur chaque piste et MixCoach sur le Master. Lance la lecture : c'est parti !">Otherwise, drop MixCoach Sensor on each track and MixCoach on the Master. Press play: you're done!</span></li>
+        <span data-fr="redémarre Live et choisis MixCoachAuto comme Surface de contrôle (Réglages → Link, Tempo &amp; MIDI). Les capteurs se posent alors tout seuls.">restart Live and pick MixCoachAuto as a Control Surface (Settings → Link, Tempo &amp; MIDI). Sensors then add themselves.</span></div></li>
+      <li><div><span data-fr="Sinon, glisse MixCoach Sensor sur chaque piste et MixCoach sur le Master. Lance la lecture : c'est parti.">Otherwise, drop MixCoach Sensor on each track and MixCoach on the Master. Press play: you're done.</span></div></li>
     </ol>
-  </div>
-</section>
+  </section>
 
-<section>
-  <div class="wrap">
+  <section>
     <h2 data-fr="Il parle ta langue">It speaks your language</h2>
     <p class="sub" data-fr="Choisis ta langue dans le panneau. Les noms des devices Ableton restent ceux que tu vois dans Live.">Pick your language in the panel. Ableton device names stay the ones you see in Live.</p>
-    <div class="langs"><span>English</span><span>Français</span><span>Español</span><span>Deutsch</span><span>Italiano</span><span>Português (Brasil)</span>
-      <span>Nederlands</span><span>Polski</span><span>Русский</span><span>Українська</span><span>Türkçe</span><span>العربية</span><span>हिन्दी</span>
-      <span>Bahasa Indonesia</span><span>日本語</span><span>한국어</span><span>简体中文</span><span>繁體中文</span></div>
-  </div>
-</section>
+    <p class="langs"><span>English</span><span>Français</span><span>Español</span><span>Deutsch</span><span>Italiano</span><span>Português (Brasil)</span><span>Nederlands</span><span>Polski</span><span>Русский</span><span>Українська</span><span>Türkçe</span><span lang="ar">العربية</span><span lang="hi">हिन्दी</span><span>Bahasa Indonesia</span><span lang="ja">日本語</span><span lang="ko">한국어</span><span lang="zh-CN">简体中文</span><span lang="zh-TW">繁體中文</span></p>
+  </section>
+  </main>
+</div>
 
-<section class="cta">
+<section class="close">
   <div class="wrap">
-    <h2 data-fr="Prêt à mieux mixer ?">Ready to mix better?</h2>
-    <p class="sub" style="margin:0 auto 26px" data-fr="Gratuit, pour toujours. Si ça t'aide, une ⭐ sur GitHub fait plaisir.">Free, forever. If it helps you, a ⭐ on GitHub means a lot.</p>
+    <h2 data-fr="Gratuit, pour toujours.">Free, forever.</h2>
+    <p class="sub" data-fr="Open source, licence MIT. Si ça t'aide, une étoile sur GitHub fait plaisir.">Open source, MIT license. If it helps you, a star on GitHub means a lot.</p>
     <a class="dl" href="https://github.com/xeewi/mixcoach/releases/latest/download/MixCoach.zip">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 19h16"/></svg>
-      <span data-fr="Télécharger MixCoach">Download MixCoach</span></a>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true"><path d="M12 3v13m0 0l-6-6m6 6l6-6M4 21h16"/></svg>
+      <b data-fr="Télécharger MixCoach">Download MixCoach</b>
+      <small data-fr="macOS et Windows · Ableton Live 12">macOS &amp; Windows · Ableton Live 12</small>
+    </a>
   </div>
 </section>
 
-<footer>
-  <span data-fr="MixCoach est open source (licence MIT).">MixCoach is open source (MIT license).</span>
-  <a href="https://github.com/xeewi/mixcoach">GitHub</a> ·
-  <a href="https://github.com/xeewi/mixcoach/issues" data-fr="Signaler un problème">Report a problem</a><br>
-  <span data-fr="Projet indépendant, non affilié à Ableton.">Independent project, not affiliated with Ableton.</span>
-</footer>
+<div class="wrap">
+  <footer>
+    <a href="https://github.com/xeewi/mixcoach">GitHub</a>
+    <a href="https://github.com/xeewi/mixcoach/issues" data-fr="Signaler un problème">Report a problem</a>
+    <span data-fr="Projet indépendant, non affilié à Ableton.">Independent project, not affiliated with Ableton.</span>
+  </footer>
+</div>
 
 <script>
 // Langue : français si le navigateur est en français (ou si on clique), sinon anglais. Textes FR dans data-fr.
 const els = [...document.querySelectorAll("[data-fr]")];
 els.forEach(e => e.dataset.en = e.innerHTML);
-function setLang(fr) {
+// Le titre du haut change avec la zone choisie (exemple de mix, pas une vraie analyse).
+const HL = {
+  sub:    ["Kick and Sub Bass. 39 Hz. Let the kick win.", "Kick et Sub Bass. 39 Hz. Laisse gagner le kick."],
+  bass:   ["Sub Bass. 120 Hz. Duck it under the kick.", "Sub Bass. 120 Hz. Fais-la passer sous le kick."],
+  lowmid: ["Pad. 250⁠–⁠500 Hz. Cut it there.", "Pad. 250⁠–⁠500 Hz. Creuse-le là."],
+  mid:    ["Lead and Pad. 1.3 kHz. Cut the Lead.", "Lead et Pad. 1,3 kHz. Creuse le Lead."],
+  himid:  ["Lead. 2–6 kHz. A little harsh: tame it.", "Lead. 2–6 kHz. Un peu agressif : adoucis-le."],
+  air:    ["Hats. 6–20 kHz. 81% of the air is theirs.", "Hats. 6–20 kHz. 81 % de l'air vient d'eux."],
+};
+let fr = false, zone = "lowmid";
+const hl = document.getElementById("hl");
+function showZone(z, animate) {
+  zone = z;
+  document.querySelectorAll(".band").forEach(b => b.setAttribute("aria-pressed", b.dataset.z === z));
+  const text = HL[z][fr ? 1 : 0];
+  if (!animate) { hl.firstElementChild.textContent = text; return; }
+  hl.classList.add("swap");
+  setTimeout(() => { hl.firstElementChild.textContent = text; hl.classList.remove("swap"); }, 180);
+}
+const hover = matchMedia("(hover: hover)").matches;
+document.querySelectorAll(".band").forEach(b => {
+  b.onclick = () => showZone(b.dataset.z, true);
+  if (hover) b.onmouseenter = () => { if (zone !== b.dataset.z) showZone(b.dataset.z, true); };
+});
+
+function setLang(isFr) {
+  fr = isFr;
   els.forEach(e => e.innerHTML = fr ? e.dataset.fr : e.dataset.en);
   document.documentElement.lang = fr ? "fr" : "en";
   document.getElementById("lang").textContent = fr ? "EN" : "FR";
+  showZone(zone, false);
   try { localStorage.setItem("mc_lang", fr ? "fr" : "en"); } catch (e) {}
 }
 let saved = null; try { saved = localStorage.getItem("mc_lang"); } catch (e) {}
-let fr = saved ? saved === "fr" : navigator.language.toLowerCase().startsWith("fr");
-setLang(fr);
-document.getElementById("lang").onclick = () => setLang(fr = !fr);
+setLang(saved ? saved === "fr" : navigator.language.toLowerCase().startsWith("fr"));
+document.getElementById("lang").onclick = () => setLang(!fr);
+
+// Le bouton ⚡ de l'exemple : montre ce qui se passe dans Live, sans rien faire ici.
+const fix = document.getElementById("fix");
+fix.onclick = () => { fix.disabled = true; fix.lastElementChild.textContent = fr ? "Fait. Cmd+Z / Ctrl+Z pour annuler." : "Done. Cmd+Z / Ctrl+Z to undo."; };
+
 // Onglets macOS / Windows (Windows présélectionné sur un PC)
 function setOS(os) {
   document.body.className = os;

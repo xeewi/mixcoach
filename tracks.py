@@ -10,6 +10,7 @@ Un fichier dont le nom contient « master » est utilisé comme mix ; sinon le m
 """
 import argparse
 import html
+import itertools
 import os
 import re
 import sys
@@ -329,13 +330,14 @@ def render(folder, tracks, advice, conflicts, energy_share, mix_L, mix_findings)
         for k, tk in enumerate(tracks))
     conf = "".join("<li>" + e(t("« {a} » ↔ « {b} » vers {f} → creuser « {cut} »", a=c["a"], b=c["b"], f=f"{c['freq']:.0f} Hz", cut=c["cut"])) + "</li>"
                    for c in conflicts) or "<li>" + e(t("Aucun conflit marqué.")) + "</li>"
+    no = itertools.count(1)  # numéro de catalogue continu sur tout le rapport
     per_track = "".join(
         f"<section class='track'><h3 class='tname'>{e(tk['name'])} <small>· {e(role(tk['f50']))}</small></h3>"
-        + "".join(mc.card_html(f) for f in advice[tk["name"]]) + "</section>"
+        + "".join(mc.card_html(f, next(no)) for f in advice[tk["name"]]) + "</section>"
         for tk in tracks)
     head = [t("Piste"), t("Rôle"), t("Énergie"), t("Panoramique"), t("À corriger")]
     return f"""{mc.html_open(t("MixCoach pistes — {name}", name=Path(folder).name))}<style>{mc.CSS}
-table{{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:.92em}}
+table{{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);font-size:.92em;font-variant-numeric:tabular-nums}}
 td,th{{padding:8px 10px;border-bottom:1px solid var(--line);text-align:start}} th{{color:var(--mut);font-weight:500}}
 .track{{margin-top:22px}} .tname{{margin:0;font-size:1.15em}} .tname small{{color:var(--mut);font-weight:400}}
 .wrap{{overflow-x:auto}}</style></head><body><main>
@@ -346,7 +348,7 @@ td,th{{padding:8px 10px;border-bottom:1px solid var(--line);text-align:start}} t
 <div class="wrap"><table><tr>{"".join(f"<th>{e(h)}</th>" for h in head)}</tr>{rows}</table></div>
 <h2>{e(t("Conflits entre pistes"))}</h2><ul>{conf}</ul>
 <h2>{e(t("Piste par piste"))}</h2>{per_track}
-<h2>{e(t("Le mix global"))}</h2>{"".join(mc.card_html(f) for f in mix_findings)}
+<h2>{e(t("Le mix global"))}</h2>{"".join(mc.card_html(f, next(no)) for f in mix_findings)}
 </main></body></html>"""
 
 

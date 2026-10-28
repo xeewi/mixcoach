@@ -6,3 +6,8 @@ m4l/dist/
 *.mixcoach.html
 mixcoach-pistes.html
 m4l/constants.json
+.impeccable/review/
+.impeccable/mocks/
+.impeccable/questions/
+.impeccable/hook.cache.json
+.impeccable/build/

@@ -8,6 +8,7 @@ Usage:
 """
 import argparse
 import html
+import re
 import sys
 import webbrowser
 from pathlib import Path
@@ -385,22 +386,37 @@ def diagnose(L, centers, dev, st, stage, target, has_ref):
 # ---------------------------------------------------------------- rapport
 
 CSS = """
-:root{--bg:#f7f6f3;--fg:#1d1d1f;--mut:#6b6b70;--card:#fff;--line:#e3e1dc;--ok:#2f8f5b;--warn:#c27a12;--bad:#c2372f;--info:#3b6fb6;--acc:#5b4bd6}
-@media (prefers-color-scheme:dark){:root{--bg:#151517;--fg:#ececef;--mut:#9a9aa2;--card:#1f1f23;--line:#2f2f35;--acc:#9c90ff}}
-body{background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,sans-serif;margin:0;padding:24px 16px}
-main{max-width:820px;margin:auto} h1{margin:0 0 4px} .sub{color:var(--mut);margin:0 0 24px}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:24px}
-.stats div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px}
-.stats b{display:block;font-size:1.35em;font-variant-numeric:tabular-nums} .stats span{color:var(--mut);font-size:.85em}
-.card{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--info);border-radius:10px;padding:14px 16px;margin:10px 0}
-.card.ok{border-left-color:var(--ok)} .card.attention{border-left-color:var(--warn)} .card.problème{border-left-color:var(--bad)}
-.card h3{margin:2px 0 6px;font-size:1.05em} .tag{font-size:.72em;text-transform:uppercase;letter-spacing:.06em;color:var(--mut)}
-.fact{margin:0 0 6px} summary{cursor:pointer;color:var(--acc)} .action{background:var(--bg);border-radius:8px;padding:8px 10px;margin:8px 0 0} .action ol{margin:6px 0 4px;padding-left:22px}
-.autofix{font:inherit;font-size:.92em;margin:6px 0 2px;padding:6px 12px;border-radius:8px;border:1px solid var(--acc);background:var(--acc);color:#fff;cursor:pointer}
-.autofix:disabled{opacity:.5;cursor:default} .fixstatus{margin-left:10px;color:var(--mut);font-size:.9em}
-svg{width:100%;height:auto;background:var(--card);border:1px solid var(--line);border-radius:10px}
-.curve{fill:none;stroke:var(--acc);stroke-width:2.5} .axis{stroke:var(--mut)} .grid{stroke:var(--line)} .band{fill:var(--ok);opacity:.12}
-.lbl{fill:var(--mut);font-size:11px;text-anchor:middle} h2{margin-top:32px} code{background:var(--card);padding:1px 5px;border-radius:4px}
+:root{--bg:#DCDEE1;--fg:#0E0E0F;--mut:#3E4249;--card:#ECEDEF;--line:#8E9298;--rule:#0E0E0F;
+--sub:#2343B0;--bass:#2FA35F;--lowmid:#F4C300;--mid:#E8471C;--himid:#D9468E;--air:#8EC3EA}
+@media (prefers-color-scheme:dark){:root{--bg:#151617;--fg:#EDEEF0;--mut:#A4A8AF;--card:#1E1F21;--line:#3A3C40;--rule:#EDEEF0}}
+:root.dark{--bg:#151617;--fg:#EDEEF0;--mut:#A4A8AF;--card:#1E1F21;--line:#3A3C40;--rule:#EDEEF0}
+::selection{background:var(--fg);color:var(--bg)} :focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+body{background:var(--bg);color:var(--fg);font:16px/1.55 "Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;margin:0;padding:24px 16px;-webkit-font-smoothing:antialiased}
+main{max-width:820px;margin:auto}
+h1{margin:0 0 4px;font-weight:700;letter-spacing:-.02em} h2{margin-top:32px;padding-bottom:6px;border-bottom:1px solid var(--rule);font-weight:600;letter-spacing:-.01em}
+.sub{color:var(--mut);margin:0 0 24px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);margin-bottom:24px}
+.stats div{padding:12px 12px 12px 0}
+.stats b{display:block;font-size:1.5em;font-weight:500;letter-spacing:-.02em;font-variant-numeric:tabular-nums} .stats span{color:var(--mut);font-size:.85em}
+.card{background:var(--card);border:1px solid var(--line);padding:0 16px 14px;margin:10px 0}
+.head{display:flex;align-items:stretch;margin:0 -16px;border-bottom:1px solid var(--line);font-size:.7em;font-weight:700;text-transform:uppercase;letter-spacing:.14em;line-height:1}
+.head>span{padding:7px 9px}
+.head .num{font-variant-numeric:tabular-nums;border-inline-end:1px solid var(--line)}
+.tag{color:var(--mut)} .card.problème .tag,.card.attention .tag{background:var(--fg);color:var(--bg)}
+.zone{margin-inline-start:auto;color:#0E0E0F;letter-spacing:.06em;text-transform:none}
+.zone.z-sub{background:var(--sub);color:#fff} .zone.z-bass{background:var(--bass)} .zone.z-lowmid{background:var(--lowmid)}
+.zone.z-mid{background:var(--mid)} .zone.z-himid{background:var(--himid)} .zone.z-air{background:var(--air)}
+.card h3{margin:12px 0 6px;font-size:1.05em;font-weight:600}
+.fact{margin:0 0 6px} summary{cursor:pointer;color:var(--fg);text-decoration:underline;text-underline-offset:.2em;text-decoration-thickness:1px}
+.action{border-top:1px solid var(--line);padding:8px 0 0;margin:10px 0 0} .action ol{margin:6px 0 4px;padding-inline-start:22px}
+.autofix{display:inline-flex;align-items:center;gap:8px;font:inherit;font-size:.92em;font-weight:600;margin:8px 0 2px;padding:7px 12px;border:1px solid var(--fg);background:var(--fg);color:var(--bg);cursor:pointer}
+.autofix:hover{background:var(--bg);color:var(--fg)}
+.autofix:disabled{opacity:.5;cursor:default} .fixstatus{margin-inline-start:10px;color:var(--mut);font-size:.9em}
+.bolt{width:1em;height:1em;flex:none;vertical-align:-.12em}
+svg{width:100%;height:auto;background:var(--card);border:1px solid var(--line)}
+.axis{stroke:var(--fg)} .grid{stroke:var(--line)} .band{fill:var(--fg);opacity:.1}
+.lbl{fill:var(--mut);font-size:11px;text-anchor:middle} .lbl.start{text-anchor:start} code{background:var(--card);padding:1px 5px}
+.z-sub{fill:var(--sub)} .z-bass{fill:var(--bass)} .z-lowmid{fill:var(--lowmid)} .z-mid{fill:var(--mid)} .z-himid{fill:var(--himid)} .z-air{fill:var(--air)}
 """
 
 
@@ -411,9 +427,13 @@ def why_html(f):
     return out + (f"<p><b>{e(t(GAIN))}</b> {e(f['gain'])}</p>" if f.get("gain") else "")
 
 
-def card_html(f):
+def card_html(f, n=None):
+    """Un conseil. n = son numéro dans la liste (01, 02…), affiché comme un numéro de catalogue."""
     e = html.escape
-    out = (f'<article class="card {e(f["level"])}"><span class="tag">{e(t(f["level"]))}</span><h3>{e(f["title"])}</h3>'
+    z = finding_zone(f)
+    head = (f'<span class="num">{n:02d}</span>' if n else "") + f'<span class="tag">{e(t(f["level"]))}</span>' \
+        + (f'<span class="zone z-{z[0]}">{z[1]} Hz</span>' if z else "")
+    out = (f'<article class="card {e(f["level"])}"><header class="head">{head}</header><h3>{e(f["title"])}</h3>'
            f'<p class="fact">{e(f["fact"])}</p>'
            f'<details><summary>{e(t("Pourquoi ?"))}</summary>{why_html(f)}</details>')
     if f["action"]:
@@ -429,20 +449,40 @@ def html_open(title):
             f'<meta name="viewport" content="width=device-width,initial-scale=1"><title>{html.escape(title)}</title>')
 
 
+ZONES = [(60, "sub", "20–60"), (250, "bass", "60–250"), (500, "lowmid", "250–500"),
+         (2000, "mid", "500–2k"), (6000, "himid", "2k–6k"), (float("inf"), "air", "6k–20k")]
+
+
+def zone_of(hz):
+    """La zone de fréquence (sub … air) d'une fréquence en Hz."""
+    return next(z for top, z, _ in ZONES if hz <= top)
+
+
+def finding_zone(f):
+    """La zone dont parle un conseil, d'après la première fréquence citée (« 39 Hz », « 1,3 kHz », « 60-250 Hz »). None si aucune."""
+    m = re.search(r"(\d+(?:[.,]\d+)?)\s*(k?)Hz", f["title"] + " " + f["fact"])
+    if not m:
+        return None
+    hz = float(m.group(1).replace(",", ".")) * (1000 if m.group(2) else 1)
+    return next((z, r) for top, z, r in ZONES if hz <= top)
+
+
 def svg_spectrum(centers, dev, tol):
     W, H, pad = 700, 220, 30
     x = lambda f: pad + (np.log10(f) - np.log10(20)) / (np.log10(20000) - np.log10(20)) * (W - 2 * pad)
     y = lambda d: H / 2 - np.clip(d, -12, 12) / 12 * (H / 2 - pad)
-    pts = " ".join(f"{x(f):.1f},{y(d):.1f}" for f, d in zip(centers, dev))
     parts = [f'<svg viewBox="0 0 {W} {H}" role="img" aria-label="{html.escape(t("Écart spectral"))}" dir="ltr">',
-             f'<rect x="{x(20):.0f}" y="{y(tol):.0f}" width="{x(20000) - x(20):.0f}" height="{y(-tol) - y(tol):.0f}" class="band"/>',
-             f'<line x1="{pad}" x2="{W - pad}" y1="{H / 2}" y2="{H / 2}" class="axis"/>']
+             f'<rect x="{x(20):.0f}" y="{y(tol):.0f}" width="{x(20000) - x(20):.0f}" height="{y(-tol) - y(tol):.0f}" class="band"/>']
     for f, lab in [(30, "30"), (60, "60"), (250, "250"), (500, "500"), (2000, "2k"), (6000, "6k"), (16000, "16k")]:
         parts.append(f'<line x1="{x(f):.1f}" x2="{x(f):.1f}" y1="{pad}" y2="{H - pad}" class="grid"/>'
                      f'<text x="{x(f):.1f}" y="{H - 8}" class="lbl">{lab} Hz</text>')
-    parts += [f'<text x="4" y="{y(12) + 4:.0f}" class="lbl" text-anchor="start">+12 dB</text>',
-              f'<text x="4" y="{y(-12):.0f}" class="lbl" text-anchor="start">-12 dB</text>',
-              f'<polyline points="{pts}" class="curve"/></svg>']
+    for f, d in zip(centers, dev):  # une barre par bande, de la ligne 0 jusqu'à l'écart, couleur de sa zone
+        x0, x1 = x(f / 2 ** (1 / 6)), x(f * 2 ** (1 / 6))
+        top, bot = sorted((y(d), H / 2))
+        parts.append(f'<rect x="{x0 + 1:.1f}" y="{top:.1f}" width="{max(x1 - x0 - 2, 1):.1f}" height="{max(bot - top, 1):.1f}" class="z-{zone_of(f)}"/>')
+    parts += [f'<line x1="{pad}" x2="{W - pad}" y1="{H / 2}" y2="{H / 2}" class="axis"/>',
+              f'<text x="4" y="{y(12) + 4:.0f}" class="lbl start">+12 dB</text>',
+              f'<text x="4" y="{y(-12):.0f}" class="lbl start">-12 dB</text></svg>']
     return "".join(parts)
 
 
@@ -452,7 +492,7 @@ def render_html(name, stage, target, L, st, key, centers, dev, findings, has_ref
     notes, chords, (rel, rel_mode) = key_theory(tonic, mode)
     local = t(NOTES_LOCAL).split()
     tol = TOL_REF_DB if has_ref else TOL_GENERIC_DB
-    cards = [card_html(f) for f in findings]
+    cards = [card_html(f, i) for i, f in enumerate(findings, 1)]
     stereo_row = (f"<div><b>{st['corr']:.2f}</b><span>{e(t('corrélation L/R'))}</span></div>"
                   f"<div><b>{st['width_db']:.0f} dB</b><span>{e(t('largeur stéréo'))}</span></div>") if st else \
         f"<div><b>mono</b><span>{e(t('fichier'))}</span></div>"
@@ -469,7 +509,7 @@ def render_html(name, stage, target, L, st, key, centers, dev, findings, has_ref
 <div><b>{e(key_txt)}</b><span>{e(t("tonalité"))} · {camelot(tonic, mode)}</span></div></section>
 <h2>{e(t("Diagnostic"))}</h2>{"".join(cards)}
 <h2>{e(t("Équilibre tonal"))}</h2>
-<p>{e(t("Écart de ton mix {ref}. La bande verte = ±{tol} dB, zone correcte. Au-dessus : trop d'énergie, en dessous : pas assez.", ref=ref, tol=f"{tol:.0f}"))}</p>
+<p>{e(t("Écart de ton mix {ref}. La bande grise = ±{tol} dB, zone correcte. Au-dessus : trop d'énergie, en dessous : pas assez.", ref=ref, tol=f"{tol:.0f}"))}</p>
 {svg_spectrum(centers, dev, tol)}
 <h2>{e(t("Théorie : ta tonalité"))}</h2>
 <p>{e(t("Tonalité détectée : {key} ({local}) — détection {conf}.", key=key_txt, local=f"{local[tonic]} {t(mode)}", conf=key_conf))}

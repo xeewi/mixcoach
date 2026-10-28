@@ -116,7 +116,7 @@
  "tonalité": "स्केल (key)",
  "Diagnostic": "डायग्नोसिस",
  "Équilibre tonal": "टोनल बैलेंस",
- "Écart de ton mix {ref}. La bande verte = ±{tol} dB, zone correcte. Au-dessus : trop d'énergie, en dessous : pas assez.": "आपके मिक्स का फ़र्क {ref}। हरी पट्टी = ±{tol} dB, सही ज़ोन। ऊपर: ज़्यादा एनर्जी, नीचे: कम एनर्जी।",
+ "Écart de ton mix {ref}. La bande grise = ±{tol} dB, zone correcte. Au-dessus : trop d'énergie, en dessous : pas assez.": "आपके मिक्स का फ़र्क {ref}। धूसर पट्टी = ±{tol} dB, सही ज़ोन। ऊपर: ज़्यादा एनर्जी, नीचे: कम एनर्जी।",
  "Théorie : ta tonalité": "थ्योरी: आपके गाने की key",
  "Tonalité détectée : {key} ({local}) — détection {conf}.": "पहचानी गई key: {key} ({local}) — पहचान: {conf}।",
  "Code Camelot {code} (pour mixer en DJ : compatible avec ±1 et la lettre opposée).": "Camelot कोड {code} (DJ मिक्सिंग के लिए: ±1 और उलटे अक्षर के साथ मेल खाता है)।",

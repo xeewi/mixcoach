@@ -116,7 +116,7 @@
  "tonalité": "キー",
  "Diagnostic": "診断",
  "Équilibre tonal": "音のバランス",
- "Écart de ton mix {ref}. La bande verte = ±{tol} dB, zone correcte. Au-dessus : trop d'énergie, en dessous : pas assez.": "ミックスの差({ref})。緑の帯 = ±{tol} dB で、ちょうどいいゾーンです。上はエネルギーが多すぎ、下は足りません。",
+ "Écart de ton mix {ref}. La bande grise = ±{tol} dB, zone correcte. Au-dessus : trop d'énergie, en dessous : pas assez.": "ミックスの差({ref})。グレーの帯 = ±{tol} dB で、ちょうどいいゾーンです。上はエネルギーが多すぎ、下は足りません。",
  "Théorie : ta tonalité": "理論:あなたの曲のキー",
  "Tonalité détectée : {key} ({local}) — détection {conf}.": "検出されたキー:{key}({local})— 検出の確かさ:{conf}。",
  "Code Camelot {code} (pour mixer en DJ : compatible avec ±1 et la lettre opposée).": "Camelot コード {code}(DJ ミックス用:±1 と反対の文字のキーと相性がいいです)。",

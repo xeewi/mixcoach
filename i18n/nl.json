@@ -116,7 +116,7 @@
  "tonalité": "toonsoort",
  "Diagnostic": "Diagnose",
  "Équilibre tonal": "Klankbalans",
- "Écart de ton mix {ref}. La bande verte = ±{tol} dB, zone correcte. Au-dessus : trop d'énergie, en dessous : pas assez.": "Afwijking van je mix {ref}. De groene band = ±{tol} dB, de goede zone. Erboven: te veel energie, eronder: te weinig.",
+ "Écart de ton mix {ref}. La bande grise = ±{tol} dB, zone correcte. Au-dessus : trop d'énergie, en dessous : pas assez.": "Afwijking van je mix {ref}. De grijze band = ±{tol} dB, de goede zone. Erboven: te veel energie, eronder: te weinig.",
  "Théorie : ta tonalité": "Theorie: je toonsoort",
  "Tonalité détectée : {key} ({local}) — détection {conf}.": "Gevonden toonsoort: {key} ({local}) — herkenning {conf}.",
  "Code Camelot {code} (pour mixer en DJ : compatible avec ±1 et la lettre opposée).": "Camelot-code {code} (voor DJ-mixen: past bij ±1 en de andere letter).",
